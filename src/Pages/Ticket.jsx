@@ -1,5 +1,10 @@
 export default function Ticket() {
     return (
-        <p>hi there</p>
+        <>
+            <p>Data Required</p>
+            <ul>
+                <li>ticket information</li>
+            </ul>
+        </>
     )
 }

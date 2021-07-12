@@ -1,5 +1,10 @@
 export default function ProjectTickets() {
     return (
-        <p>hi there</p>
+        <>
+            <p>Data Required</p>
+            <ul>
+                <li>project tickets and some individual ticket information.</li>
+            </ul>
+        </>
     )
 }
