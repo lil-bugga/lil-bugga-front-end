@@ -5,6 +5,11 @@ export default function NavBar() {
       <nav>
         <Link to="/">Landing</Link>
         <Link to="/dashboard">Dashboard</Link>
+        <Link to="/account">Account</Link>
+        <Link to="/project">Project</Link>
+        <Link to="/projects">Projects</Link>
+        <Link to="/project_tickets">Project Tickets</Link>
+        <Link to="/ticket">Ticket</Link>
       </nav>
     )
-  }
+}
