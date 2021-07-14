@@ -1,20 +1,27 @@
 /* Mobile Design */
 body {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 div#root {
-    height: 95vh;
+    min-height: 95vh;
 }
 
 div.App {
-    height: 100%;
+    min-height: 100%;
 }
 
+h1.title {
+    height: 4%;
+}
 
 div.page{
     height: 95vh;
-    flex-direction: column;
+}
+
+canvas {
+    width: 98%;
+    max-height: 90%;
 }
 
 div.quart_chunk {
@@ -22,7 +29,7 @@ div.quart_chunk {
     border: 1px black solid;
     margin: 0;
     background-color: bisque;
-    border-radius: 5px;
+    border-radius: 3px;
     min-width: 350px;
 }
 
@@ -59,9 +66,12 @@ div.page.with_side_panel div.page div.quart_chunk {
 /* Tablet Design */
 @media only screen and (min-width: 800px){
 
+    div.page {
+        justify-content: space-around;
+    }
+
     div.quart_chunk {
         width: 48%;
-        height: 48%;
     }
 
     div.center_chunk {
