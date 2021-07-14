@@ -11,7 +11,7 @@ div#FeatureColumn {
     height: 40%;
     margin-right: 5%;
     background-color: white;
-    border-radius: 0 0 30px 30px;
+    border-radius: 0;
 }
 
 div#Landing h1 {
@@ -34,5 +34,6 @@ div#Landing h1 {
         height: 90%;
         margin-right: 5%;
         background-color: white;
+        border-radius: 0 0 30px 30px;
     }
 }

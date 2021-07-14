@@ -30,7 +30,14 @@ export default function Dashboard(){
       <div className="container-fluid d-flex flex-wrap page p-0" id="Dashboard">
         <div className="container-fluid quart_chunk p-1">
           <h2>Account</h2>
+          <div className="d-flex">
           <img src={User}/>
+          <div className="d-flex flex-column">
+            <p><b>Email Address</b></p>
+            <p><b>Owner of 4 projects.</b></p>
+            <p><b>Developer in 2 projects.</b></p>
+          </div>
+          </div>
         </div>
         <div className="quart_chunk p-1">
           <h2>Notifications</h2>
