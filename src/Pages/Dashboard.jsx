@@ -1,5 +1,6 @@
 import Table from "../Components/Table"
 import {Bar} from "react-chartjs-2"
+import User from "./../assets/user.png"
 
 const state = {
   labels: ['January', 'February', 'March',
@@ -29,6 +30,7 @@ export default function Dashboard(){
       <div className="container-fluid d-flex flex-wrap page p-0" id="Dashboard">
         <div className="container-fluid quart_chunk p-1">
           <h2>Account</h2>
+          <img src={User}/>
         </div>
         <div className="quart_chunk p-1">
           <h2>Notifications</h2>

@@ -24,6 +24,10 @@ canvas {
     max-height: 90%;
 }
 
+img {
+    width: 30%;
+}
+
 div.quart_chunk {
     width: 100%;
     border: 1px black solid;
