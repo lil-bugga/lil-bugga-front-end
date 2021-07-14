@@ -1,16 +1,4 @@
-nav {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
-
-nav a {
-    padding: 1%;
-    text-decoration: none;
-    color: black;
-}
-
-nav a:hover {
-    background-color: cornflowerblue;
-    color: wheat;
-}
+/* Other CSS Files */
+@import url("Styling/Dashboard.css");
+@import url("Styling/Navigation.css");
+@import url("Styling/Shared.css");
