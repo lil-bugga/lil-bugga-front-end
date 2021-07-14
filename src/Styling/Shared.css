@@ -1,11 +1,112 @@
 /* Mobile Design */
+body {
+    height: 100vh;
+}
 
-/* Tabel Design */
+div#root {
+    height: 95vh;
+}
+
+div.App {
+    height: 100%;
+}
+
+
+div.page{
+    height: 95vh;
+    flex-direction: column;
+}
+
+div.quart_chunk {
+    width: 100%;
+    border: 1px black solid;
+    margin: 0;
+    background-color: bisque;
+    border-radius: 5px;
+    min-width: 350px;
+}
+
+div.center_chunk {
+    width: 100%;
+    height: 100%;
+    justify-self: center;
+    border: 1px black solid;
+    background-color: bisque;
+    border-radius: 5px;
+}
+
+/* Styling for pages with a sidebar and quarter containers in the center */
+div.page.with_side_panel {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+div.side_panel {
+    height: auto;
+    width: 100%;
+    background-color: burlywood;
+
+}
+
+div.page.with_side_panel div.page {
+    height: 95%;
+}
+
+div.page.with_side_panel div.page div.quart_chunk {
+    width: 100%;
+}
+
+/* Tablet Design */
 @media only screen and (min-width: 800px){
-    
+
+    div.quart_chunk {
+        width: 48%;
+        height: 48%;
+    }
+
+    div.center_chunk {
+        width: 80%;
+        height: 80%;
+    }
+
+    div.page.with_side_panel div.page div.quart_chunk {
+        height: 48%;
+    }
 }
 
 /* Desktop Design */
 @media only screen and (min-width: 1200px){
+    div.page {
+        justify-content: space-around;
+    }
 
+    div.center_chunk {
+        width: 40%;
+        height: 40%;
+    }
+
+    div.page.with_side_panel {
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+    
+    div.side_panel {
+        height: 100%;
+        width: 10%;
+        background-color: burlywood;
+        
+    }
+
+    div.page.with_side_panel div.page {
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        width: 90%;
+    }
+
+    div.page.with_side_panel div.page div.quart_chunk {
+        width: 48%;
+    }
 }
