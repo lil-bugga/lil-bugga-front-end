@@ -40,7 +40,7 @@ export default function Ticket() {
                     <td>@twitter</td>
                 </tr>
                 </tbody>
-                </table>
+            </table>
 
             </div>
         </div>
