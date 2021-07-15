@@ -1,6 +1,8 @@
 import Table from "../Components/Table"
 import {Bar} from "react-chartjs-2"
 import User from "./../assets/user.png"
+import {useEffect} from 'react'
+import { useHistory } from "react-router"
 
 const state = {
   labels: ['January', 'February', 'March',
@@ -16,7 +18,9 @@ const state = {
   ]
 }
 
-export default function Dashboard(){
+export default function Dashboard(props){
+
+  let history = useHistory();
 
   let notifications = [["Project", "Ticket", "Change"], 
     ["lil bugga","Glitchy landing page.","Importance has shifted to urgent."], 
@@ -25,7 +29,7 @@ export default function Dashboard(){
   return(
     <div className="container-fluid h-100">
       
-      <h1 className="text-center title">User Name</h1>
+      <h1 className="text-center title">{props.user.name}</h1>
 
       <div className="container-fluid d-flex flex-wrap page p-0" id="Dashboard">
         <div className="container-fluid quart_chunk p-1">

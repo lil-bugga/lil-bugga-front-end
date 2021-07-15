@@ -8,9 +8,11 @@ import Project from "./Pages/Project"
 import ProjectTicket from "./Pages/ProjectTickets"
 import Ticket from "./Pages/Ticket"
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {useEffect} from 'react'
 
 // Main Website Application
 export default function App() {
+  
   return (
     <div className="App">
       <Router>
