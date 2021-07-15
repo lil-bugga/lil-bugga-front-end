@@ -37,6 +37,15 @@ div.quart_chunk {
     min-width: 350px;
 }
 
+div.whole_chunk {
+    width: 100%;
+    border: 1px black solid;
+    margin: 0;
+    background-color: bisque;
+    border-radius: 3px;
+    min-width: 350px;
+}
+
 div.center_chunk {
     width: 100%;
     height: 80%;
@@ -78,6 +87,11 @@ div.page.with_side_panel div.page div.quart_chunk {
     div.quart_chunk {
         width: 48%;
         height: 44vh;
+    }
+
+    div.whole_chunk {
+        width: 98%;
+        height: 100%;
     }
 
     div.center_chunk {

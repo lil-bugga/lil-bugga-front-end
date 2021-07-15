@@ -2,7 +2,6 @@ import Table from "../Components/Table"
 import {Bar} from "react-chartjs-2"
 import UserImage from "./../assets/user.png"
 import {useEffect} from 'react'
-import { useHistory } from "react-router"
 
 const state = {
   labels: ['January', 'February', 'March',
@@ -19,8 +18,6 @@ const state = {
 }
 
 export default function Dashboard(props){
-
-  let history = useHistory();
 
   let notifications = [["Project", "Ticket", "Change"], 
     ["lil bugga","Glitchy landing page.","Importance has shifted to urgent."], 

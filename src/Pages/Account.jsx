@@ -14,7 +14,7 @@ export default function Account(props) {
     }
 
     return (
-        <div className="container-fluid page">
+        <div className="container-fluid page d-flex align-items-center">
             <div className="d-flex align-items-center flex-column container center_chunk py-5">
 
                 <h1>{props.user.name}</h1>
