@@ -1,8 +1,23 @@
 import {Link} from 'react-router-dom'
 import SampleUserModal from '../Components/SampleUserModal';
-
+import {User} from "./../Classes/User"
+import {useEffect} from 'react'
 
 function Landing() {
+
+  let user = new User();
+
+  useEffect(() => {
+    user.sessionRestore();
+  }, [user])
+
+  // Create and login to a sample user.
+  function buildSampleUser(e){
+    e.preventDefault();
+    if(user){
+      user.build("Sample User", "sample@user.com", ["one", "two"]);
+    }
+  }
     
   return (
     <div className="d-flex justify-content-end p-0 m-0" id="Landing">
@@ -24,7 +39,7 @@ function Landing() {
           <button type="submit" className="btn btn-primary w-100">Create</button>
         </form>
 
-        <Link className="btn btn-primary w-75" to="/dashboard">Log in Sample User</Link>
+        <Link className="btn btn-primary w-75" onClick={buildSampleUser} to="/dashboard">Log in Sample User</Link>
         {/* Modal not working */}
         {/* <button className="btn btn-primary w-75" data-toggle="modal" data-target="#exampleModalCenter">Log in Sample User</button> */}
       </div>
