@@ -2,7 +2,7 @@ export default function AllProjects() {
     return (
         <div className="page">
 
-            <table class="table table-light border">
+            <table className="table table-light border">
                 <thead>
                 <tr>
                     <th scope="col">#</th>

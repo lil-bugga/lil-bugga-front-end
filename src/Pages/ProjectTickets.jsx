@@ -11,7 +11,7 @@ export default function ProjectTickets() {
             {/* Page adjacent to Side Bar */}
             <div className="container-fluid d-flex page m-0 p-0 align-items-start">
                 
-            <table class="table table-light border">
+            <table className="table table-light border">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
