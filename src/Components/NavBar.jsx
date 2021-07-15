@@ -15,7 +15,7 @@ export default function NavBar(props) {
                 <Link className="nav-link py-0" to="/projects">Projects</Link>
                 <Link className="nav-link py-0" to="/project_tickets">Project Tickets</Link>
                 <Link className="nav-link py-0" to="/ticket">Ticket</Link>
-                <a className="nav-link py-0" onClick={props.userSignOut}>Sign Out</a>
+                <a href="#" className="nav-link py-0" onClick={props.userSignOut}>Sign Out</a>
           </div>   
         </div>
       </nav>
