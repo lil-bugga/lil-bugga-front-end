@@ -1,22 +1,24 @@
 export default function Table(props) {
     return (
-        <table class="table table-light border">
+        <table className="table table-light border">
             <thead>
-                <tr>
+                <tr key="tr_0">
                     {/* Maps the table header to top row. */}
-                    {props.content[0].map(e => {
-                        return <th scope="col">{e}</th>
+                    {props.content[0].map((e, idx) => {
+                        return (
+                        <th scope="col" key={`te_0_${idx}`}>{e}</th>
+                        )
                     })}
                 </tr>
             </thead>
         <tbody>
             {/* Maps the content to table rows. */}
-            {props.content.slice(1).map(row => {
+            {props.content.slice(1).map((row, idx) => {
                 return (
-                    <tr>
-                    {row.map(e=>{
-                    return <td>{e}</td>
-                    })}
+                    <tr key={`tr_${idx+1}`}>
+                        {row.map((e, idy)=>{
+                            return <td key={`te_${idx}_${idy}`}>{e}</td>
+                        })}
                     </tr>
                 )
             })}

@@ -1,6 +1,8 @@
 import Table from "../Components/Table"
 import {Bar} from "react-chartjs-2"
-import User from "./../assets/user.png"
+import UserImage from "./../assets/user.png"
+import {useEffect} from 'react'
+import { useHistory } from "react-router"
 
 const state = {
   labels: ['January', 'February', 'March',
@@ -16,7 +18,9 @@ const state = {
   ]
 }
 
-export default function Dashboard(){
+export default function Dashboard(props){
+
+  let history = useHistory();
 
   let notifications = [["Project", "Ticket", "Change"], 
     ["lil bugga","Glitchy landing page.","Importance has shifted to urgent."], 
@@ -25,26 +29,28 @@ export default function Dashboard(){
   return(
     <div className="container-fluid h-100">
       
-      <h1 className="text-center title">User Name</h1>
+      <h1 className="text-center title">{props.user.name}</h1>
 
       <div className="container-fluid d-flex flex-wrap page p-0" id="Dashboard">
+
         <div className="container-fluid quart_chunk p-1">
           <h2>Account</h2>
           <div className="d-flex">
-          <img src={User}/>
-          <div className="d-flex flex-column">
-            <p><b>Email Address</b></p>
-            <p><b>Owner of 4 projects.</b></p>
-            <p><b>Developer in 2 projects.</b></p>
-          </div>
+            <img src={UserImage}/>
+            <div className="d-flex flex-column">
+              <p><b>{props.user.email}</b></p>
+              <p><b>Owner of 4 projects.</b></p>
+            </div>
           </div>
         </div>
+
         <div className="quart_chunk p-1">
           <h2>Notifications</h2>
           <Table
             content={notifications}
           />
         </div>
+
         <div className="quart_chunk p-1">
           <h2>My Tickets</h2>
           <Bar
@@ -62,6 +68,7 @@ export default function Dashboard(){
             }}
           />
         </div>
+
         <div className="quart_chunk p-1">
           <h2>Projects</h2>
           <p>Data Required</p>
@@ -72,6 +79,7 @@ export default function Dashboard(){
               <li>potentially notifications or updates</li>
           </ul>
         </div>
+        
       </div>
     </div>
   )

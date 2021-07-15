@@ -1,6 +1,6 @@
 export default function SampleUserModal() {
     return (
-        <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog">
+        <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog">
             <div className="modal-dialog modal-dialog-centered" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
