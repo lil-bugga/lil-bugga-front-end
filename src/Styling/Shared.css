@@ -60,6 +60,7 @@ div.side_panel {
 }
 
 div.page.with_side_panel div.page {
+    flex-direction: column;
     height: 95%;
 }
 

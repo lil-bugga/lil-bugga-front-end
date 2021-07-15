@@ -20,8 +20,8 @@ export default function App() {
   useEffect(()=> {
     let store = localStorage.getItem("user");
     if(store){
-      console.log("User is found.")
       let saved_user = JSON.parse(store);
+      console.log(user)
       setUser(saved_user)
     }
   }, [])
@@ -66,7 +66,7 @@ export default function App() {
                 <Dashboard user={user}/>
               </Route>
               <Route path="/account">
-                <Account/>
+                <Account user={user}/>
               </Route>
               <Route exact path="/project">
                 <Project/>

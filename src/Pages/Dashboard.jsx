@@ -32,23 +32,25 @@ export default function Dashboard(props){
       <h1 className="text-center title">{props.user.name}</h1>
 
       <div className="container-fluid d-flex flex-wrap page p-0" id="Dashboard">
+
         <div className="container-fluid quart_chunk p-1">
           <h2>Account</h2>
           <div className="d-flex">
-          <img src={UserImage}/>
-          <div className="d-flex flex-column">
-            <p><b>Email Address</b></p>
-            <p><b>Owner of 4 projects.</b></p>
-            <p><b>Developer in 2 projects.</b></p>
-          </div>
+            <img src={UserImage}/>
+            <div className="d-flex flex-column">
+              <p><b>{props.user.email}</b></p>
+              <p><b>Owner of 4 projects.</b></p>
+            </div>
           </div>
         </div>
+
         <div className="quart_chunk p-1">
           <h2>Notifications</h2>
           <Table
             content={notifications}
           />
         </div>
+
         <div className="quart_chunk p-1">
           <h2>My Tickets</h2>
           <Bar
@@ -66,6 +68,7 @@ export default function Dashboard(props){
             }}
           />
         </div>
+
         <div className="quart_chunk p-1">
           <h2>Projects</h2>
           <p>Data Required</p>
@@ -76,6 +79,7 @@ export default function Dashboard(props){
               <li>potentially notifications or updates</li>
           </ul>
         </div>
+        
       </div>
     </div>
   )
