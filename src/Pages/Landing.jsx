@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom'
 import SampleUserModal from '../Components/SampleUserModal';
 
 function Landing(props) {
-    
   return (
     <div className="d-flex justify-content-end p-0 m-0" id="Landing">
 
@@ -23,9 +22,7 @@ function Landing(props) {
           <button type="submit" className="btn btn-primary w-100">Create</button>
         </form>
 
-        <Link className="btn btn-primary w-75" to="/dashboard">Log in Sample User</Link>
-        {/* Modal not working
-        <button className="btn btn-primary w-75" data-toggle="modal" data-target="#exampleModalCenter">Log in Sample User</button> */}
+        <Link className="btn btn-primary w-75" onClick={props.sampleUserLogin} to="/dashboard">Log in Sample User</Link>
       </div>
       <SampleUserModal/>
     </div>

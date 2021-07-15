@@ -1,6 +1,6 @@
 import Table from "../Components/Table"
 import {Bar} from "react-chartjs-2"
-import User from "./../assets/user.png"
+import UserImage from "./../assets/user.png"
 import {useEffect} from 'react'
 import { useHistory } from "react-router"
 
@@ -35,7 +35,7 @@ export default function Dashboard(props){
         <div className="container-fluid quart_chunk p-1">
           <h2>Account</h2>
           <div className="d-flex">
-          <img src={User}/>
+          <img src={UserImage}/>
           <div className="d-flex flex-column">
             <p><b>Email Address</b></p>
             <p><b>Owner of 4 projects.</b></p>
