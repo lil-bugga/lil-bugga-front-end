@@ -7,7 +7,6 @@ export default function Account(props) {
 
     // Handle the changing of any part of the form.
     function handleInput(e){
-        console.log(form)
         setForm({     
             ...form,       
             [e.target.name]: e.target.value
