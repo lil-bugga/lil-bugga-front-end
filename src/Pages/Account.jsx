@@ -14,24 +14,24 @@ export default function Account(props) {
     }
 
     return (
-        <div className="container-fluid page">
+        <div className="container-fluid page d-flex align-items-center">
             <div className="d-flex align-items-center flex-column container center_chunk py-5">
 
                 <h1>{props.user.name}</h1>
 
                 <form className="py-2">
                     <div className="form-group mb-2">
-                        <label for="Email">Email address</label>
+                        <label htmlFor="Email">Email address</label>
                         <input type="email" value={form.email} onChange={handleInput} className="form-control" name="email" id="Email" placeholder={props.user.email}/>
                     </div>
 
                     <div className="form-group mb-2">
-                        <label for="Password">Password</label>
+                        <label htmlFor="Password">Password</label>
                         <input type="password" value={form.password} onChange={handleInput} className="form-control" name="password" id="Password" placeholder="sample_password"/>
                     </div>
 
                     <div className="form-group mb-2">
-                        <label for="ConfirmPassword">Confirm Password</label>
+                        <label htmlFor="ConfirmPassword">Confirm Password</label>
                         <input type="password" value={form.confirm_password} onChange={handleInput} className="form-control" name="confirm_password" id="ConfirmPassword" placeholder="sample_password"/>
                     </div>
 

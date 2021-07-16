@@ -1,6 +1,6 @@
 import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom';
-import UserImage from "./../assets/user.png"
+import NewTicketForm from './NewProjectForm';
 
 export default function SampleUserModal(props) {
   return (
@@ -10,13 +10,14 @@ export default function SampleUserModal(props) {
       centered
     >
       <Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Select Sample User
+        <Modal.Title id="create-ticket-modal">
+          Create a Ticket
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-          <img src={UserImage}/>
-        <Link className="btn btn-primary w-75" onClick={props.sampleUserLogin} to="/dashboard">Log in Sample User</Link>
+
+        <NewTicketForm/>
+        
       </Modal.Body>
     </Modal>
   );

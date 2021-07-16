@@ -1,47 +1,29 @@
+import Table from "../Components/Table"
+
 export default function Ticket() {
+
+    let entries = [["Comment", "Change", "Author"], ["Tailwind is superior!", "Important", "Ryan"]];
+    let projects = [["Projects"], ["lil bugga"], ["chat point"]]
+
     return (
         // Page with Side Bar
-        <div className="page d-flex with_side_panel p-0 m-0" id="">
+        <div className="page d-flex with_side_panel p-0 m-0">
 
             {/* Side Bar */}
             <div className="container-fluid side_panel m-0">
-                Links and stuff
+                <Table content={projects}/>
             </div>
 
             {/* Page adjacent to Side Bar */}
-            <div className="container-fluid d-flex page m-0 p-0 align-items-start">
-                
-            <table class="table table-light border">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                </tbody>
-            </table>
-
+            <div className="container-fluid d-flex page m-0 p-0 align-items-center">
+                <div className="whole_chunk d-flex flex-column align-items-center">
+                    <h1>Project Name</h1>
+                    <h2>Ticket Name</h2>
+                    <p><b>Description: </b>The Ticket Description</p>
+                    <p><b>Importance: </b>The Ticket Importance</p>
+                    <hr/>
+                    <Table content={entries}/>
+                </div>
             </div>
         </div>
     )

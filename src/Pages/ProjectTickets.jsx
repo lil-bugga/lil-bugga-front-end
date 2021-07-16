@@ -1,52 +1,44 @@
+import Table from "../Components/Table"
+import {useState} from 'react'
+import CreateTicketModal from "./../Components/CreateTicketModal"
+import Button from "react-bootstrap/Button"
+
+let projects = [["Projects"], ["lil bugga"], ["chat point"]]
+
 export default function ProjectTickets() {
+
+    const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
+
+    let tickets = [["Ticket Name", "Ticket Description", "Ticket Urgency", "Creator"],
+        ["Material UI glitch", "Change out material UI.", "Urgent", "Dean"],
+        ["Table Keys Error", "React needs unique keys for each element", "Non-Essential", "Dean"]]
+
     return (
         // Page with Side Bar
         <div className="page d-flex with_side_panel p-0 m-0" id="">
 
             {/* Side Bar */}
             <div className="container-fluid side_panel m-0">
-                Links and stuff
+                <Table 
+                    content={projects}
+                />
             </div>
 
             {/* Page adjacent to Side Bar */}
-            <div className="container-fluid d-flex page m-0 p-0 align-items-start">
-                
-            <table class="table table-light border">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                </tbody>
-                </table>
-
+            <div className="container-fluid d-flex page m-0 p-0 align-items-center">
+                <div className="whole_chunk">
+                    <Button variant="primary" onClick={() => setCreateTicketModalShow(true)}>
+                        Create Ticket
+                    </Button>
+                    <CreateTicketModal
+                        show={createTicketModalShow}
+                        onHide={() => setCreateTicketModalShow(false)}
+                    />
+                    <Table 
+                        content={tickets}
+                    />
+                </div>
             </div>
         </div>
     )
 }
-{/* <p>Data Required</p>
-<ul>
-    <li>project tickets and some individual ticket information.</li>
-</ul> */}

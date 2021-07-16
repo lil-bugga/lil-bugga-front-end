@@ -1,8 +1,11 @@
-import {Link} from 'react-router-dom'
-import SampleUserModal from '../Components/SampleUserModal';
-import {useState} from 'react'
+import React from "react"
+import {useState} from 'react';
+import SampleUserModal from "./../Components/SampleUserModal"
+import Button from "react-bootstrap/Button"
 
 function Landing(props) {
+  
+  const [modalShow, setModalShow] = React.useState(false);
 
   // Holds the state of the form to make it controlled.
   let [form, setForm] = useState({"email":"", "password":""});
@@ -35,9 +38,16 @@ function Landing(props) {
           <button type="submit" className="btn btn-primary w-100">Create</button>
         </form>
 
-        <Link className="btn btn-primary w-75" onClick={props.sampleUserLogin} to="/dashboard">Log in Sample User</Link>
+        <Button variant="primary" onClick={() => setModalShow(true)}>
+          Log in Sample User
+        </Button>
       </div>
-      <SampleUserModal/>
+
+      <SampleUserModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        sampleUserLogin={props.sampleUserLogin}
+      />
     </div>
   );
 }
