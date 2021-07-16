@@ -1,7 +1,10 @@
+import React from 'react'
 import Table from "../Components/Table"
 import {Bar} from "react-chartjs-2"
 import UserImage from "./../assets/user.png"
 import {useEffect} from 'react'
+import CreateProjectModal from "./../Components/CreateProjectModal"
+import Button from "react-bootstrap/Button"
 
 const state = {
   labels: ['January', 'February', 'March',
@@ -18,6 +21,8 @@ const state = {
 }
 
 export default function Dashboard(props){
+  
+  const [modalShow, setModalShow] = React.useState(false);
 
   let notifications = [["Project", "Ticket", "Change"], 
     ["lil bugga","Glitchy landing page.","Importance has shifted to urgent."], 
@@ -68,6 +73,15 @@ export default function Dashboard(props){
 
         <div className="quart_chunk p-1">
           <h2>Projects</h2>
+
+          <Button variant="primary" onClick={() => setModalShow(true)}>
+            Create a Project
+          </Button>
+          <CreateProjectModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+          />
+
           <p>Data Required</p>
           <ul>
               <li>current user data - all</li>
