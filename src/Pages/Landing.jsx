@@ -2,12 +2,13 @@ import React from "react"
 import {useState} from 'react';
 import SampleUserModal from "./../Components/SampleUserModal"
 import Button from "react-bootstrap/Button"
-import { Popover } from "react-bootstrap";
 import axios from 'axios'
+import CreateAccountModal from "./../Components/CreateAccountModal"
 
 function Landing(props) {
   
-  const [modalShow, setModalShow] = React.useState(false);
+  const [sampleUserModalShow, setSampleUserModalShow] = React.useState(false);
+  const [createUserModalShow, setCreateUserModalShow] = React.useState(false);
 
   // Holds the state of the form to make it controlled.
   let [form, setForm] = useState({"email":"", "password":""});
@@ -57,18 +58,27 @@ function Landing(props) {
             <input type="password" name="password" value={form.password} onChange={handleInput} className="form-control" id="exampleInputPassword1" placeholder="Password"/>
           </div>
 
-          <button type="submit" onClick={logIn} className="btn btn-primary w-100">Login</button>
-        </form>
+          <button type="submit" onClick={logIn} className="btn btn-primary w-100 mb-2">Login</button>
 
-        <Button variant="primary" onClick={() => setModalShow(true)}>
-          Log in Sample User
-        </Button>
+          <Button className="w-100 mb-2" variant="primary" onClick={() => setCreateUserModalShow(true)}>
+            Create an Account!
+          </Button>
+
+          <Button className="w-100 mb-2" variant="primary" onClick={() => setSampleUserModalShow(true)}>
+            Log in Sample User
+          </Button>
+        </form>
       </div>
 
       <SampleUserModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
+        show={sampleUserModalShow}
+        onHide={() => setSampleUserModalShow(false)}
         sampleUserLogin={props.sampleUserLogin}
+      />
+
+      <CreateAccountModal
+        show={createUserModalShow}
+        onHide={() => setCreateUserModalShow(false)}
       />
     </div>
   );
