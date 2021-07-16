@@ -14,13 +14,13 @@ export default function NewProjectForm(){
     return (
         <form className="p-2">
           <div className="form-group mb-2">
-            <input type="name" name="name" value={form.email} onChange={handleInput} className="form-control" placeholder="Project Name"/>
+            <input type="name" name="name" value={form.name} onChange={handleInput} className="form-control" placeholder="Project Name"/>
           </div>
 
           <div className="form-group mb-2">
-            <input type="description" name="description" value={form.email} onChange={handleInput} className="form-control" placeholder="Project Description"/>
+            <input type="description" name="description" value={form.description} onChange={handleInput} className="form-control" placeholder="Project Description"/>
           </div>
-          
+
           <button type="submit" className="btn btn-primary w-100">Create</button>
         </form>
     )

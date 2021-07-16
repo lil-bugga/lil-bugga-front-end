@@ -1,5 +1,8 @@
 import {Bar} from "react-chartjs-2"
 import Table from "../Components/Table"
+import {useState} from 'react'
+import CreateTicketModal from "./../Components/CreateTicketModal"
+import Button from "react-bootstrap/Button"
 
 const state = {
     labels: ['January', 'February', 'March',
@@ -22,6 +25,10 @@ let tickets = [["Project", "Ticket", "Change"],
     [4,5,6]]
 
 export default function Project() {
+
+
+    const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
+
     return (
         // Page with Side Bar
         <div className="page d-flex with_side_panel p-0 m-0" id="">
@@ -63,6 +70,13 @@ export default function Project() {
                 </div>
                 <div id="Tickets" className="quart_chunk p-1">
                     <h2>Tickets</h2>
+                    <Button variant="primary" onClick={() => setCreateTicketModalShow(true)}>
+                        Create Ticket
+                    </Button>
+                    <CreateTicketModal
+                        show={createTicketModalShow}
+                        onHide={() => setCreateTicketModalShow(false)}
+                    />
                     <Table
                         content={tickets}
                     />
