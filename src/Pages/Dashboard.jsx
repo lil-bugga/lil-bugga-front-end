@@ -89,6 +89,8 @@ export default function Dashboard(props){
           <CreateProjectModal
             show={createProjectModalShow}
             onHide={() => setCreateProjectModalShow(false)}
+            user={props.user}
+            prefix={props.prefix}
           />
 
           <p>Data Required</p>

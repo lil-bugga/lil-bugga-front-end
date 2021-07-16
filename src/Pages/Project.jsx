@@ -1,8 +1,10 @@
 import {Bar} from "react-chartjs-2"
 import Table from "../Components/Table"
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
 import Button from "react-bootstrap/Button"
+import { useParams, useHistory } from "react-router-dom"
+import axios from 'axios'
 
 const state = {
     labels: ['January', 'February', 'March',
@@ -24,10 +26,27 @@ let tickets = [["Project", "Ticket", "Change"],
     ["lil bugga","Glitchy landing page.","Importance has shifted to urgent."], 
     [4,5,6]]
 
-export default function Project() {
-
+export default function Project(props) {
 
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
+    const [project, setProject] = useState({});
+
+    const {id} = useParams();
+    let history = useHistory();
+
+    // On page load, try to load project else redirect.
+    useEffect(()=>{
+        axios.get(`${props.prefix}projects/${id}`, {headers: {"Authorization": `Bearer ${props.user.jwt}`}})
+        .then(res => res.data)
+        .then(body => {
+            console.log(`${body.project_detail.project_name}: Loaded`);
+            setProject(body);
+        })
+        .catch(err => {
+            console.log("Project wasn't found!");
+            history.push({pathname: "/projects", props:{user:props.user, prefix:props.user}});
+        })
+    }, [])
 
     return (
         // Page with Side Bar
@@ -44,7 +63,7 @@ export default function Project() {
             <div className="container-fluid d-flex page m-0 p-0">
                 
                 <div className="container-fluid quart_chunk">
-                    <h2>Project Information</h2>
+                    <h2>Project Name here</h2>
                     <p>Data Required</p>
                     <ul>
                         <li>current user name</li>

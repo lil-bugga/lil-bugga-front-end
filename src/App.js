@@ -93,16 +93,16 @@ export default function App() {
 
             <Switch>
               <Route path="/dashboard">
-                <Dashboard user={user}/>
+                <Dashboard user={user} prefix={prefix}/>
               </Route>
               <Route path="/account">
                 <Account user={user}/>
               </Route>
-              <Route exact path="/project">
-                <Project/>
+              <Route exact path="/project/:id">
+                <Project user={user} prefix={prefix}/>
               </Route>
               <Route path="/projects">
-                <AllProjects/>
+                <AllProjects user={user} prefix={prefix}/>
               </Route>
               <Route path="/project_tickets">
                 <ProjectTicket/>

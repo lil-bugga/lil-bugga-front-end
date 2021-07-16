@@ -15,7 +15,7 @@ export default function SampleUserModal(props) {
       </Modal.Header>
       <Modal.Body>
 
-        <NewProjectForm/>
+        <NewProjectForm prefix={props.prefix} user={props.user} closeModal={props.onHide}/>
         
       </Modal.Body>
     </Modal>

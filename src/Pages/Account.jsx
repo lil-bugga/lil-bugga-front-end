@@ -27,12 +27,12 @@ export default function Account(props) {
 
                     <div className="form-group mb-2">
                         <label htmlFor="Password">Password</label>
-                        <input type="password" value={form.password} onChange={handleInput} className="form-control" name="password" id="Password" placeholder="sample_password"/>
+                        <input type="password" value={form.password} onChange={handleInput} className="form-control" name="password" id="Password" placeholder="Password"/>
                     </div>
 
                     <div className="form-group mb-2">
                         <label htmlFor="ConfirmPassword">Confirm Password</label>
-                        <input type="password" value={form.confirm_password} onChange={handleInput} className="form-control" name="confirm_password" id="ConfirmPassword" placeholder="sample_password"/>
+                        <input type="password" value={form.confirm_password} onChange={handleInput} className="form-control" name="confirm_password" id="ConfirmPassword" placeholder="Confirm Password"/>
                     </div>
 
                     <button type="submit" className="btn btn-danger w-100">Change Details </button>
