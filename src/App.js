@@ -15,6 +15,7 @@ import { Redirect } from 'react-router';
 export default function App() {
   
   let [user, setUser] = useState(false)
+  let prefix = "http://localhost:3000/api/v1/";
 
   // On render, if user exists, extract it and set it to state.
   useEffect(()=> {
@@ -26,11 +27,18 @@ export default function App() {
     }
   }, [])
 
+  function userLogin(email, jwt){
+    console.log(`Logging in ${email}.`);
+    setUser({"name":email, "email":email, "jwt":jwt })
+    localStorage.setItem("user", JSON.stringify(user));
+  }
+
   // On login to sample user, save user so they persist throughout page. (jwt, email, name)
   function handleSampleLogin(e){
     console.log("Logging in sample user")
     e.preventDefault();
     setUser({"name": "Sample User", "email":"sample@user.com", "jwt":"asdfasdfasdf;lk;lkj;lkj"})
+
     // This might error, may not be saving user due to async
     localStorage.setItem("user", JSON.stringify(user));
     
@@ -51,7 +59,7 @@ export default function App() {
           {/* Landing Page - no navigation bar */}
           <Route exact path="/">
             {user ? <Redirect to="/dashboard"/> : <></>}
-            <Landing user={user} sampleUserLogin={handleSampleLogin}/>
+            <Landing user={user} userLogin={userLogin} sampleUserLogin={handleSampleLogin} prefix={prefix}/>
           </Route>
           
           {/* Regular Routes - NavBar renders on all */}
