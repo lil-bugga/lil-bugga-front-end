@@ -10,27 +10,50 @@ import Ticket from "./Pages/Ticket"
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import { Redirect } from 'react-router';
+import axios from 'axios'
 
 // Main Website Application
 export default function App() {
   
-  let [user, setUser] = useState(false)
+  let [user, setUser] = useState({})
   let prefix = "http://localhost:3000/api/v1/";
 
   // On render, if user exists, extract it and set it to state.
+  // Calls the API to check jwt is still valid
   useEffect(()=> {
     let store = localStorage.getItem("user");
+
     if(store){
       let saved_user = JSON.parse(store);
-      console.log(user)
-      setUser(saved_user)
+
+      axios.get(`${prefix}projects`, {headers: {"Authorization": `Bearer ${saved_user.jwt}`}})
+      .then(res => {
+        if(res.data){
+          // JWT is good!
+          setUser(saved_user);
+        }else {
+          // JWT is expired
+          setUser(false);
+          localStorage.removeItem("user");
+        }
+        // setUser(saved_user)
+      })
+      .catch(err =>{
+        if(saved_user.name == "Sample User"){
+          setUser(saved_user);
+        } else {
+          setUser(false);
+          localStorage.removeItem("user");
+        }
+      })
     }
+
   }, [])
 
   function userLogin(email, jwt){
     console.log(`Logging in ${email}.`);
     setUser({"name":email, "email":email, "jwt":jwt })
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify({"name":email, "email":email, "jwt":jwt }));
   }
 
   // On login to sample user, save user so they persist throughout page. (jwt, email, name)
@@ -39,8 +62,7 @@ export default function App() {
     e.preventDefault();
     setUser({"name": "Sample User", "email":"sample@user.com", "jwt":"asdfasdfasdf;lk;lkj;lkj"})
 
-    // This might error, may not be saving user due to async
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify({"name": "Sample User", "email":"sample@user.com", "jwt":"asdfasdfasdf;lk;lkj;lkj"}));
     
   }
 

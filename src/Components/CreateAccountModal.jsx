@@ -15,7 +15,10 @@ export default function CreateAccountModal(props) {
       </Modal.Header>
       <Modal.Body>
 
-        <NewAccountForm/>
+        <NewAccountForm
+          userLogin={props.userLogin}
+          prefix={props.prefix}
+        />
         
       </Modal.Body>
     </Modal>

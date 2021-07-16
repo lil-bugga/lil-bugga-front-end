@@ -1,8 +1,29 @@
 import { useState } from "react";
+import axios from 'axios';
 
-export default function NewAccountForm(){
+export default function NewAccountForm(props){
     // Holds the state of the form to make it controlled.
     let [form, setForm] = useState({"email":"", "password":"", "password_confirmation":""});
+
+    // handleCreate
+    function handleCreate(e){
+      e.preventDefault();
+
+      const user = {
+        email: form.email,
+        password: form.password,
+        password_confirmation: form.password_confirmation
+      }
+
+      axios.post(`${props.prefix}users/signup`, { user })
+      .then(res => {
+        props.userLogin(res.data.username, res.data.jwt);
+      })
+      .catch(err => {
+        console.log(err);
+        setForm({"email":"", "password":"", "password_confirmation": ""});
+      })
+    }
 
     // Handle the changing of any part of the form.
     function handleInput(e){
@@ -27,7 +48,7 @@ export default function NewAccountForm(){
             <input type="password" name="password_confirmation" value={form.password_confirmation} onChange={handleInput} className="form-control" placeholder="Confirm Password"/>
           </div>
 
-          <button type="submit" className="btn btn-primary w-100">Edit</button>
+          <button type="submit" onClick={handleCreate} className="btn btn-primary w-100">Edit</button>
         </form>
       </div>
     )

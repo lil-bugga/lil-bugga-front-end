@@ -1,5 +1,4 @@
 import Modal from 'react-bootstrap/Modal'
-import { Link } from 'react-router-dom';
 import NewProjectForm from './NewProjectForm';
 
 export default function SampleUserModal(props) {

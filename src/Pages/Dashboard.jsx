@@ -2,7 +2,7 @@ import React from 'react'
 import Table from "../Components/Table"
 import {Bar} from "react-chartjs-2"
 import UserImage from "./../assets/user.png"
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import CreateProjectModal from "./../Components/CreateProjectModal"
 import Button from "react-bootstrap/Button"
 import EditAccountModal from '../Components/EditAccountModal'

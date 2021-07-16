@@ -1,5 +1,4 @@
 import Modal from 'react-bootstrap/Modal'
-import { Link } from 'react-router-dom';
 import EditAccountForm from "./../Components/EditAccountForm"
 
 export default function EditAccountModal(props) {

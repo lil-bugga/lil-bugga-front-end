@@ -79,6 +79,8 @@ function Landing(props) {
       <CreateAccountModal
         show={createUserModalShow}
         onHide={() => setCreateUserModalShow(false)}
+        userLogin={props.userLogin}
+        prefix={props.prefix}
       />
     </div>
   );
