@@ -1,20 +1,23 @@
-export default function SampleUserModal() {
-    return (
-        <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog">
-            <div className="modal-dialog modal-dialog-centered" role="document">
-                <div className="modal-content">
-                    <div className="modal-header">
+import Modal from 'react-bootstrap/Modal'
+import { Link } from 'react-router-dom';
+import UserImage from "./../assets/user.png"
 
-                        <h5 className="modal-title" id="exampleModalLongTitle">Select Sample User</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span>&times;</span>
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                        asdfasdfasdf
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
+export default function SampleUserModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      centered
+    >
+      <Modal.Header>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Select Sample User
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+          <img src={UserImage}/>
+        <Link className="btn btn-primary w-75" onClick={props.sampleUserLogin} to="/dashboard">Log in Sample User</Link>
+      </Modal.Body>
+    </Modal>
+  );
 }

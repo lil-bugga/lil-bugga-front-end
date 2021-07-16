@@ -90,7 +90,6 @@ div.page.with_side_panel div.page div.quart_chunk {
     }
 
     div.whole_chunk {
-        width: 98%;
         height: 100%;
     }
 
@@ -113,6 +112,11 @@ div.page.with_side_panel div.page div.quart_chunk {
     div.center_chunk {
         width: 40%;
         height: 60%;
+    }
+
+    div.whole_chunk {
+        width: 98%;
+        height: 100%;
     }
 
     div.page.with_side_panel {
