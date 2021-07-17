@@ -1,7 +1,13 @@
 import Modal from 'react-bootstrap/Modal';
 import NewAccountForm from "./../Components/NewAccountForm"
+import {useContext} from 'react'
+import {UserContext} from './UserProvider'
 
 export default function CreateAccountModal(props) {
+
+
+  const { userLogin, prefix } = useContext(UserContext)
+
   return (
     <Modal
       {...props}
@@ -16,8 +22,8 @@ export default function CreateAccountModal(props) {
       <Modal.Body>
 
         <NewAccountForm
-          userLogin={props.userLogin}
-          prefix={props.prefix}
+          userLogin={userLogin}
+          prefix={prefix}
         />
         
       </Modal.Body>

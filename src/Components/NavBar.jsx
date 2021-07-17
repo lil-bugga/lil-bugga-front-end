@@ -1,6 +1,11 @@
 import {Link} from 'react-router-dom'
+import { useContext } from 'react'
+import {UserContext} from "./UserProvider"
 
 export default function NavBar(props) {
+
+  const {userSignOut } = useContext(UserContext)
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light py-0" id="NavBar">
       <div className="container-fluid">
@@ -13,7 +18,7 @@ export default function NavBar(props) {
           <Link className="nav-link py-0" to="/projects">Projects</Link>
           <Link className="nav-link py-0" to="/project_tickets">Project Tickets</Link>
           <Link className="nav-link py-0" to="/ticket">Ticket</Link>
-          <a href="#" className="nav-link py-0" onClick={props.userSignOut}>Sign Out</a>
+          <a href="#" className="nav-link py-0" onClick={userSignOut}>Sign Out</a>
         </div>   
       </div>
     </nav>

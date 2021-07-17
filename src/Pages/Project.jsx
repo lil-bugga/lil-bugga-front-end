@@ -1,10 +1,11 @@
 import {Bar} from "react-chartjs-2"
 import Table from "../Components/Table"
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
 import Button from "react-bootstrap/Button"
 import { useParams, useHistory } from "react-router-dom"
 import axios from 'axios'
+import { UserContext } from "../Components/UserProvider"
 
 const state = {
     labels: ['January', 'February', 'March',
@@ -28,6 +29,8 @@ let tickets = [["Project", "Ticket", "Change"],
 
 export default function Project(props) {
 
+    const {prefix, user } = useContext(UserContext)
+
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
     const [project, setProject] = useState({});
 
@@ -36,7 +39,7 @@ export default function Project(props) {
 
     // On page load, try to load project else redirect.
     useEffect(()=>{
-        axios.get(`${props.prefix}projects/${id}`, {headers: {"Authorization": `Bearer ${props.user.jwt}`}})
+        axios.get(`${prefix}projects/${id}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
         .then(res => res.data)
         .then(body => {
             console.log(`${body.project_detail.project_name}: Loaded`);
@@ -44,7 +47,7 @@ export default function Project(props) {
         })
         .catch(err => {
             console.log("Project wasn't found!");
-            history.push({pathname: "/projects", props:{user:props.user, prefix:props.user}});
+            history.push(`/projects`);
         })
     }, [])
 

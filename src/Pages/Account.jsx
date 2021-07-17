@@ -1,6 +1,9 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import {UserContext} from "./../Components/UserProvider"
 
 export default function Account(props) {
+
+    const {user} = useContext(UserContext);
 
     // Holds the state of the form to make it controlled.
     let [form, setForm] = useState({"email":"", "password":"", "confirm_password":""});
@@ -17,12 +20,12 @@ export default function Account(props) {
         <div className="container-fluid page d-flex align-items-center">
             <div className="d-flex align-items-center flex-column container center_chunk py-5">
 
-                <h1>{props.user.name}</h1>
+                <h1>{user.name}</h1>
 
                 <form className="py-2">
                     <div className="form-group mb-2">
                         <label htmlFor="Email">Email address</label>
-                        <input type="email" value={form.email} onChange={handleInput} className="form-control" name="email" id="Email" placeholder={props.user.email}/>
+                        <input type="email" value={form.email} onChange={handleInput} className="form-control" name="email" id="Email" placeholder={user.email}/>
                     </div>
 
                     <div className="form-group mb-2">

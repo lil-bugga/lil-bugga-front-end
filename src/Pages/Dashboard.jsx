@@ -2,10 +2,11 @@ import React from 'react'
 import Table from "../Components/Table"
 import {Bar} from "react-chartjs-2"
 import UserImage from "./../assets/user.png"
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import CreateProjectModal from "./../Components/CreateProjectModal"
 import Button from "react-bootstrap/Button"
 import EditAccountModal from '../Components/EditAccountModal'
+import {UserContext} from "./../Components/UserProvider"
 
 const state = {
   labels: ['January', 'February', 'March',
@@ -22,6 +23,8 @@ const state = {
 }
 
 export default function Dashboard(props){
+
+  const {user, prefix} = useContext(UserContext);
   
   const [createProjectModalShow, setCreateProjectModalShow] = useState(false);
   const [editAccountModalShow, setEditAccountModalShow] = useState(false);
@@ -33,7 +36,7 @@ export default function Dashboard(props){
   return(
     <div className="container-fluid h-100">
       
-      <h1 className="text-center title">{props.user.name}</h1>
+      <h1 className="text-center title">{user.name}</h1>
 
       <div className="container-fluid d-flex flex-wrap page p-0" id="Dashboard">
 
@@ -49,7 +52,7 @@ export default function Dashboard(props){
             />
             <img src={UserImage}/>
             <div className="d-flex flex-column">
-              <p><b>{props.user.email}</b></p>
+              <p><b>{user.email}</b></p>
               <p><b>Owner of 4 projects.</b></p>
             </div>
           </div>
@@ -89,8 +92,6 @@ export default function Dashboard(props){
           <CreateProjectModal
             show={createProjectModalShow}
             onHide={() => setCreateProjectModalShow(false)}
-            user={props.user}
-            prefix={props.prefix}
           />
 
           <p>Data Required</p>

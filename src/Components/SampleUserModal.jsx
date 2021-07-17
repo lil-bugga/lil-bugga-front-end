@@ -1,8 +1,13 @@
 import Modal from 'react-bootstrap/Modal'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import UserImage from "./../assets/user.png"
+import {useContext} from 'react'
+import {UserContext} from './UserProvider'
 
 export default function SampleUserModal(props) {
+
+  const { handleSampleLogin } = useContext(UserContext)
+
   return (
     <Modal
       {...props}
@@ -16,7 +21,7 @@ export default function SampleUserModal(props) {
       </Modal.Header>
       <Modal.Body>
           <img src={UserImage}/>
-        <Link className="btn btn-primary w-75" onClick={props.sampleUserLogin} to="/dashboard">Log in Sample User</Link>
+        <Link className="btn btn-primary w-75" onClick={handleSampleLogin} to="/dashboard">Log in Sample User</Link>
       </Modal.Body>
     </Modal>
   );

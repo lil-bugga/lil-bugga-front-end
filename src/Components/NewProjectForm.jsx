@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
+import { UserContext } from "./UserProvider";
 
 export default function NewProjectForm(props){
+
+  const {prefix, user} = useContext(UserContext)
 
   let history = useHistory();
 
@@ -28,7 +31,7 @@ export default function NewProjectForm(props){
       }
     }
 
-    axios.post(`${props.prefix}projects`, {project} ,{headers: {"Authorization": `Bearer ${props.user.jwt}`}})
+    axios.post(`${prefix}projects`, {project} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
     .then(res => {
       console.log("Project was successfully created!");
       // Redirect to the project\

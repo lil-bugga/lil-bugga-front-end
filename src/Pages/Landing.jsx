@@ -1,12 +1,15 @@
 import React from "react"
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import SampleUserModal from "./../Components/SampleUserModal"
 import Button from "react-bootstrap/Button"
 import axios from 'axios'
 import CreateAccountModal from "./../Components/CreateAccountModal"
+import {UserContext} from "./../Components/UserProvider"
 
-function Landing(props) {
-  
+function Landing() {
+
+  const { userLogin,  prefix } = useContext(UserContext)
+
   const [sampleUserModalShow, setSampleUserModalShow] = React.useState(false);
   const [createUserModalShow, setCreateUserModalShow] = React.useState(false);
 
@@ -30,9 +33,9 @@ function Landing(props) {
       password: form.password
     }
 
-    axios.post(`${props.prefix}users/signin`, { user })
+    axios.post(`${prefix}users/signin`, { user })
     .then(res => {
-      props.userLogin(res.data.username, res.data.jwt);
+      userLogin(res.data.username, res.data.jwt);
     })
     .catch(err => {
       console.log(err);
@@ -73,14 +76,11 @@ function Landing(props) {
       <SampleUserModal
         show={sampleUserModalShow}
         onHide={() => setSampleUserModalShow(false)}
-        sampleUserLogin={props.sampleUserLogin}
       />
 
       <CreateAccountModal
         show={createUserModalShow}
         onHide={() => setCreateUserModalShow(false)}
-        userLogin={props.userLogin}
-        prefix={props.prefix}
       />
     </div>
   );
