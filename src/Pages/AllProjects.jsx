@@ -36,7 +36,7 @@ export default function AllProjects(props) {
     }, [])
 
     return (
-        <div className="page d-flex align-items-center">
+        <div className="page d-flex align-items-center outer">
             <div className="whole_chunk">
                 <Button variant="primary" onClick={() => setCreateProjectModalShow(true)}>
                     Create a Project

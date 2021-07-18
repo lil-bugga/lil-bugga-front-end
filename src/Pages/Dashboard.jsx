@@ -33,9 +33,9 @@ export default function Dashboard(props){
     [4,5,6]]
 
   return(
-    <div className="container-fluid h-100">
+    <div className="outer container-fluid h-100">
       
-      <h1 className="text-center title">{user.name}</h1>
+      <h1 className="text-center title mb-3">{user.name}</h1>
 
       <div className="container-fluid d-flex flex-wrap page p-0" id="Dashboard">
 

@@ -15,7 +15,7 @@ export default function ProjectTickets() {
 
     return (
         // Page with Side Bar
-        <div className="page d-flex with_side_panel p-0 m-0" id="">
+        <div className="page d-flex with_side_panel p-0 m-0 outer" id="">
 
             {/* Side Bar */}
             <div className="container-fluid side_panel m-0">

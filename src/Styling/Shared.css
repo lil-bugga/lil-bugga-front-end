@@ -1,10 +1,21 @@
 /* Mobile Design */
+
+.btn-primary {
+    color: var(--light-2) !important;
+    border: 0 !important;
+    background-color: var(--theme-1) !important;
+}
+
+input {
+    background-color: var(--light-1) !important;
+}
+
 body {
     min-height: 100vh;
 }
 
 div#root {
-    min-height: 95vh;
+    min-height: 100vh;
 }
 
 div.App {
@@ -16,7 +27,11 @@ h1.title {
 }
 
 div.page{
-    height: 95vh;
+    height: 100%;
+}
+
+div.outer{
+    height: 90vh !important;
 }
 
 canvas {
@@ -86,7 +101,7 @@ div.page.with_side_panel div.page div.quart_chunk {
 
     div.quart_chunk {
         width: 48%;
-        height: 44vh;
+        height: 42vh;
     }
 
     div.whole_chunk {
