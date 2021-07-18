@@ -66,10 +66,11 @@ function Landing() {
 
   return (
     <div className="d-flex justify-content-end p-0 m-0" id="Landing">
+      <div class="container h-100 d-flex align-items-center">
+        <h1 className="w-100 p-0">lil bugga</h1>
+      </div>
 
-      <h1 className="w-100">lil bugga</h1>
-
-      <div className="d-flex flex-column align-items-center justify-content-center" id="FeatureColumn">
+      <div className="d-flex h-100 flex-column align-items-center justify-content-center" id="FeatureColumn">
         <h3 className="text-center w-100">Login</h3>
 
         <form className="p-2">

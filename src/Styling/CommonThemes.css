@@ -1,0 +1,20 @@
+/* Global Variables */
+:root {
+    --theme-3: #001524ff;
+    --theme-2: #072e3cff;
+    --theme-1: #15616dff;
+    --light-1: #ffecd1ff;
+    --light-2: #ffc78bff;
+    --active-1: #ff7d00ff;
+    --dark-1: #120602ff;
+}
+
+.btn-primary {
+    color: var(--light-2) !important;
+    border: 0 !important;
+    background-color: var(--theme-1) !important;
+}
+
+input {
+    background-color: var(--light-1) !important;
+}

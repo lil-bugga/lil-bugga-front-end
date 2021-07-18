@@ -1,7 +1,6 @@
 import React from 'react'
 import Table from "../Components/Table"
 import {Bar} from "react-chartjs-2"
-import UserImage from "./../assets/user.png"
 import {useState, useContext} from 'react'
 import CreateProjectModal from "./../Components/CreateProjectModal"
 import Button from "react-bootstrap/Button"
@@ -50,7 +49,6 @@ export default function Dashboard(props){
               show={editAccountModalShow}
               onHide={() => setEditAccountModalShow(false)}
             />
-            <img src={UserImage}/>
             <div className="d-flex flex-column">
               <p><b>{user.email}</b></p>
               <p><b>Owner of 4 projects.</b></p>
