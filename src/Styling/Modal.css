@@ -7,12 +7,19 @@
     border-radius: 10px !important;
 }
 
+.modal div.h4 {
+    color: var(--light-2);
+}
+
 .modal-header {
-    background-color: var(--light-1);
-    border-radius: 10px 10px;
+    color: var(--light-1) !important;
+    background-color: var(--theme-1);
+    border: 0;
+    border-radius: 10px 10px 0 0;
 }
 
 .modal-body {
+    width: 100% !important;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

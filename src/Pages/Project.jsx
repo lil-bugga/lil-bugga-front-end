@@ -13,7 +13,7 @@ const state = {
     datasets: [
       {
         label: 'Rainfall',
-        backgroundColor: 'rgba(75,192,192,1)',
+        backgroundColor: getComputedStyle(document.querySelector("#root")).getPropertyValue("--theme-1"),
         borderColor: 'rgba(0,0,0,1)',
         borderWidth: 0.5,
         data: [65, 59, 80, 81, 56]
@@ -58,6 +58,7 @@ export default function Project(props) {
             {/* Side Bar */}
             <div className="container-fluid side_panel m-0 p-1">
                 <Table 
+                    className="w-100"
                     content={projects}
                 />
             </div>
@@ -90,8 +91,8 @@ export default function Project(props) {
                         }}
                     />
                 </div>
-                <div id="Tickets" className="quart_chunk p-1">
-                    <h2>Tickets</h2>
+                <div id="Tickets" className="quart_chunk d-flex flex-column">
+                    <h2 class="text-center">Tickets</h2>
                     <Button variant="primary" onClick={() => setCreateTicketModalShow(true)}>
                         Create Ticket
                     </Button>

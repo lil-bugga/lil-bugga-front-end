@@ -12,7 +12,7 @@ export default function NavBar(props) {
   return (
     <Navbar collapseOnSelect expand="lg" id="NavBar">
       <Container class="d-flex px-3 py-0 w-100" id="NavBarContainer">
-        <Navbar.Brand href="#home">lil bugga</Navbar.Brand>
+        <Navbar.Brand href="/">lil bugga</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" class="ms-auto"/>
         <Navbar.Collapse id="responsive-navbar-nav w-100">
           <Nav className="ms-auto">

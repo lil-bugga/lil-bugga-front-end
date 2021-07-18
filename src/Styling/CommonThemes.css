@@ -1,14 +1,17 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
 /* Global Variables */
 :root {
     /* Color Palette - leave variable names. */
     --theme-3: #001524ff;
     --theme-2: #072e3cff;
     --theme-1: #15616dff;
-    --light-1: #ffecd1ff;
-    --light-2: #ffc78bff;
-    --active-1: #ff7d00ff;
+    --active-1: rgb(255, 102, 0);
+    --light-1: #f3fff4;
+    --light-2: #a8fdac;
+    --light-text: #f3fff4;
     --dark-1: #120602ff;
-    --light-text: #ffecd1ff;
     --dark-text: #15616dff;
 
     /* Borders*/

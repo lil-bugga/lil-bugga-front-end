@@ -1,5 +1,5 @@
 import Modal from 'react-bootstrap/Modal'
-import NewTicketForm from './NewProjectForm';
+import NewTicketForm from './NewTicketForm';
 
 export default function SampleUserModal(props) {
   return (

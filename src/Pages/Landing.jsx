@@ -70,7 +70,7 @@ function Landing() {
         <h1 className="w-100 p-0">lil bugga</h1>
       </div>
 
-      <div className="d-flex h-100 flex-column align-items-center justify-content-center" id="FeatureColumn">
+      <div className="d-flex h-100 flex-column align-items-center justify-content-end" id="FeatureColumn">
         <h3 className="text-center w-100">Login</h3>
 
         <form className="p-2">
@@ -82,13 +82,13 @@ function Landing() {
             <input type="password" name="password" value={form.password} onChange={handleInput} className="form-control" id="exampleInputPassword1" placeholder="Password"/>
           </div>
 
-          <button type="submit" onClick={logIn} className="btn btn-primary w-100 mb-2">Login</button>
+          <button type="submit" onClick={logIn} className="btn btn-primary w-100 mb-4">Login</button>
 
           <Button className="w-100 mb-2" variant="primary" onClick={() => setCreateUserModalShow(true)}>
             Create an Account!
           </Button>
 
-          <Button className="w-100 mb-2" variant="primary" onClick={() => setSampleUserModalShow(true)}>
+          <Button className="w-100 mb-4" variant="primary" onClick={() => setSampleUserModalShow(true)}>
             Log in Sample User
           </Button>
         </form>

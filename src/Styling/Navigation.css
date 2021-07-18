@@ -1,5 +1,5 @@
 nav#NavBar {
-    background-color: var(--light-2);
+    background-color: var(--theme-2);
     max-height: 6vh;
 }
 
@@ -14,10 +14,13 @@ nav button{
 nav a.nav-link {
     padding: 3%;
     text-align: center;
-    color: var(--dark) !important;
-    background-color: var(--light-2);
+    color: var(--light-1) !important;
 }
 
-nav a.nav-link:hover {
+nav a {
+    color: var(--light-1) !important;
+}
+
+nav a.nav-link:hover, nav a:hover  {
     color: var(--active-1) !important;
 }

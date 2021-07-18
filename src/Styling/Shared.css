@@ -2,10 +2,11 @@
 
 *{
     color: var(--dark-text);
+    font-family: 'Courier Prime', monospace;
 }
 
 .btn-primary {
-    color: var(--light-2) !important;
+    color: var(--light-1) !important;
     border: 0 !important;
     background-color: var(--theme-1) !important;
 }
@@ -58,9 +59,9 @@ div.quart_chunk {
 
 div.whole_chunk {
     width: 100%;
-    border: 1px black solid;
     margin: 0;
-    background-color: bisque;
+    border: var(--container-borders);
+    background-color: var(--light-2);
     border-radius: 3px;
     min-width: 350px;
 }
@@ -69,8 +70,8 @@ div.center_chunk {
     width: 100%;
     height: 80%;
     justify-self: center;
-    border: 1px black solid;
-    background-color: bisque;
+    border: var(--container-borders);
+    background-color: var(--light-2);
     border-radius: 5px;
 }
 
@@ -83,8 +84,7 @@ div.page.with_side_panel {
 div.side_panel {
     height: auto;
     width: 100%;
-    background-color: burlywood;
-
+    background-color: var(--theme-2);
 }
 
 div.page.with_side_panel div.page {
@@ -147,7 +147,6 @@ div.page.with_side_panel div.page div.quart_chunk {
     div.side_panel {
         height: 100%;
         width: 10%;
-        background-color: burlywood;
         
     }
 
