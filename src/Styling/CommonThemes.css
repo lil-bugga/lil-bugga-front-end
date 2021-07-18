@@ -8,7 +8,10 @@
     --light-2: #ffc78bff;
     --active-1: #ff7d00ff;
     --dark-1: #120602ff;
+    --light-text: #ffecd1ff;
+    --dark-text: #15616dff;
 
     /* Borders*/
-    
+    --container-borders: 0px var(--dark-1) dashed;
+    --container-radius: 5px;
 }

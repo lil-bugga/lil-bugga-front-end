@@ -53,7 +53,7 @@ export default function Project(props) {
 
     return (
         // Page with Side Bar
-        <div className="page d-flex with_side_panel p-0 m-0 outer" id="">
+        <div className="page d-flex with_side_panel p-0 m-0 outer" >
 
             {/* Side Bar */}
             <div className="container-fluid side_panel m-0 p-1">

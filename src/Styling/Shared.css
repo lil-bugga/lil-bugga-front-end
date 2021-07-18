@@ -1,5 +1,9 @@
 /* Mobile Design */
 
+*{
+    color: var(--dark-text);
+}
+
 .btn-primary {
     color: var(--light-2) !important;
     border: 0 !important;
@@ -31,7 +35,8 @@ div.page{
 }
 
 div.outer{
-    height: 90vh !important;
+    background-color: var(--light-1);
+    height: 94vh !important;
 }
 
 canvas {
@@ -45,10 +50,9 @@ img {
 
 div.quart_chunk {
     width: 100%;
-    border: 1px black solid;
-    margin: 0;
-    background-color: bisque;
-    border-radius: 3px;
+    background-color: var(--light-2);
+    border: var(--container-borders) !important;
+    border-radius: var(--container-radius);
     min-width: 350px;
 }
 
@@ -101,7 +105,7 @@ div.page.with_side_panel div.page div.quart_chunk {
 
     div.quart_chunk {
         width: 48%;
-        height: 42vh;
+        height: 47%;
     }
 
     div.whole_chunk {

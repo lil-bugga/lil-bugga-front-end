@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export default function Table(props) {
     return (
-        <table className="table table-light border">
+        <table className="table">
             <thead>
                 <tr key="tr_0">
                     {/* Maps the table header to top row. */}
