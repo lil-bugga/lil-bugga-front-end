@@ -23,7 +23,6 @@ export default function AllProjects(props) {
 
     // On page load, load in projects.
     useEffect(()=>{
-        console.log(user.jwt)
         axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
         .then(res => res.data)
         .then(body => {
@@ -36,9 +35,9 @@ export default function AllProjects(props) {
     }, [])
 
     return (
-        <div className="page d-flex align-items-center">
-            <div className="whole_chunk">
-                <Button variant="primary" onClick={() => setCreateProjectModalShow(true)}>
+        <div className="page d-flex align-items-center outer py-2">
+            <div className="whole_chunk d-flex flex-column my-3">
+                <Button className="mb-1" variant="primary" onClick={() => setCreateProjectModalShow(true)}>
                     Create a Project
                 </Button>
                 <CreateProjectModal

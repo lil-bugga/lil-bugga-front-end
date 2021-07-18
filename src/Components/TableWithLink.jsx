@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export default function Table(props) {
     return (
-        <table className="table table-light border">
+        <table className="table">
             <thead>
                 <tr key="tr_0">
                     {/* Maps the table header to top row. */}
@@ -21,7 +21,7 @@ export default function Table(props) {
                         {row.map((e, idy)=>{
 
                             if(idy+1 == row.length){
-                                return <td key={`te_${idx}_${idy}`}><Link to={e}>View</Link></td>
+                                return <td key={`te_${idx}_${idy}`}><Link className="btn w-100 btn-primary" to={e}>View</Link></td>
                             }
 
                             return <td key={`te_${idx}_${idy}`}>{e}</td>

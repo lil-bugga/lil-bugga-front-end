@@ -12,7 +12,7 @@ export default function NewTicketForm(){
         })
     }
     return (
-        <div className="d-flex flex-column align-items-center justify-content-center" id="FeatureColumn">
+        <div className="d-flex flex-column align-items-center justify-content-center w-100" id="FeatureColumn">
 
         <form className="p-2">
           <div className="form-group mb-2">
