@@ -5,6 +5,10 @@
     font-family: 'Courier Prime', monospace;
 }
 
+h2 {
+    text-align: center;
+}
+
 .btn-primary {
     color: var(--light-1) !important;
     border: 0 !important;
