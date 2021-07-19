@@ -35,11 +35,15 @@ div#root {
 }
 
 div.App {
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 h1.title {
     height: 4%;
+}
+
+h3.text-center {
+    color: var(--theme-3) !important;
 }
 
 div.page{
@@ -47,13 +51,14 @@ div.page{
 }
 
 div.outer{
+    margin: 0 !important;
+    padding: 0 !important;
     background-color: var(--light-1);
-    height: 94vh !important;
 }
 
 canvas {
     width: 98%;
-    max-height: 90%;
+    max-height: 70%;
 }
 
 img {
@@ -65,7 +70,10 @@ div.quart_chunk {
     background-color: var(--light-2);
     border: var(--container-borders) !important;
     border-radius: var(--container-radius);
-    min-width: 350px;
+    min-width: 280px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
 }
 
 div.whole_chunk {
@@ -74,7 +82,7 @@ div.whole_chunk {
     border: var(--container-borders);
     background-color: var(--light-2);
     border-radius: 3px;
-    min-width: 350px;
+    min-width: 280px;
 }
 
 div.center_chunk {
@@ -107,15 +115,23 @@ div.page.with_side_panel div.page div.quart_chunk {
     width: 100%;
 }
 
+table {
+    max-width: 100%;
+}
+
 /* Tablet Design */
 @media only screen and (min-width: 800px){
 
     div.page {
         justify-content: space-around;
     }
+    
+    div.outer {
+        height: 93vh;
+    }
 
     div.quart_chunk {
-        width: 48%;
+        width: 100%;
         height: 47%;
     }
 
@@ -139,6 +155,11 @@ div.page.with_side_panel div.page div.quart_chunk {
         justify-content: space-around;
     }
 
+    div.outer {
+        height: 94vh;
+        width: 100vw;
+    }
+
     div.center_chunk {
         width: 40%;
         height: 60%;
@@ -150,6 +171,7 @@ div.page.with_side_panel div.page div.quart_chunk {
     }
 
     div.page.with_side_panel {
+        max-width: 86%;
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: start;
@@ -158,7 +180,7 @@ div.page.with_side_panel div.page div.quart_chunk {
     div.side_panel {
         height: 100%;
         width: 10%;
-        
+        min-width: 15%;
     }
 
     div.page.with_side_panel div.page {
@@ -166,7 +188,7 @@ div.page.with_side_panel div.page div.quart_chunk {
         justify-content: space-around;
         align-items: center;
         height: 100%;
-        width: 90%;
+        max-width: 87vw;
     }
 
     div.page.with_side_panel div.page div.quart_chunk {

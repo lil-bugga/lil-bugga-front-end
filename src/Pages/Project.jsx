@@ -75,12 +75,12 @@ export default function Project(props) {
         <div className="page d-flex with_side_panel p-0 m-0 outer" >
 
             {/* Side Bar */}
-            <div className="container-fluid side_panel m-0 p-1">
+            <div className="side_panel m-0 p-1">
                 <TableSideProjects/>
             </div>
 
             {/* Page adjacent to Side Bar */}
-            <div className="container-fluid d-flex page m-0 p-0">
+            <div className="d-flex page m-0 p-0 w-100">
                 
                 <div className="container-fluid quart_chunk">
                     <h2>Project Name here</h2>

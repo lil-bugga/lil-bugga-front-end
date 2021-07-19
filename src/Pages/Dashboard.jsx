@@ -26,7 +26,7 @@ const state = {
 // Map projects to array format.
 function mapProjects(projects){
   return projects.reduce((out, row) => {
-      return out.concat([[row.project_detail.project_name, row.status, `project/${row.project_detail.id}`]])
+      return out.concat([[row.project_detail.project_name, `project/${row.project_detail.id}`]])
   }, [])
 }
 
@@ -50,7 +50,7 @@ export default function Dashboard(props){
     axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
     .then(res => res.data)
     .then(body => {
-        setProjects([["Project Name", "Status", "Link"], ...mapProjects(body)])
+        setProjects([["Project Name", "Link"], ...mapProjects(body)])
         }
     )
     .catch(err => {
@@ -60,9 +60,9 @@ export default function Dashboard(props){
 }, [])
 
   return(
-    <div className="container-fluid d-flex flex-column flex-wrap page py-3 outer" id="Dashboard">
+    <div className="d-flex flex-wrap outer" id="Dashboard">
 
-      <div className="quart_chunk p-2 my-0">
+      <div className="quart_chunk">
         <h2>Account</h2>
         <Button variant="primary" onClick={() => setEditAccountModalShow(true)}>
           Edit Account
@@ -79,7 +79,7 @@ export default function Dashboard(props){
         </div>
       </div>
 
-      <div className="quart_chunk p-2 my-0" >
+      <div className="quart_chunk" >
         <h2>My Tickets</h2>
         <Bar
           data={state}
@@ -97,7 +97,7 @@ export default function Dashboard(props){
         />
       </div>
 
-      <div id="DashboardProjects" className="quart_chunk px-0 py-2 my-0">
+      <div id="DashboardProjects" className="quart_chunk">
         <h2>Projects</h2>
 
         <Button variant="primary" onClick={() => setCreateProjectModalShow(true)}>
