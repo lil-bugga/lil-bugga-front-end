@@ -15,7 +15,7 @@ export default function CreateEntryModal(props) {
       </Modal.Header>
       <Modal.Body>
 
-        <NewEntryForm/>
+        <NewEntryForm />
         
       </Modal.Body>
     </Modal>

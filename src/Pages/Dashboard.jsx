@@ -21,8 +21,6 @@ const state = {
   ]
 }
 
-// console.log(getComputedStyle(document.querySelector("#root")).getPropertyValue("--theme-1"))
-
 export default function Dashboard(props){
 
   const {user, prefix} = useContext(UserContext);
