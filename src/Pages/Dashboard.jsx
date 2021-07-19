@@ -74,7 +74,8 @@ export default function Dashboard(props){
             onHide={() => setEditAccountModalShow(false)}
           />
           <div className="d-flex flex-column w-100">
-            <h2>{user.email}</h2>
+            <h2>{user.username}</h2>
+            <h3 class="text-center">{user.email}</h3>
           </div>
         </div>
       </div>

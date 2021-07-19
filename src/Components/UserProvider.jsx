@@ -29,7 +29,7 @@ export default function UserProvider({children}){
                 // setUser(saved_user)
             })
             .catch(err =>{
-                if(saved_user.name == "Sample User"){
+                if(saved_user.username == "Sample User"){
                     setUser(saved_user);
                 } else {
                     setUser({});
@@ -40,19 +40,19 @@ export default function UserProvider({children}){
 
     }, [])
 
-    function userLogin(email, jwt){
+    function userLogin(username, email, jwt){
         console.log(`Logging in as ${email}.`);
-        setUser({"name":email, "email":email, "jwt":jwt })
-        localStorage.setItem("user", JSON.stringify({"name":email, "email":email, "jwt":jwt }));
+        setUser({"username":username, "email":email, "jwt":jwt })
+        localStorage.setItem("user", JSON.stringify({"username":email, "email":email, "jwt":jwt }));
     }
 
     // On login to sample user, save user so they persist throughout page. (jwt, email, name)
     function handleSampleLogin(e){
         console.log("Logging in as sample user")
         e.preventDefault();
-        setUser({"name": "Sample User", "email":"sample@user.com", "jwt":"asdfasdfasdf;lk;lkj;lkj"})
+        setUser({"username": "Sample User", "email":"sample@user.com", "jwt":"asdfasdfasdf;lk;lkj;lkj"})
 
-        localStorage.setItem("user", JSON.stringify({"name": "Sample User", "email":"sample@user.com", "jwt":"asdfasdfasdf;lk;lkj;lkj"}));
+        localStorage.setItem("user", JSON.stringify({"username": "Sample User", "email":"sample@user.com", "jwt":"asdfasdfasdf;lk;lkj;lkj"}));
     }
 
     // Sign out functionality.

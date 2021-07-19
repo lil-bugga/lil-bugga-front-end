@@ -8,13 +8,14 @@ export default function NewAccountForm(props){
   const { userLogin, prefix } = useContext(UserContext)
 
   // Holds the state of the form to make it controlled.
-  let [form, setForm] = useState({"email":"", "password":"", "password_confirmation":""});
+  let [form, setForm] = useState({"username":"", "email":"", "password":"", "password_confirmation":""});
 
   // handleCreate
   function handleCreate(e){
     e.preventDefault();
 
     const user = {
+      username: form.username,
       email: form.email,
       password: form.password,
       password_confirmation: form.password_confirmation
@@ -22,7 +23,7 @@ export default function NewAccountForm(props){
 
     axios.post(`${prefix}users/signup`, { user })
     .then(res => {
-      userLogin(res.data.username, res.data.jwt);
+      userLogin(res.data.username, res.data.email, res.data.jwt);
     })
     .catch(err => {
       console.log(err);
@@ -42,6 +43,10 @@ export default function NewAccountForm(props){
       <div className="d-flex flex-column align-items-center justify-content-center" id="FeatureColumn">
 
       <form className="p-2">
+        <div className="form-group mb-2">
+          <input type="text" name="username" value={form.username} onChange={handleInput} className="form-control"placeholder="Name"/>
+        </div>
+
         <div className="form-group mb-2">
           <input type="email" name="email" value={form.email} onChange={handleInput} className="form-control"placeholder="Email"/>
         </div>

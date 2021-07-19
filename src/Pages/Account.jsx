@@ -20,7 +20,7 @@ export default function Account(props) {
         <div id="About" className="d-flex align-items-center outer">
             <div className="d-flex align-items-center flex-column container center_chunk py-5">
 
-                <h1>{user.name}</h1>
+                <h1>{user.username}</h1>
 
                 <form className="py-2">
                     <div className="form-group mb-2">

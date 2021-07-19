@@ -17,7 +17,7 @@ export default function NavBar(props) {
         <Navbar.Collapse id="responsive-navbar-nav w-100">
           <Nav className="ms-auto">
             <Link className="nav-link py-0" to="/dashboard">Dashboard</Link>
-            <Link className="nav-link py-0" to="/account">Account</Link>
+            {/* <Link className="nav-link py-0" to="/account">Account</Link> */}
             <Link className="nav-link py-0" to="/projects">Projects</Link>
             <a href="#" className="nav-link py-0" onClick={userSignOut}>Sign Out</a>
           </Nav>
