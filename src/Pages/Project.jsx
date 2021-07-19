@@ -1,12 +1,12 @@
 import {Bar} from "react-chartjs-2"
-import Table from "../Components/Table"
 import TableWithLink from "../Components/TableWithLink"
 import {useState, useEffect, useContext} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
 import Button from "react-bootstrap/Button"
-import { useParams, useHistory } from "react-router-dom"
+import { useParams, useHistory, useLocation } from "react-router-dom"
 import axios from 'axios'
 import { UserContext } from "../Components/UserProvider"
+import TableSideProjects from "../Components/TableSideProjects"
 
 const state = {
     labels: ['January', 'February', 'March',
@@ -27,7 +27,6 @@ let projects = [["Projects"], ["lil bugga"], ["chat point"]]
 // Map projects to array format.
 function mapTickets(tickets, pid){
     return tickets.reduce((out, row) => {
-        console.log(pid)
         return out.concat([[row.id, row.status, row.created_at, `${pid}/${row.id}`]])
     }, [])
 }
@@ -42,6 +41,7 @@ export default function Project(props) {
 
     const {id} = useParams();
     let history = useHistory();
+    let location = useLocation();
 
     // On page load, try to load project else redirect.
     useEffect(()=>{
@@ -56,6 +56,7 @@ export default function Project(props) {
             axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
             .then(res => res.data)
             .then(body => {
+                console.log(body);
                 body && console.log(`Tickets: Loaded`);
                 setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
             })
@@ -67,7 +68,7 @@ export default function Project(props) {
             console.log("Project wasn't found!");
             history.push(`/projects`);
         })
-    }, [])
+    }, [location.pathname])
 
     return (
         // Page with Side Bar
@@ -75,10 +76,7 @@ export default function Project(props) {
 
             {/* Side Bar */}
             <div className="container-fluid side_panel m-0 p-1">
-                <Table 
-                    className="w-100"
-                    content={projects}
-                />
+                <TableSideProjects/>
             </div>
 
             {/* Page adjacent to Side Bar */}

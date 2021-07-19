@@ -38,7 +38,6 @@ export default function NewTicketForm(){
       console.log("Ticket was successfully created!");
 
       // Create the first entry on the ticket!. (Must be done here, else ticket is empty)
-      console.log(`${prefix}projects/${id}/tickets/${res.data.id}/entries`)
       axios.post(`${prefix}projects/${id}/tickets/${res.data.id}/entries`, {entry} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
       .then(res => {
         console.log("First entry was added.");

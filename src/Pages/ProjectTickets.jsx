@@ -1,4 +1,5 @@
 import Table from "../Components/Table"
+import TableSideProjects from "../Components/TableSideProjects"
 import {useState} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
 import Button from "react-bootstrap/Button"
@@ -19,14 +20,12 @@ export default function ProjectTickets() {
         <div className="page d-flex with_side_panel p-0 m-0 outer" id="">
 
             {/* Side Bar */}
-            <div className="container-fluid side_panel m-0">
-                <Table 
-                    content={projects}
-                />
+            <div className="container-fluid side_panel m-0 p-1">
+                <TableSideProjects/>
             </div>
 
             {/* Page adjacent to Side Bar */}
-            <div className="container-fluid d-flex page m-0 p-0 align-items-center">
+            <div className="container-fluid d-flex page m-0 p-2 align-items-center">
                 <div className="whole_chunk">
                     <h1>Ticket: {"ticket name"}</h1>
                     <Button variant="primary" onClick={() => setCreateTicketModalShow(true)}>

@@ -30,6 +30,7 @@ export default function AllProjects(props) {
             }
         )
         .catch(err => {
+            console.log(err);
             history.push("/");
         })
     }, [])

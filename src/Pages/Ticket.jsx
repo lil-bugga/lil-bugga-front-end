@@ -1,4 +1,5 @@
-import Table from "../Components/Table"
+import TableSideProjects from "../Components/TableSideProjects"
+import Table from "../Components/TableWithLink";
 
 export default function Ticket() {
 
@@ -11,7 +12,7 @@ export default function Ticket() {
 
             {/* Side Bar */}
             <div className="container-fluid side_panel m-0">
-                <Table content={projects}/>
+                <TableSideProjects/>
             </div>
 
             {/* Page adjacent to Side Bar */}
