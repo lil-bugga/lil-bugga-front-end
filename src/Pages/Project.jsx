@@ -3,6 +3,7 @@ import Table from "../Components/Table"
 import TableWithLink from "../Components/TableWithLink"
 import {useState, useEffect, useContext} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
+import ProjectUserModal from "../Components/ProjectUsersModal"
 import Button from "react-bootstrap/Button"
 import { useParams, useHistory, useLocation, Link } from "react-router-dom"
 import axios from 'axios'
@@ -48,6 +49,7 @@ export default function Project(props) {
     const {prefix, user } = useContext(UserContext)
 
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
+    const [theCrewModal, setTheCrewModal] = useState(false);
     const [userID, setUserID] = useState(-1);
     const [tickets, setTickets] = useState([]);
     const [project, setProject] = useState({});
@@ -106,7 +108,15 @@ export default function Project(props) {
                         <h2>Project: {project.project_detail.project_name}</h2> 
                         <p className="text-center">{project.project_detail.description}</p>
                         <p className="text-center">({myRole(userID, users)})</p>
-                        <p className="text-center">View Users - Owner and Admin can edit user roles</p>
+                        <Button variant="primary" onClick={() => setTheCrewModal(true)}>
+                            The Crew
+                        </Button>
+                        <ProjectUserModal
+                            user_id={userID}
+                            users={users}
+                            show={theCrewModal}
+                            onHide={() => setTheCrewModal(false)}
+                        />
                         </>
                     : <></>}
 
