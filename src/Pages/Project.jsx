@@ -1,5 +1,6 @@
 import {Bar} from "react-chartjs-2"
 import Table from "../Components/Table"
+import TableWithLink from "../Components/TableWithLink"
 import {useState, useEffect, useContext} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
 import Button from "react-bootstrap/Button"
@@ -23,15 +24,20 @@ const state = {
 
 let projects = [["Projects"], ["lil bugga"], ["chat point"]]
 
-let tickets = [["Project", "Ticket", "Change"], 
-    ["lil bugga","Glitchy landing page.","Importance has shifted to urgent."], 
-    [4,5,6]]
+// Map projects to array format.
+function mapTickets(tickets, pid){
+    return tickets.reduce((out, row) => {
+        console.log(pid)
+        return out.concat([[row.id, row.status, row.created_at, `${pid}/${row.id}`]])
+    }, [])
+}
 
 export default function Project(props) {
 
     const {prefix, user } = useContext(UserContext)
 
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
+    const [tickets, setTickets] = useState([]);
     const [project, setProject] = useState({});
 
     const {id} = useParams();
@@ -44,6 +50,18 @@ export default function Project(props) {
         .then(body => {
             console.log(`${body.project_detail.project_name}: Loaded`);
             setProject(body);
+            let pid = body.id;
+
+            // If project loads, then load in the tickets.
+            axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.data)
+            .then(body => {
+                body && console.log(`Tickets: Loaded`);
+                setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
+            })
+            .catch(err => {
+                console.log("No Tickets were found!");
+            })
         })
         .catch(err => {
             console.log("Project wasn't found!");
@@ -100,9 +118,7 @@ export default function Project(props) {
                         show={createTicketModalShow}
                         onHide={() => setCreateTicketModalShow(false)}
                     />
-                    <Table
-                        content={tickets}
-                    />
+                    {tickets.length > 0 ? <TableWithLink content={tickets}/> : <></>}
                 </div>
 
             </div>

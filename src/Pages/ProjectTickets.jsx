@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button"
 let projects = [["Projects"], ["lil bugga"], ["chat point"]]
 
 export default function ProjectTickets() {
+    console.log("Loading Tickets")
 
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
 
@@ -27,6 +28,7 @@ export default function ProjectTickets() {
             {/* Page adjacent to Side Bar */}
             <div className="container-fluid d-flex page m-0 p-0 align-items-center">
                 <div className="whole_chunk">
+                    <h1>Ticket: {"ticket name"}</h1>
                     <Button variant="primary" onClick={() => setCreateTicketModalShow(true)}>
                         Create Ticket
                     </Button>

@@ -47,7 +47,7 @@ export default function App() {
                 <Route path="/projects">
                   <AllProjects/>
                 </Route>
-                <Route path="/project_tickets">
+                <Route path="/project/:id/:tid">
                   <ProjectTicket/>
                 </Route>
                 <Route path="/ticket">
