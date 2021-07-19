@@ -1,7 +1,7 @@
 import Modal from 'react-bootstrap/Modal'
-import NewTicketForm from './NewTicketForm';
+import NewEntryForm from './NewEntryForm';
 
-export default function CreateTicketModal(props) {
+export default function CreateEntryModal(props) {
   return (
     <Modal
       {...props}
@@ -9,13 +9,13 @@ export default function CreateTicketModal(props) {
       centered
     >
       <Modal.Header>
-        <Modal.Title id="create-ticket-modal">
-          Create a Ticket
+        <Modal.Title id="create-entry-modal">
+          Create an Entry
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
 
-        <NewTicketForm/>
+        <NewEntryForm />
         
       </Modal.Body>
     </Modal>

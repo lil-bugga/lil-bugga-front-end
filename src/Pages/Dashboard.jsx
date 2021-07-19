@@ -1,11 +1,13 @@
 import React from 'react'
-import Table from "../Components/Table"
+import TableWithLink from "./../Components/TableWithLink"
 import {Bar} from "react-chartjs-2"
-import {useState, useContext} from 'react'
+import {useState, useContext, useEffect} from 'react'
+import { useLocation, useParams, useHistory} from 'react-router-dom'
 import CreateProjectModal from "./../Components/CreateProjectModal"
 import Button from "react-bootstrap/Button"
 import EditAccountModal from '../Components/EditAccountModal'
 import {UserContext} from "./../Components/UserProvider"
+import axios from 'axios'
 
 const state = {
   labels: ['January', 'February', 'March',
@@ -21,23 +23,46 @@ const state = {
   ]
 }
 
-// console.log(getComputedStyle(document.querySelector("#root")).getPropertyValue("--theme-1"))
+// Map projects to array format.
+function mapProjects(projects){
+  return projects.reduce((out, row) => {
+      return out.concat([[row.project_detail.project_name, `project/${row.project_detail.id}`]])
+  }, [])
+}
 
 export default function Dashboard(props){
 
-  const {user, prefix} = useContext(UserContext);
-  
+  // Important variables for the site
+  const {user, prefix} = useContext(UserContext)
   const [createProjectModalShow, setCreateProjectModalShow] = useState(false);
   const [editAccountModalShow, setEditAccountModalShow] = useState(false);
+  const [projects, setProjects] = useState({});
+  const {id} = useParams();
+  let history = useHistory();
+  let location = useLocation();
 
   let notifications = [["Project", "Ticket", "Change"], 
     ["lil bugga","Glitchy landing page.","Importance has shifted to urgent."], 
     [4,5,6]]
 
-  return(
-    <div className="container-fluid d-flex flex-wrap page py-3 outer" id="Dashboard">
+  // On page load, load in projects.
+  useEffect(()=>{
+    axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+    .then(res => res.data)
+    .then(body => {
+        setProjects([["Project Name", "Link"], ...mapProjects(body)])
+        }
+    )
+    .catch(err => {
+        console.log(err);
+        history.push("/");
+    })
+}, [])
 
-      <div className="quart_chunk p-2 my-3">
+  return(
+    <div className="d-flex flex-wrap outer" id="Dashboard">
+
+      <div className="quart_chunk">
         <h2>Account</h2>
         <Button variant="primary" onClick={() => setEditAccountModalShow(true)}>
           Edit Account
@@ -48,21 +73,13 @@ export default function Dashboard(props){
             show={editAccountModalShow}
             onHide={() => setEditAccountModalShow(false)}
           />
-          <div className="d-flex flex-column">
-            <p><b>{user.email}</b></p>
-            <p><b>Owner of 4 projects.</b></p>
+          <div className="d-flex flex-column w-100">
+            <h2>{user.email}</h2>
           </div>
         </div>
       </div>
 
-      <div className="quart_chunk p-2 my-3">
-        <h2>Notifications</h2>
-        <Table
-          content={notifications}
-        />
-      </div>
-
-      <div className="quart_chunk p-2 my-3" >
+      <div className="quart_chunk" >
         <h2>My Tickets</h2>
         <Bar
           data={state}
@@ -80,7 +97,7 @@ export default function Dashboard(props){
         />
       </div>
 
-      <div className="quart_chunk p-2 my-3">
+      <div id="DashboardProjects" className="quart_chunk">
         <h2>Projects</h2>
 
         <Button variant="primary" onClick={() => setCreateProjectModalShow(true)}>
@@ -90,14 +107,7 @@ export default function Dashboard(props){
           show={createProjectModalShow}
           onHide={() => setCreateProjectModalShow(false)}
         />
-
-        <p>Data Required</p>
-        <ul>
-            <li>current user data - all</li>
-            <li>associated projects for user</li>
-            <li>associated tickets for the user</li>
-            <li>potentially notifications or updates</li>
-        </ul>
+        {projects.length > 0 ? <TableWithLink content={projects}/> : <></>} 
       </div>
       
     </div>

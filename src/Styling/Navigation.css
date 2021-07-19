@@ -1,10 +1,11 @@
 nav#NavBar {
     background-color: var(--theme-2);
-    max-height: 6vh;
+    max-height: 10vh;
 }
 
 div#NavBarContainer{
     min-width: 100%;
+    background-color: var(--theme-2);
 }
 
 nav button{
@@ -23,4 +24,11 @@ nav a {
 
 nav a.nav-link:hover, nav a:hover  {
     color: var(--active-1) !important;
+}
+
+/* Desktop Design */
+@media only screen and (min-width: 1200px){
+    nav#NavBar {
+        max-height: 6vh;
+    }
 }

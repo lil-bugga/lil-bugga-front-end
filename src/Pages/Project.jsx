@@ -1,11 +1,13 @@
 import {Bar} from "react-chartjs-2"
 import Table from "../Components/Table"
+import TableWithLink from "../Components/TableWithLink"
 import {useState, useEffect, useContext} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
 import Button from "react-bootstrap/Button"
-import { useParams, useHistory } from "react-router-dom"
+import { useParams, useHistory, useLocation, Link } from "react-router-dom"
 import axios from 'axios'
 import { UserContext } from "../Components/UserProvider"
+import TableSideProjects from "../Components/TableSideProjects"
 
 const state = {
     labels: ['January', 'February', 'March',
@@ -23,19 +25,24 @@ const state = {
 
 let projects = [["Projects"], ["lil bugga"], ["chat point"]]
 
-let tickets = [["Project", "Ticket", "Change"], 
-    ["lil bugga","Glitchy landing page.","Importance has shifted to urgent."], 
-    [4,5,6]]
+// Map projects to array format.
+function mapTickets(tickets, pid){
+    return tickets.reduce((out, row) => {
+        return out.concat([[row.id, row.status, row.created_at, `/project/ticket/${pid}/${row.id}`]])
+    }, [])
+}
 
 export default function Project(props) {
 
     const {prefix, user } = useContext(UserContext)
 
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
+    const [tickets, setTickets] = useState([]);
     const [project, setProject] = useState({});
 
     const {id} = useParams();
     let history = useHistory();
+    let location = useLocation();
 
     // On page load, try to load project else redirect.
     useEffect(()=>{
@@ -44,27 +51,36 @@ export default function Project(props) {
         .then(body => {
             console.log(`${body.project_detail.project_name}: Loaded`);
             setProject(body);
+            let pid = body.id;
+
+            // If project loads, then load in the tickets.
+            axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.data)
+            .then(body => {
+                body && console.log(`Tickets: Loaded`);
+                setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
+            })
+            .catch(err => {
+                console.log("No Tickets were found!");
+            })
         })
         .catch(err => {
             console.log("Project wasn't found!");
             history.push(`/projects`);
         })
-    }, [])
+    }, [location.pathname])
 
     return (
         // Page with Side Bar
         <div className="page d-flex with_side_panel p-0 m-0 outer" >
 
             {/* Side Bar */}
-            <div className="container-fluid side_panel m-0 p-1">
-                <Table 
-                    className="w-100"
-                    content={projects}
-                />
+            <div className="side_panel m-0 p-1">
+                <TableSideProjects/>
             </div>
 
             {/* Page adjacent to Side Bar */}
-            <div className="container-fluid d-flex page m-0 p-0">
+            <div className="d-flex page m-0 p-0 w-100">
                 
                 <div className="container-fluid quart_chunk">
                     <h2>Project Name here</h2>
@@ -76,6 +92,7 @@ export default function Project(props) {
                 </div>
                 <div className="quart_chunk p-1">
                     <h2>Ticket History</h2>
+                    <Link class="btn btn-primary" to={`/project/tickets/${id}`}>View all Tickets</Link>
                     <Bar
                         data={state}
                         options={{
@@ -100,9 +117,7 @@ export default function Project(props) {
                         show={createTicketModalShow}
                         onHide={() => setCreateTicketModalShow(false)}
                     />
-                    <Table
-                        content={tickets}
-                    />
+                    {tickets.length > 0 ? <TableWithLink content={tickets}/> : <></>}
                 </div>
 
             </div>

@@ -11,18 +11,18 @@ export default function Table(props) {
                     })}
                 </tr>
             </thead>
-        <tbody>
-            {/* Maps the content to table rows. */}
-            {props.content.slice(1).map((row, idx) => {
-                return (
-                    <tr key={`tr_${idx+1}`}>
-                        {row.map((e, idy)=>{
-                            return <td key={`te_${idx}_${idy}`}>{e}</td>
-                        })}
-                    </tr>
-                )
-            })}
-        </tbody>
-    </table>
+            <tbody>
+                {/* Maps the content to table rows. */}
+                {props.content.slice(1).map((row, idx) => {
+                    return (
+                        <tr key={`tr_${idx+1}`}>
+                            {row.map((e, idy)=>{
+                                return <td key={`te_${idx}_${idy}`}>{e}</td>
+                            })}
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </table>
     )
 }
