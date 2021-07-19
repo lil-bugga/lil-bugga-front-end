@@ -1,9 +1,10 @@
 import {Bar} from "react-chartjs-2"
+import Table from "../Components/Table"
 import TableWithLink from "../Components/TableWithLink"
 import {useState, useEffect, useContext} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
 import Button from "react-bootstrap/Button"
-import { useParams, useHistory, useLocation } from "react-router-dom"
+import { useParams, useHistory, useLocation, Link } from "react-router-dom"
 import axios from 'axios'
 import { UserContext } from "../Components/UserProvider"
 import TableSideProjects from "../Components/TableSideProjects"
@@ -27,7 +28,7 @@ let projects = [["Projects"], ["lil bugga"], ["chat point"]]
 // Map projects to array format.
 function mapTickets(tickets, pid){
     return tickets.reduce((out, row) => {
-        return out.concat([[row.id, row.status, row.created_at, `${pid}/${row.id}`]])
+        return out.concat([[row.id, row.status, row.created_at, `ticket/${pid}/${row.id}`]])
     }, [])
 }
 
@@ -56,7 +57,6 @@ export default function Project(props) {
             axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
             .then(res => res.data)
             .then(body => {
-                console.log(body);
                 body && console.log(`Tickets: Loaded`);
                 setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
             })
@@ -92,6 +92,7 @@ export default function Project(props) {
                 </div>
                 <div className="quart_chunk p-1">
                     <h2>Ticket History</h2>
+                    <Link class="btn btn-primary" to={`/project/tickets/${id}`}>View all Tickets</Link>
                     <Bar
                         data={state}
                         options={{
