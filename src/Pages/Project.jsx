@@ -25,6 +25,17 @@ const state = {
 
 let projects = [["Projects"], ["lil bugga"], ["chat point"]]
 
+// Get an array of users ids and the roles
+function mapUsers(usersArray){
+    return usersArray.reduce((out, user) => {
+        return out.concat([[user.user_id, user.role]])
+    }, [])
+}
+
+function myRole(id, usersArray){
+    return usersArray.reduce((a,i) => i[0] == id ? i[1] : a, -1)
+}
+
 // Map projects to array format.
 function mapTickets(tickets, pid){
     return tickets.reduce((out, row) => {
@@ -37,8 +48,10 @@ export default function Project(props) {
     const {prefix, user } = useContext(UserContext)
 
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
+    const [userID, setUserID] = useState(-1);
     const [tickets, setTickets] = useState([]);
     const [project, setProject] = useState({});
+    const [users, setUsers] = useState([])
 
     const {id} = useParams();
     let history = useHistory();
@@ -52,6 +65,10 @@ export default function Project(props) {
             console.log(`${body.project_detail.project_name}: Loaded`);
             setProject(body);
             let pid = body.id;
+
+            // Get the user_id and user roles if any projects exist.
+            setUserID(body.user_id)
+            setUsers(mapUsers(body.project_users));
 
             // If project loads, then load in the tickets.
             axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
@@ -83,12 +100,24 @@ export default function Project(props) {
             <div className="d-flex page m-0 p-0 w-100">
                 
                 <div className="container-fluid quart_chunk">
-                    <h2>Project Name here</h2>
-                    <p>Data Required</p>
-                    <ul>
-                        <li>current user name</li>
-                        <li>project information and all tickets</li>
-                    </ul>
+                    {/* Allows resilience to non-instant loads */}
+                    {project.project_detail ? 
+                        <>
+                        <h2>Project: {project.project_detail.project_name}</h2> 
+                        <p className="text-center">{project.project_detail.description}</p>
+                        <p className="text-center">({myRole(userID, users)})</p>
+                        <p className="text-center">View Users - Owner and Admin can edit user roles</p>
+                        </>
+                    : <></>}
+
+                    {/* Only Project Owners can access these parts */}
+                    {project.project_detail && myRole(userID, users) == "owner" ? 
+                        <>
+                            <hr/>
+                            <p>Update Project - Lumped into a project settings form.</p>
+                            <p>Delete Project</p>
+                        </>
+                    : <></>}
                 </div>
                 <div className="quart_chunk p-1">
                     <h2>Ticket History</h2>
