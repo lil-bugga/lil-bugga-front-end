@@ -4,7 +4,7 @@ import TableWithLink from "../Components/TableWithLink"
 import {useState, useEffect, useContext} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
 import ProjectUserModal from "../Components/ProjectUsersModal"
-import ProjectSettingsModal from "../Components/ProjectSettings"
+import ProjectSettingsModal from "../Components/ProjectSettingsModal"
 import Button from "react-bootstrap/Button"
 import { useParams, useHistory, useLocation, Link } from "react-router-dom"
 import axios from 'axios'
@@ -15,18 +15,18 @@ import TableSideProjects from "../Components/TableSideProjects"
 function histogramState(data){
     if (data){
         return {
-        labels: data.map(p => p[0]),
-        datasets: [
-            {
-            label: 'Tickets',
-            backgroundColor: getComputedStyle(document.querySelector("#root")).getPropertyValue("--theme-1"),
-            borderColor: 'rgba(0,0,0,0.5)',
-            borderWidth: 1,
-            data: data.map(p => p[1])
-            }
-        ]
+            labels: data.map(p => p[0]),
+            datasets: [
+                {
+                label: 'Tickets',
+                backgroundColor: getComputedStyle(document.querySelector("#root")).getPropertyValue("--theme-1"),
+                borderColor: 'rgba(0,0,0,0.5)',
+                borderWidth: 1,
+                data: data.map(p => p[1])
+                }
+            ]
         }
-    } else {
+    } else { 
         return null;
     }
 }
@@ -34,7 +34,6 @@ function histogramState(data){
 // Turns ticket and project Ids into a histogram for graphing.
 function ticketHistogram(data){
     let hist = [];
-    console.log(data)
     data.forEach(e => {
         if(hist.length > 0 && hist.reduce((a,p) => p[0]== e[0] ? true : a ,false)){
         hist.find(val => val[0] == e[0])[1]++;
@@ -70,6 +69,7 @@ export default function Project(props) {
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
     const [theCrewModal, setTheCrewModal] = useState(false);
     const [projectSettingsModal, setProjectSettingsModal] = useState(false);
+    const [refresh, setRefresh] = useState(false);
     const [userID, setUserID] = useState(-1);
     const [tickets, setTickets] = useState([]);
     const [project, setProject] = useState({});
@@ -79,12 +79,17 @@ export default function Project(props) {
     let history = useHistory();
     let location = useLocation();
 
+    // Method that refreshes this page.
+    function handleRefresh(){
+        setRefresh(!refresh);
+    }
+
     // On page load, try to load project else redirect.
     useEffect(()=>{
         axios.get(`${prefix}projects/${id}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
         .then(res => res.data)
         .then(body => {
-            console.log(`${body.project_detail.project_name}: Loaded`);
+            console.log(`Project Loaded: ${body.project_detail.project_name}`);
             setProject(body);
             let pid = body.id;
 
@@ -96,7 +101,7 @@ export default function Project(props) {
             axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
             .then(res => res.data)
             .then(body => {
-                body && console.log(`Tickets: Loaded`);
+                console.log(`Tickets: Loaded`);
                 setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
             })
             .catch(err => {
@@ -107,7 +112,7 @@ export default function Project(props) {
             console.log("Project wasn't found!");
             history.push(`/projects`);
         })
-    }, [location.pathname])
+    }, [location.pathname, refresh])
 
     return (
         // Page with Side Bar
@@ -150,7 +155,10 @@ export default function Project(props) {
                             </Button>
                             <ProjectSettingsModal
                             show={projectSettingsModal}
-                            onHide={() => setProjectSettingsModal(false)}
+                            onHide={() => {
+                                handleRefresh();
+                                return setProjectSettingsModal(false)
+                            }}
                             />
                         </>
                     : <></>}

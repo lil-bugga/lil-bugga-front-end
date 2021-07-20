@@ -47,7 +47,10 @@ export default function ProjectUsersTable(props){
 
     console.log(project);
     console.log(`${prefix}projects/${id}/users`)
-    axios.delete(`${prefix}projects/${id}/users`, {project}, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+    axios.delete(`${prefix}projects/${id}/users`, project, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+    .then(res => res.body)
+    .then(body => console.log(body))
+    .catch(err => console.log(err))
   }
 
   return (

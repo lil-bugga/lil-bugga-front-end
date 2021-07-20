@@ -1,11 +1,12 @@
 import { useState, useContext } from "react";
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { UserContext } from "./UserProvider";
 
 export default function EditProjectForm(props){
 
   const {prefix, user} = useContext(UserContext)
+  const {id} = useParams();
 
   let history = useHistory();
 
@@ -20,27 +21,37 @@ export default function EditProjectForm(props){
       })
   }
 
-  // Create new projects
-  function createProject(e){
+  // Edit projects
+  function editProject(e){
     e.preventDefault();
 
     const project = {
+      user_id: 2,
+      status: 0,
       project_detail_attributes: {
         project_name: form.name,
         description: form.description
       }
     }
 
-    axios.post(`${prefix}projects`, {project} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+    axios.patch(`${prefix}projects/${id}`, {project} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
     .then(res => {
-      console.log("Project was successfully created!");
+      console.log("Project was successfully edited!");
       // Redirect to the project\
       history.push(`/project/${res.data.id}`)
     })
     .catch(err => {
-      console.log("Project was NOT successfully created!")
+      console.log("Project was NOT successfully edited!")
       setForm({"name":"", "description":""});
     })
+  }
+
+  // Delete project
+  function deleteProject(e){
+    e.preventDefault();
+
+    axios.delete(`${prefix}projects/${id}` ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+
   }
 
   return (
@@ -53,7 +64,13 @@ export default function EditProjectForm(props){
           <input type="description" name="description" value={form.description} onChange={handleInput} className="form-control" placeholder="Project Description"/>
         </div>
 
-        <button type="submit" onClick={createProject} className="btn btn-primary w-100">Create</button>
+        <button type="submit" onClick={editProject} className="btn btn-primary w-100 mb-2">
+          Edit Project
+        </button>
+
+        <button onClick={deleteProject} className="btn btn-danger w-100">
+          Delete Project
+        </button>
       </form>
   )
 }
