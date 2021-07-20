@@ -85,32 +85,34 @@ export default function Project(props) {
 
     // On page load, try to load project else redirect.
     useEffect(()=>{
-        axios.get(`${prefix}projects/${id}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-        .then(res => res.data)
-        .then(body => {
-            console.log(`Project Loaded: ${body.project_detail.project_name}`);
-            setProject(body);
-            let pid = body.id;
-
-            // Get the user_id and user roles if any projects exist.
-            setUserID(body.user_id)
-            setUsers(mapUsers(body.project_users));
-
-            // If project loads, then load in the tickets.
-            axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+        if(user.jwt){
+            axios.get(`${prefix}projects/${id}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
             .then(res => res.data)
             .then(body => {
-                console.log(`Tickets: Loaded`);
-                setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
+                console.log(`Project Loaded: ${body.project_detail.project_name}`);
+                setProject(body);
+                let pid = body.id;
+
+                // Get the user_id and user roles if any projects exist.
+                setUserID(body.user_id)
+                setUsers(mapUsers(body.project_users));
+
+                // If project loads, then load in the tickets.
+                axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+                .then(res => res.data)
+                .then(body => {
+                    console.log(`Tickets: Loaded`);
+                    setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
+                })
+                .catch(err => {
+                    console.log("No Tickets were found!");
+                })
             })
             .catch(err => {
-                console.log("No Tickets were found!");
+                console.log("Project wasn't found!");
+                history.push(`/projects`);
             })
-        })
-        .catch(err => {
-            console.log("Project wasn't found!");
-            history.push(`/projects`);
-        })
+        }
     }, [location.pathname, refresh, history, id, prefix, user])
 
     return (

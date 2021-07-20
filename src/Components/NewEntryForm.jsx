@@ -28,14 +28,16 @@ export default function NewEntryForm(){
       body: form.body
     }
 
-    axios.post(`${prefix}projects/${id}/tickets/${tid}/entries`, {entry} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
-    .then(res => {
-      console.log("Entry was added!");
-    })
-    .catch(err => {
-      console.log("Entry was not added!")
-      setForm({"subject":"", "body":""});
-    })
+    if(user.jwt){
+      axios.post(`${prefix}projects/${id}/tickets/${tid}/entries`, {entry} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+      .then(res => {
+        console.log("Entry was added!");
+      })
+      .catch(err => {
+        console.log("Entry was not added!")
+        setForm({"subject":"", "body":""});
+      })
+    }
   }
 
   return (

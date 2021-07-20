@@ -26,17 +26,19 @@ export default function ProjectTickets() {
 
     // On page load, try to load entires else redirect.
     useEffect(()=>{
-        axios.get(`${prefix}projects/${id}/tickets/${tid}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-        .then(res => {
-            setTicketData(res.data)
-            return res.data.entries
-        })
-        .then(body => {
-            setEntries([["Id", "Subject", "Body", "Created At", "User Id"], ...mapTickets(body)])
-        })
-        .catch(err => {
-            console.log("Project wasn't found!");
-        })
+        if(user.jwt){
+            axios.get(`${prefix}projects/${id}/tickets/${tid}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => {
+                setTicketData(res.data)
+                return res.data.entries
+            })
+            .then(body => {
+                setEntries([["Id", "Subject", "Body", "Created At", "User Id"], ...mapTickets(body)])
+            })
+            .catch(err => {
+                console.log("Project wasn't found!");
+            })
+        }
     }, [location.pathname, refresh, id, tid, prefix, user])
 
     // Method to reload the entries on upload.

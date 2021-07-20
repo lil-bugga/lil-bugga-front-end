@@ -23,16 +23,18 @@ export default function AllProjects(props) {
 
     // On page load, load in projects.
     useEffect(()=>{
-        axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-        .then(res => res.data)
-        .then(body => {
-            setProjects([["Project Name", "Project Description", "Status", "Created At", "Link"], ...mapProjects(body)])
-            }
-        )
-        .catch(err => {
-            console.log(err);
-            history.push("/");
-        })
+        if(user.jwt){
+            axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.data)
+            .then(body => {
+                setProjects([["Project Name", "Project Description", "Status", "Created At", "Link"], ...mapProjects(body)])
+                }
+            )
+            .catch(err => {
+                console.log(err);
+                history.push("/");
+            })
+        }
     }, [user, prefix, history])
 
     return (

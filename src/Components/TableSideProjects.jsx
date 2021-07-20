@@ -22,15 +22,17 @@ export default function TableSideProjects() {
 
     // On page load, load in projects, save mapped to state.
     useEffect(()=>{
-        axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-        .then(res => res.data)
-        .then(body => {
-            setProjects([["Projects", "Link"], ...mapProjects(body)])
-            }
-        )
-        .catch(err => {
-            console.log(err);
-        })
+        if(user.jwt){
+            axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.data)
+            .then(body => {
+                setProjects([["Projects", "Link"], ...mapProjects(body)])
+                }
+            )
+            .catch(err => {
+                console.log(err);
+            })
+        }
     }, [prefix, user.jwt])
 
     // Handle table links

@@ -27,7 +27,7 @@ export default function EditAccountForm(){
       email: form.email,
       password: form.password
     }
-
+    
     axios.post(`${prefix}users/signin`, { user })
     .then(res => {
       userLogin(res.data.username, res.data.email, res.data.jwt);
@@ -49,18 +49,20 @@ export default function EditAccountForm(){
       password_confirmation: form.password_confirmation
     }
 
-    axios.post(`${prefix}users/update`, { user }, {headers: {"Authorization": `Bearer ${current_user.jwt}`}})
-    .then(res => {
-      console.log("Something changed!")
-      // Do something
-    })
-    .then(body => {
-      logIn();
-    })
-    .catch(err => {
-      console.log(err);
-      setForm({"username":"", "email":"", "password":"", "password_confirmation": ""});
-    })
+    if(user.jwt){
+      axios.post(`${prefix}users/update`, { user }, {headers: {"Authorization": `Bearer ${current_user.jwt}`}})
+      .then(res => {
+        console.log("Something changed!")
+        // Do something
+      })
+      .then(body => {
+        logIn();
+      })
+      .catch(err => {
+        console.log(err);
+        setForm({"username":"", "email":"", "password":"", "password_confirmation": ""});
+      })
+    }
   }
 
   return (

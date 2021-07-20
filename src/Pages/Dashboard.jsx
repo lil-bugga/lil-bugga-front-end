@@ -60,30 +60,31 @@ export default function Dashboard(props){
   const [tickets, setTickets] = useState({});
   let history = useHistory();
 
-  // On page load, load in projects and tickets.
+  // On page load, load in projects and tickets. (If User jwt exists.)
   useEffect(()=>{
-    axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-    .then(res => res.data)
-    .then(body => {
-        setProjects([["Project Name", "Link"], ...mapProjects(body)])
-        }
-    )
-    .catch(err => {
-        console.log(err);
-        history.push("/");
-    })
+    if(user.jwt){
+      axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+      .then(res => res.data)
+      .then(body => {
+          setProjects([["Project Name", "Link"], ...mapProjects(body)])
+          }
+      )
+      .catch(err => {
+          console.log(err);
+          history.push("/");
+      })
 
-    axios.get(`${prefix}/tickets/user`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-    .then(res => res.data)
-    .then(body => {
-        setTickets(body.map(t => [t.project_id, t.id ]))
-        }
-    )
-    .catch(err => {
-        console.log(err);
-        history.push("/");
-    })
-
+      axios.get(`${prefix}/tickets/user`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+      .then(res => res.data)
+      .then(body => {
+          setTickets(body.map(t => [t.project_id, t.id ]))
+          }
+      )
+      .catch(err => {
+          console.log(err);
+          history.push("/");
+      })
+    };
   }, [history, prefix, user])
 
   return(
@@ -94,17 +95,16 @@ export default function Dashboard(props){
         <Button variant="primary" onClick={() => setEditAccountModalShow(true)}>
           Edit Account
         </Button>
-        
-        <div className="d-flex">
-          <EditAccountModal
-            show={editAccountModalShow}
-            onHide={() => setEditAccountModalShow(false)}
-          />
-          <div className="d-flex flex-column w-100">
-            <h2>{user.username}</h2>
-            <h3 className="text-center">{user.email}</h3>
-          </div>
+
+        <EditAccountModal
+          show={editAccountModalShow}
+          onHide={() => setEditAccountModalShow(false)}
+        />
+        <div className="d-flex flex-column w-100">
+          <h2>{user.username}</h2>
+          <h3 className="text-center">{user.email}</h3>
         </div>
+
       </div>
 
       <div className="quart_chunk" >

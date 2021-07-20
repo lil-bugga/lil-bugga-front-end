@@ -43,7 +43,7 @@ export default function UserProvider({children}){
     function userLogin(username, email, jwt){
         console.log(`Logging in as ${email}.`);
         setUser({"username":username, "email":email, "jwt":jwt })
-        localStorage.setItem("user", JSON.stringify({"username":email, "email":email, "jwt":jwt }));
+        localStorage.setItem("user", JSON.stringify({"username":username, "email":email, "jwt":jwt }));
     }
 
     // On login to sample user, save user so they persist throughout page. (jwt, email, name)
