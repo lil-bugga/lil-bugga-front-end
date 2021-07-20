@@ -35,7 +35,7 @@ function Landing() {
 
     axios.post(`${prefix}users/signin`, { user })
     .then(res => {
-      userLogin(res.data.username, res.data.jwt);
+      userLogin(res.data.username, res.data.email, res.data.jwt);
     })
     .catch(err => {
       console.log(err);
@@ -55,7 +55,7 @@ function Landing() {
   
       axios.post(`${prefix}users/signin`, { user })
       .then(res => {
-        userLogin(res.data.username, res.data.jwt);
+        userLogin(res.data.username, res.data.email, res.data.jwt);
       })
       .catch(err => {
         console.log(err);

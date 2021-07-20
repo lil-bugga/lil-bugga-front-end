@@ -7,8 +7,8 @@ export default function UnauthorizedUserRedirect(){
     const { user } = useContext(UserContext);
 
     useEffect(() => {
-        if(user.name){
-            console.log(`You are logged in as ${user.name}`);
+        if(user.username){
+            console.log(`You are logged in as ${user.username}`);
         } else {
             console.log("You are not logged in!");
         }
@@ -16,7 +16,7 @@ export default function UnauthorizedUserRedirect(){
 
     return (
         <>
-            { user.name ? <></> : <Redirect to="/"></Redirect>}
+            { user.username ? <></> : <Redirect to="/"></Redirect>}
         </>
     ) 
 }

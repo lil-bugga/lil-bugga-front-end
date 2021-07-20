@@ -9,18 +9,38 @@ import EditAccountModal from '../Components/EditAccountModal'
 import {UserContext} from "./../Components/UserProvider"
 import axios from 'axios'
 
-const state = {
-  labels: ['January', 'February', 'March',
-           'April', 'May'],
-  datasets: [
-    {
-      label: 'Rainfall',
-      backgroundColor: getComputedStyle(document.querySelector("#root")).getPropertyValue("--theme-1"),
-      borderColor: 'rgba(0,0,0,0.5)',
-      borderWidth: 1,
-      data: [65, 59, 80, 81, 56]
+// Takes histogram and returns state ready for graph.
+function histogramState(data){
+
+  if (data){
+    return {
+      labels: data.map(p => p[0]),
+      datasets: [
+        {
+          label: 'Tickets',
+          backgroundColor: getComputedStyle(document.querySelector("#root")).getPropertyValue("--theme-1"),
+          borderColor: 'rgba(0,0,0,0.5)',
+          borderWidth: 1,
+          data: data.map(p => p[1])
+        }
+      ]
     }
-  ]
+  } else {
+    return null;
+  }
+}
+
+// Turns ticket and project Ids into a histogram for graphing.
+function ticketHistogram(data){
+  let hist = [];
+  data.forEach(e => {
+    if(hist.length > 0 && hist.reduce((a,p) => p[0]== e[0] ? true : a ,false)){
+      hist.find(val => val[0] == e[0])[1]++;
+    } else {
+      hist.push([e[0], 1])
+    }
+  })
+  return hist;
 }
 
 // Map projects to array format.
@@ -37,15 +57,12 @@ export default function Dashboard(props){
   const [createProjectModalShow, setCreateProjectModalShow] = useState(false);
   const [editAccountModalShow, setEditAccountModalShow] = useState(false);
   const [projects, setProjects] = useState({});
+  const [tickets, setTickets] = useState({});
   const {id} = useParams();
   let history = useHistory();
   let location = useLocation();
 
-  let notifications = [["Project", "Ticket", "Change"], 
-    ["lil bugga","Glitchy landing page.","Importance has shifted to urgent."], 
-    [4,5,6]]
-
-  // On page load, load in projects.
+  // On page load, load in projects and tickets.
   useEffect(()=>{
     axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
     .then(res => res.data)
@@ -57,6 +74,18 @@ export default function Dashboard(props){
         console.log(err);
         history.push("/");
     })
+
+    axios.get(`${prefix}/tickets/user`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+    .then(res => res.data)
+    .then(body => {
+        setTickets(body.map(t => [t.project_id, t.id ]))
+        }
+    )
+    .catch(err => {
+        console.log(err);
+        history.push("/");
+    })
+
 }, [])
 
   return(
@@ -74,15 +103,16 @@ export default function Dashboard(props){
             onHide={() => setEditAccountModalShow(false)}
           />
           <div className="d-flex flex-column w-100">
-            <h2>{user.email}</h2>
+            <h2>{user.username}</h2>
+            <h3 class="text-center">{user.email}</h3>
           </div>
         </div>
       </div>
 
       <div className="quart_chunk" >
         <h2>My Tickets</h2>
-        <Bar
-          data={state}
+        { tickets.length > 0 ? <Bar
+          data={histogramState( ticketHistogram(tickets) )}
           options={{
             title:{
               display:true,
@@ -94,7 +124,7 @@ export default function Dashboard(props){
               position:'right'
             }
           }}
-        />
+        /> : <></> }
       </div>
 
       <div id="DashboardProjects" className="quart_chunk">
