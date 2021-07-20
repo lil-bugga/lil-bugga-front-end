@@ -86,7 +86,7 @@ export default function Dashboard(props){
         history.push("/");
     })
 
-}, [])
+  }, [])
 
   return(
     <div className="d-flex flex-wrap outer" id="Dashboard">

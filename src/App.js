@@ -2,7 +2,6 @@ import './App.css';
 import NavBar from './Components/NavBar';
 import Landing from "./Pages/Landing"
 import Dashboard from './Pages/Dashboard';
-import Account from "./Pages/Account"
 import AllProjects from './Pages/AllProjects';
 import Project from "./Pages/Project"
 import ProjectTicket from "./Pages/ProjectTickets"
@@ -37,9 +36,6 @@ export default function App() {
               <Switch>
                 <Route path="/dashboard">
                   <Dashboard/>
-                </Route>
-                <Route path="/account">
-                  <Account/>
                 </Route>
                 <Route exact path="/project/:id">
                   <Project/>
