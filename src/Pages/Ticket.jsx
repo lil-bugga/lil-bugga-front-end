@@ -69,7 +69,6 @@ export default function ProjectTickets() {
                             handleEntry();
                             setCreateEntryModalShow(false)
                         }}
-                        handleEntry={handleEntry}
                     />
                     {entries.length > 1 && <Table content={entries}/>}
                 </div>

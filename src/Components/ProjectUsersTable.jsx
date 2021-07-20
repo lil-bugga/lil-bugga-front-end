@@ -56,17 +56,19 @@ export default function ProjectUsersTable(props){
   return (
     <table className="table">
         <thead>
-            <th>User ID</th>
-            <th>Role</th>
-            <th>Promote</th>
-            <th>Demote</th>
-            <th>Remove</th>
+            <tr key={"proj_0"}>
+                <th>User ID</th>
+                <th>Role</th>
+                <th>Promote</th>
+                <th>Demote</th>
+                <th>Remove</th>
+            </tr>
         </thead>
         <tbody>
-            {props.users.map(u => {
+            {props.users.map((u, idx) => {
                 return (
                     // Users id is put in name for handle functions.
-                    <tr name={u[0]}> 
+                    <tr name={u[0]} key={`proj_${idx + 1}`}> 
                         <td>{u[0]}</td>
                         <td>{u[1]}</td>
                         <td>{validCommand(myRole(props.user_id, props.users), u[1]) ? <p className="btn btn-primary m-0">+</p> : ""}</td>
