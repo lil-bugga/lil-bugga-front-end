@@ -4,27 +4,46 @@ import TableWithLink from "../Components/TableWithLink"
 import {useState, useEffect, useContext} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
 import ProjectUserModal from "../Components/ProjectUsersModal"
+import ProjectSettingsModal from "../Components/ProjectSettings"
 import Button from "react-bootstrap/Button"
 import { useParams, useHistory, useLocation, Link } from "react-router-dom"
 import axios from 'axios'
 import { UserContext } from "../Components/UserProvider"
 import TableSideProjects from "../Components/TableSideProjects"
 
-const state = {
-    labels: ['January', 'February', 'March',
-             'April', 'May'],
-    datasets: [
-      {
-        label: 'Rainfall',
-        backgroundColor: getComputedStyle(document.querySelector("#root")).getPropertyValue("--theme-1"),
-        borderColor: 'rgba(0,0,0,1)',
-        borderWidth: 0.5,
-        data: [65, 59, 80, 81, 56]
-      }
-    ]
+// Takes histogram and returns state ready for graph.
+function histogramState(data){
+    if (data){
+        return {
+        labels: data.map(p => p[0]),
+        datasets: [
+            {
+            label: 'Tickets',
+            backgroundColor: getComputedStyle(document.querySelector("#root")).getPropertyValue("--theme-1"),
+            borderColor: 'rgba(0,0,0,0.5)',
+            borderWidth: 1,
+            data: data.map(p => p[1])
+            }
+        ]
+        }
+    } else {
+        return null;
+    }
 }
 
-let projects = [["Projects"], ["lil bugga"], ["chat point"]]
+// Turns ticket and project Ids into a histogram for graphing.
+function ticketHistogram(data){
+    let hist = [];
+    console.log(data)
+    data.forEach(e => {
+        if(hist.length > 0 && hist.reduce((a,p) => p[0]== e[0] ? true : a ,false)){
+        hist.find(val => val[0] == e[0])[1]++;
+        } else {
+        hist.push([e[0], 1])
+        }
+    })
+    return hist;
+}
 
 // Get an array of users ids and the roles
 function mapUsers(usersArray){
@@ -50,6 +69,7 @@ export default function Project(props) {
 
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
     const [theCrewModal, setTheCrewModal] = useState(false);
+    const [projectSettingsModal, setProjectSettingsModal] = useState(false);
     const [userID, setUserID] = useState(-1);
     const [tickets, setTickets] = useState([]);
     const [project, setProject] = useState({});
@@ -124,28 +144,35 @@ export default function Project(props) {
                     {project.project_detail && myRole(userID, users) == "owner" ? 
                         <>
                             <hr/>
-                            <p>Update Project - Lumped into a project settings form.</p>
-                            <p>Delete Project</p>
+                            <p className="text-center"><b>Admin Settings</b></p>
+                            <Button variant="primary" onClick={() => setProjectSettingsModal(true)}>
+                                Settings
+                            </Button>
+                            <ProjectSettingsModal
+                            show={projectSettingsModal}
+                            onHide={() => setProjectSettingsModal(false)}
+                            />
                         </>
                     : <></>}
                 </div>
                 <div className="quart_chunk p-1">
                     <h2>Ticket History</h2>
                     <Link class="btn btn-primary" to={`/project/tickets/${id}`}>View all Tickets</Link>
-                    <Bar
-                        data={state}
-                        options={{
-                        title:{
-                            display:true,
-                            text:'Average Rainfall per month',
-                            fontSize:20
-                        },
-                        legend:{
-                            display:true,
-                            position:'right'
-                        }
-                        }}
-                    />
+                    { tickets.length > 0 ? 
+                        <Bar
+                            data={histogramState( ticketHistogram(tickets).splice(1) )}
+                            options={{
+                                title:{
+                                display:true,
+                                text:'Average Rainfall per month',
+                                fontSize:20
+                                },
+                                legend:{
+                                display:true,
+                                position:'right'
+                                }
+                            }}
+                        /> : <></> }
                 </div>
                 <div id="Tickets" className="quart_chunk d-flex flex-column">
                     <h2 class="text-center">Tickets</h2>
