@@ -1,9 +1,8 @@
 import {Bar} from "react-chartjs-2"
-import Table from "../Components/Table"
 import TableWithLink from "../Components/TableWithLink"
 import {useState, useEffect, useContext} from 'react'
 import CreateTicketModal from "./../Components/CreateTicketModal"
-import ProjectUserModal from "../Components/ProjectUsersModal"
+import ProjectUsersModal from "../Components/ProjectUsersModal"
 import ProjectSettingsModal from "../Components/ProjectSettingsModal"
 import Button from "react-bootstrap/Button"
 import { useParams, useHistory, useLocation, Link } from "react-router-dom"
@@ -35,8 +34,8 @@ function histogramState(data){
 function ticketHistogram(data){
     let hist = [];
     data.forEach(e => {
-        if(hist.length > 0 && hist.reduce((a,p) => p[0]== e[0] ? true : a ,false)){
-        hist.find(val => val[0] == e[0])[1]++;
+        if(hist.length > 0 && hist.reduce((a,p) => p[0]=== e[0] ? true : a ,false)){
+        hist.find(val => val[0] === e[0])[1]++;
         } else {
         hist.push([e[0], 1])
         }
@@ -52,7 +51,7 @@ function mapUsers(usersArray){
 }
 
 function myRole(id, usersArray){
-    return usersArray.reduce((a,i) => i[0] == id ? i[1] : a, -1)
+    return usersArray.reduce((a,i) => i[0] === id ? i[1] : a, -1)
 }
 
 // Map projects to array format.
@@ -112,7 +111,7 @@ export default function Project(props) {
             console.log("Project wasn't found!");
             history.push(`/projects`);
         })
-    }, [location.pathname, refresh])
+    }, [location.pathname, refresh, history, id, prefix, user])
 
     return (
         // Page with Side Bar
@@ -136,7 +135,7 @@ export default function Project(props) {
                         <Button variant="primary" onClick={() => setTheCrewModal(true)}>
                             The Crew
                         </Button>
-                        <ProjectUserModal
+                        <ProjectUsersModal
                             user_id={userID}
                             users={users}
                             show={theCrewModal}
@@ -146,7 +145,7 @@ export default function Project(props) {
                     : <></>}
 
                     {/* Only Project Owners can access these parts */}
-                    {project.project_detail && myRole(userID, users) == "owner" ? 
+                    {project.project_detail && myRole(userID, users) === "owner" ? 
                         <>
                             <hr/>
                             <p className="text-center"><b>Admin Settings</b></p>
@@ -165,7 +164,7 @@ export default function Project(props) {
                 </div>
                 <div className="quart_chunk p-1">
                     <h2>Ticket History</h2>
-                    <Link class="btn btn-primary" to={`/project/tickets/${id}`}>View all Tickets</Link>
+                    <Link className="btn btn-primary" to={`/project/tickets/${id}`}>View all Tickets</Link>
                     { tickets.length > 0 ? 
                         <Bar
                             data={histogramState( ticketHistogram(tickets).splice(1) )}
@@ -183,7 +182,7 @@ export default function Project(props) {
                         /> : <></> }
                 </div>
                 <div id="Tickets" className="quart_chunk d-flex flex-column">
-                    <h2 class="text-center">Tickets</h2>
+                    <h2 className="text-center">Tickets</h2>
                     <Button variant="primary" onClick={() => setCreateTicketModalShow(true)}>
                         Create Ticket
                     </Button>

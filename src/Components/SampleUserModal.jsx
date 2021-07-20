@@ -9,7 +9,7 @@ export default function SampleUserModal(props) {
 
   return (
     <Modal
-      {...props}
+      {...props}s
       size="lg"
       centered
     >
@@ -19,20 +19,20 @@ export default function SampleUserModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div class="user">
-          <img src={Client}/> 
+        <div className="user">
+          <img src={Client} alt="Client User"/> 
           <Link className="btn btn-primary w-75" onClick={props.handleLogin} to="/dashboard">Log in Client</Link>
         </div>
-        <div class="user">
-          <img src={Developer}/>
+        <div className="user">
+          <img src={Developer} alt="Client User"/>
           <Link className="btn btn-primary w-75" onClick={props.handleLogin} to="/dashboard">Log in Developer</Link>
         </div>
-        <div class="user">
-          <img src={Admin}/>
+        <div className="user">
+          <img src={Admin} alt="Client User"/>
           <Link className="btn btn-primary w-75" onClick={props.handleLogin} to="/dashboard">Log in Admin</Link>
         </div>
-        <div class="user">
-          <img src={Owner}/>
+        <div className="user">
+          <img src={Owner} alt="Client User"/>
           <Link className="btn btn-primary w-75" onClick={props.handleLogin} to="/dashboard">Log in Owner</Link>
         </div>
       </Modal.Body>

@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import axios from 'axios'
-import { useParams, useHistory } from "react-router-dom"
+import { useParams} from "react-router-dom"
 import { UserContext } from "./UserProvider";
 
 export default function NewEntryForm(){
@@ -8,7 +8,6 @@ export default function NewEntryForm(){
   // Vital information for this page.
   const {prefix, user} = useContext(UserContext)
   const {id, tid} = useParams();
-  const history = useHistory();
 
   // Holds the state of the form to make it controlled.
   let [form, setForm] = useState({"subject":"", "body":""});

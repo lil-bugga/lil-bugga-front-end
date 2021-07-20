@@ -49,7 +49,7 @@ export default function ProjectTickets() {
             console.log("Project wasn't found!");
             history.push(`/projects`);
         })
-    }, [location.pathname])
+    }, [location.pathname, history, id, prefix, user])
     
     return (
         // Page with Side Bar
@@ -63,8 +63,8 @@ export default function ProjectTickets() {
             {/* Page adjacent to Side Bar */}
             <div className="container-fluid d-flex page m-0 p-2 align-items-center">
                 <div className="whole_chunk">
-                    <h1 class="text-center">Project Name</h1>
-                    <Button class="btn btn-primary" variant="primary" onClick={() => setCreateTicketModalShow(true)}>
+                    <h1 className="text-center">{project}</h1>
+                    <Button className="btn btn-primary" variant="primary" onClick={() => setCreateTicketModalShow(true)}>
                         Create Ticket
                     </Button>
                     <CreateTicketModal

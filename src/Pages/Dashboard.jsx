@@ -2,7 +2,7 @@ import React from 'react'
 import TableWithLink from "./../Components/TableWithLink"
 import {Bar} from "react-chartjs-2"
 import {useState, useContext, useEffect} from 'react'
-import { useLocation, useParams, useHistory} from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import CreateProjectModal from "./../Components/CreateProjectModal"
 import Button from "react-bootstrap/Button"
 import EditAccountModal from '../Components/EditAccountModal'
@@ -34,8 +34,8 @@ function histogramState(data){
 function ticketHistogram(data){
   let hist = [];
   data.forEach(e => {
-    if(hist.length > 0 && hist.reduce((a,p) => p[0]== e[0] ? true : a ,false)){
-      hist.find(val => val[0] == e[0])[1]++;
+    if(hist.length > 0 && hist.reduce((a,p) => p[0]=== e[0] ? true : a ,false)){
+      hist.find(val => val[0] === e[0])[1]++;
     } else {
       hist.push([e[0], 1])
     }
@@ -58,9 +58,7 @@ export default function Dashboard(props){
   const [editAccountModalShow, setEditAccountModalShow] = useState(false);
   const [projects, setProjects] = useState({});
   const [tickets, setTickets] = useState({});
-  const {id} = useParams();
   let history = useHistory();
-  let location = useLocation();
 
   // On page load, load in projects and tickets.
   useEffect(()=>{
@@ -86,7 +84,7 @@ export default function Dashboard(props){
         history.push("/");
     })
 
-  }, [])
+  }, [history, prefix, user])
 
   return(
     <div className="d-flex flex-wrap outer" id="Dashboard">
@@ -104,7 +102,7 @@ export default function Dashboard(props){
           />
           <div className="d-flex flex-column w-100">
             <h2>{user.username}</h2>
-            <h3 class="text-center">{user.email}</h3>
+            <h3 className="text-center">{user.email}</h3>
           </div>
         </div>
       </div>
