@@ -21,6 +21,11 @@ export default function NewTicketForm(){
       })
   }
 
+  // Close the Modal
+  function closeModal(){
+    document.querySelector("div.fade.modal.show").click();
+  }
+
   function createTicket(e){
     e.preventDefault();
 
@@ -42,6 +47,7 @@ export default function NewTicketForm(){
         axios.post(`${prefix}projects/${id}/tickets/${res.data.id}/entries`, {entry} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
         .then(res => {
           console.log("First entry was added.");
+          closeModal();
         })
         .catch(err => {
           console.log("Entry didn't get entered!")

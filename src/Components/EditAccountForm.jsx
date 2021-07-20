@@ -4,7 +4,7 @@ import {useContext} from 'react'
 import {UserContext} from './UserProvider'
 
 
-export default function EditAccountForm(){
+export default function EditAccountForm(props){
 
   const { user, prefix, userLogin } = useContext(UserContext)
   const current_user = user;
@@ -39,6 +39,11 @@ export default function EditAccountForm(){
     })
   }
 
+  // Close the Modal
+  function closeModal(){
+    document.querySelector("div.fade.modal.show").click();
+  }
+  
   function handleEdit(e){
     e.preventDefault();
 
@@ -49,14 +54,14 @@ export default function EditAccountForm(){
       password_confirmation: form.password_confirmation
     }
 
-    if(user.jwt){
+    if(user){
       axios.post(`${prefix}users/update`, { user }, {headers: {"Authorization": `Bearer ${current_user.jwt}`}})
       .then(res => {
         console.log("Something changed!")
-        // Do something
       })
       .then(body => {
         logIn();
+        closeModal();
       })
       .catch(err => {
         console.log(err);

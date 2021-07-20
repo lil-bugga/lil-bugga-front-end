@@ -113,7 +113,7 @@ export default function Project(props) {
                 history.push(`/projects`);
             })
         }
-    }, [location.pathname, refresh, history, id, prefix, user])
+    }, [location.pathname, refresh, history, id, prefix, user, createTicketModalShow])
 
     return (
         // Page with Side Bar

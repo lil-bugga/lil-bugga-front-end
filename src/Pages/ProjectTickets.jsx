@@ -18,11 +18,19 @@ export default function ProjectTickets() {
     // Important variables
     const {prefix, user } = useContext(UserContext)
     const [createTicketModalShow, setCreateTicketModalShow] = useState(false);
+    const [refesh, setRefresh] = useState(false)
     const [tickets, setTickets] = useState([]);
     const [project, setProject] = useState({});
     const {id} = useParams();
     let history = useHistory();
     let location = useLocation();
+
+    // Token changes on on modal close, to avoid infinite loop.
+    useEffect(() => {
+        if(createTicketModalShow == false){
+            setRefresh(!refesh);
+        }
+    }, [createTicketModalShow])
 
     // On page load, try to load project else redirect.
     useEffect(()=>{
@@ -40,6 +48,7 @@ export default function ProjectTickets() {
                 .then(body => {
                     body && console.log(`Tickets: Loaded`);
                     setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
+                    setCreateTicketModalShow(false);
                 })
                 .catch(err => {
                     console.log("No Tickets were found!");
@@ -51,7 +60,7 @@ export default function ProjectTickets() {
                 history.push(`/projects`);
             })
         }
-    }, [location.pathname, history, id, prefix, user])
+    }, [location.pathname, history, id, prefix, user, refesh])
     
     return (
         // Page with Side Bar
