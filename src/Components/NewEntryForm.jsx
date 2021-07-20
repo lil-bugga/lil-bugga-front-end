@@ -20,6 +20,11 @@ export default function NewEntryForm(){
       })
   }
 
+  // Close the Modal
+  function closeModal(){
+    document.querySelector("div.fade.modal.show").click();
+  }
+
   function createEntry(e){
     e.preventDefault();
     
@@ -32,6 +37,7 @@ export default function NewEntryForm(){
       axios.post(`${prefix}projects/${id}/tickets/${tid}/entries`, {entry} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
       .then(res => {
         console.log("Entry was added!");
+        closeModal();
       })
       .catch(err => {
         console.log("Entry was not added!")

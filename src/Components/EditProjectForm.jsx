@@ -21,6 +21,11 @@ export default function EditProjectForm(props){
       })
   }
 
+  // Close the Modal
+  function closeModal(){
+    document.querySelector("div.fade.modal.show").click();
+  }
+
   // Edit projects
   function editProject(e){
     e.preventDefault();
@@ -40,6 +45,7 @@ export default function EditProjectForm(props){
         console.log("Project was successfully edited!");
         // Redirect to the project\
         history.push(`/project/${res.data.id}`)
+        closeModal();
       })
       .catch(err => {
         console.log("Project was NOT successfully edited!")
@@ -54,6 +60,9 @@ export default function EditProjectForm(props){
 
     if(user.jwt){
       axios.delete(`${prefix}projects/${id}` ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+      .then(res => {
+        closeModal();
+      })
     }
 
   }
