@@ -137,7 +137,7 @@ export default function Project(props) {
                         <h2>Project: {project.project_detail.project_name}</h2> 
                         <p className="text-center">{project.project_detail.description}</p>
                         <p className="text-center">({myRole(userID, users)})</p>
-                        <Button variant="primary" onClick={() => setTheCrewModal(true)}>
+                        <Button variant="primary rounded-0" onClick={() => setTheCrewModal(true)}>
                             The Crew
                         </Button>
                         <ProjectUsersModal
@@ -154,7 +154,7 @@ export default function Project(props) {
                         <>
                             <hr/>
                             <p className="text-center"><b>Admin Settings</b></p>
-                            <Button variant="primary" onClick={() => setProjectSettingsModal(true)}>
+                            <Button variant="primary rounded-0" onClick={() => setProjectSettingsModal(true)}>
                                 Settings
                             </Button>
                             <ProjectSettingsModal
@@ -169,7 +169,7 @@ export default function Project(props) {
                 </div>
                 <div className="quart_chunk p-1">
                     <h2>Ticket History</h2>
-                    <Link className="btn btn-primary" to={`/project/tickets/${id}`}>View all Tickets</Link>
+                    <Link className="btn btn-primary rounded-0" to={`/project/tickets/${id}`}>View all Tickets</Link>
                     { tickets.length > 0 ? 
                         <Bar
                             data={histogramState( ticketHistogram(tickets).splice(1) )}
@@ -188,14 +188,16 @@ export default function Project(props) {
                 </div>
                 <div id="Tickets" className="quart_chunk d-flex flex-column">
                     <h2 className="text-center">Tickets</h2>
-                    <Button variant="primary" onClick={() => setCreateTicketModalShow(true)}>
+                    <Button variant="primary rounded-0" onClick={() => setCreateTicketModalShow(true)}>
                         Create Ticket
                     </Button>
                     <CreateTicketModal
                         show={createTicketModalShow}
                         onHide={() => setCreateTicketModalShow(false)}
                     />
-                    {tickets.length > 0 ? <TableWithLink content={tickets}/> : <></>}
+                    <div className="scrollable-wrapper">
+                        {tickets.length > 0 ? <TableWithLink content={tickets}/> : <></>}
+                    </div>
                 </div>
 
             </div>

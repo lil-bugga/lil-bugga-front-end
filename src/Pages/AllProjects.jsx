@@ -43,14 +43,16 @@ export default function AllProjects(props) {
         <div className="page d-flex align-items-center outer">
             <div className="whole_chunk d-flex flex-column my-3">
                 <h1 className="text-center">Projects</h1>
-                <Button className="mb-1" variant="primary" onClick={() => setCreateProjectModalShow(true)}>
+                <Button variant="primary rounded-0" onClick={() => setCreateProjectModalShow(true)}>
                     Create a Project
                 </Button>
                 <CreateProjectModal
                     show={createProjectModalShow}
                     onHide={() => setCreateProjectModalShow(false)}
                 />
-                {projects.length > 0 ? <TableWithLink content={projects}/> : <></>} 
+                <div className="scrollable-wrapper">
+                    {projects.length > 0 ? <TableWithLink content={projects}/> : <></>} 
+                </div>
             </div>
             
         </div>

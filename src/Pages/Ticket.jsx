@@ -65,7 +65,7 @@ export default function ProjectTickets() {
                 <div className="whole_chunk">
                     <h1 className="text-center">Ticket: {ticketData.id}</h1>
                     <h4 className="text-center">Info on the first entry</h4>
-                    <Button className="btn btn-primary" variant="primary" onClick={() => setCreateEntryModalShow(true)}>
+                    <Button className="btn btn-primary rounded-0" variant="primary" onClick={() => setCreateEntryModalShow(true)}>
                         Create Entry
                     </Button>
                     <CreateEntryModal
@@ -75,7 +75,9 @@ export default function ProjectTickets() {
                             setCreateEntryModalShow(false)
                         }}
                     />
-                    {entries.length > 1 && <Table content={entries}/>}
+                    <div className="scrollable-wrapper">
+                        {entries.length > 1 && <Table content={entries}/>}
+                    </div>
                 </div>
             </div>
         </div>

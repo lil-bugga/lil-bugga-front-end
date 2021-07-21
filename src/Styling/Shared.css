@@ -119,6 +119,23 @@ table {
     max-width: 100%;
 }
 
+/* Scrollbar styling */
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+    
+*::-webkit-scrollbar-track {
+background: var(--theme-2); 
+}
+
+*::-webkit-scrollbar-thumb {
+background-color: var(--active-1); 
+border-radius: 20px; 
+border: 0px solid orange; 
+}
+
+
 /* Tablet Design */
 @media only screen and (min-width: 800px){
 
@@ -151,6 +168,13 @@ table {
 
 /* Desktop Design */
 @media only screen and (min-width: 1200px){
+
+    /* To hide scrollbars */
+    body {
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
     div.page {
         justify-content: space-around;
     }
@@ -181,6 +205,8 @@ table {
         height: 100%;
         width: 10%;
         min-width: 15%;
+        max-height: 100%;
+        overflow: hide;
     }
 
     div.page.with_side_panel div.page {

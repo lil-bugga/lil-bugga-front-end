@@ -92,7 +92,7 @@ export default function Dashboard(props){
 
       <div className="quart_chunk">
         <h2>Account</h2>
-        <Button variant="primary" onClick={() => setEditAccountModalShow(true)}>
+        <Button variant="primary rounded-0" onClick={() => setEditAccountModalShow(true)}>
           Edit Account
         </Button>
 
@@ -128,14 +128,16 @@ export default function Dashboard(props){
       <div id="DashboardProjects" className="quart_chunk">
         <h2>Projects</h2>
 
-        <Button variant="primary" onClick={() => setCreateProjectModalShow(true)}>
+        <Button variant="primary rounded-0" onClick={() => setCreateProjectModalShow(true)}>
           Create a Project
         </Button>
         <CreateProjectModal
           show={createProjectModalShow}
           onHide={() => setCreateProjectModalShow(false)}
         />
-        {projects.length > 0 ? <TableWithLink content={projects}/> : <></>} 
+        <div className="scrollable-wrapper">
+          {projects.length > 0 ? <TableWithLink content={projects}/> : <></>} 
+        </div>
       </div>
       
     </div>

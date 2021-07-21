@@ -41,23 +41,25 @@ export default function TableSideProjects() {
     }
 
     return (
-        <table className="table">
-            <thead>
-                <tr key="tr_0">
-                    <th className="text-center" scope="col" key={`te_0_0`}>{projects[0][0]}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {projects.slice(1).map((row, idx) => {
-                    return (
-                        <tr key={`tr_${idx+1}`}>
-                            <td onClick={handleLink} className="btn btn-primary w-100 mt-1" key={`te_${idx}_0`}  name={row[1]}>
-                                {row[0]}
-                            </td>
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
+        <div className="scrollable-wrapper-sidebar">
+            <table className="table">
+                <thead>
+                    <tr key="tr_0">
+                        <th className="text-center" scope="col" key={`te_0_0`}>{projects[0][0]}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {projects.slice(1).map((row, idx) => {
+                        return (
+                            <tr key={`tr_${idx+1}`}>
+                                <td onClick={handleLink} className="btn btn-primary w-100 mt-1 rounded-0" key={`te_${idx}_0`}  name={row[1]}>
+                                    {row[0]}
+                                </td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
     )
 }

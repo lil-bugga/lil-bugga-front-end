@@ -73,7 +73,9 @@ export default function ProjectTickets() {
                         show={createTicketModalShow}
                         onHide={() => setCreateTicketModalShow(false)}
                     />
-                    {tickets.length > 0 && <TableWithLink content={tickets}/>}
+                    <div className="scrollable-wrapper">
+                        {tickets.length > 0 && <TableWithLink content={tickets}/>}
+                    </div>
                 </div>
             </div>
         </div>
