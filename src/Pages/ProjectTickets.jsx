@@ -26,30 +26,32 @@ export default function ProjectTickets() {
 
     // On page load, try to load project else redirect.
     useEffect(()=>{
-        axios.get(`${prefix}projects/${id}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-        .then(res => res.data)
-        .then(body => {
-            console.log(`${body.project_detail.project_name}: Loaded`);
-            setProject(body);
-            let pid = body.id;
-
-            // If project loads, then load in the tickets.
-            axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+        if(user.jwt){
+            axios.get(`${prefix}projects/${id}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
             .then(res => res.data)
             .then(body => {
-                body && console.log(`Tickets: Loaded`);
-                setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
+                console.log(`${body.project_detail.project_name}: Loaded`);
+                setProject(body);
+                let pid = body.id;
+
+                // If project loads, then load in the tickets.
+                axios.get(`${prefix}projects/${id}/tickets`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+                .then(res => res.data)
+                .then(body => {
+                    body && console.log(`Tickets: Loaded`);
+                    setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
+                })
+                .catch(err => {
+                    console.log("No Tickets were found!");
+                })
+
             })
             .catch(err => {
-                console.log("No Tickets were found!");
+                console.log("Project wasn't found!");
+                history.push(`/projects`);
             })
-
-        })
-        .catch(err => {
-            console.log("Project wasn't found!");
-            history.push(`/projects`);
-        })
-    }, [location.pathname])
+        }
+    }, [location.pathname, history, id, prefix, user, createTicketModalShow])
     
     return (
         // Page with Side Bar
@@ -63,8 +65,8 @@ export default function ProjectTickets() {
             {/* Page adjacent to Side Bar */}
             <div className="container-fluid d-flex page m-0 p-2 align-items-center">
                 <div className="whole_chunk">
-                    <h1 class="text-center">Project Name</h1>
-                    <Button class="btn btn-primary" variant="primary" onClick={() => setCreateTicketModalShow(true)}>
+                    {project.project_detail && <h1 className="text-center">{project.project_detail.project_name}</h1>}
+                    <Button className="btn btn-primary" variant="primary" onClick={() => setCreateTicketModalShow(true)}>
                         Create Ticket
                     </Button>
                     <CreateTicketModal

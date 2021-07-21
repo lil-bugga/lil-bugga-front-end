@@ -40,33 +40,12 @@ function Landing() {
     .catch(err => {
       console.log(err);
       setForm({"email":"", "password":""});
-
     })
   }
-
-    //Handle sign in.
-    function logInSample(e){
-      e.preventDefault();
   
-      let user = {
-        email: "sample@sample.com",
-        password: "password"
-      }
-  
-      axios.post(`${prefix}users/signin`, { user })
-      .then(res => {
-        userLogin(res.data.username, res.data.email, res.data.jwt);
-      })
-      .catch(err => {
-        console.log(err);
-        setForm({"email":"", "password":""});
-  
-      })
-    }
-
   return (
     <div className="d-flex justify-content-end p-0 m-0" id="Landing">
-      <div class="container h-100 d-flex align-items-center">
+      <div className="container h-100 d-flex align-items-center">
         <h1 className="w-100 p-0">lil bugga</h1>
       </div>
 
@@ -97,7 +76,6 @@ function Landing() {
       <SampleUserModal
         show={sampleUserModalShow}
         onHide={() => setSampleUserModalShow(false)}
-        handleLogin={logInSample}
       />
 
       <CreateAccountModal

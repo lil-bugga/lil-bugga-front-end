@@ -31,16 +31,18 @@ export default function NewProjectForm(props){
       }
     }
 
-    axios.post(`${prefix}projects`, {project} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
-    .then(res => {
-      console.log("Project was successfully created!");
-      // Redirect to the project\
-      history.push(`/project/${res.data.id}`)
-    })
-    .catch(err => {
-      console.log("Project was NOT successfully created!")
-      setForm({"name":"", "description":""});
-    })
+    if(user.jwt){
+      axios.post(`${prefix}projects`, {project} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+      .then(res => {
+        console.log("Project was successfully created!");
+        // Redirect to the project\
+        history.push(`/project/${res.data.id}`)
+      })
+      .catch(err => {
+        console.log("Project was NOT successfully created!")
+        setForm({"name":"", "description":""});
+      })
+    }
   }
 
   return (

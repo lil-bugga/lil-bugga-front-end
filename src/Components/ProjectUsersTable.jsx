@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { UserContext } from './UserProvider';
 
 function myRole(id, usersArray){
-    return usersArray.reduce((a,i) => i[0] == id ? i[1] : a, -1)
+    return usersArray.reduce((a,i) => i[0] === id ? i[1] : a, -1)
 }
 
 // Can person a promote b.
@@ -45,33 +45,35 @@ export default function ProjectUsersTable(props){
         ]
     }
 
-    console.log(project);
-    console.log(`${prefix}projects/${id}/users`)
-    axios.delete(`${prefix}projects/${id}/users`, project, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-    .then(res => res.body)
-    .then(body => console.log(body))
-    .catch(err => console.log(err))
+    if(user.jwt){
+        axios.delete(`${prefix}projects/${id}/users`, {project}, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+        .then(res => res.body)
+        .then(body => console.log(body))
+        .catch(err => console.log(err))
+    }
   }
 
   return (
     <table className="table">
         <thead>
-            <th>User ID</th>
-            <th>Role</th>
-            <th>Promote</th>
-            <th>Demote</th>
-            <th>Remove</th>
+            <tr key={"proj_0"}>
+                <th>User ID</th>
+                <th>Role</th>
+                <th>Promote</th>
+                <th>Demote</th>
+                <th>Remove</th>
+            </tr>
         </thead>
         <tbody>
-            {props.users.map(u => {
+            {props.users.map((u, idx) => {
                 return (
                     // Users id is put in name for handle functions.
-                    <tr name={u[0]}> 
+                    <tr name={u[0]} key={`proj_${idx + 1}`}> 
                         <td>{u[0]}</td>
                         <td>{u[1]}</td>
-                        <td>{validCommand(myRole(props.user_id, props.users), u[1]) ? <a className="btn btn-primary m-0">+</a> : ""}</td>
-                        <td>{validCommand(myRole(props.user_id, props.users), u[1])  ? <a className="btn btn-primary m-0">-</a> : ""}</td>
-                        <td>{true ? <a onClick={removeUser} className="btn btn-primary m-0">X</a> : ""}</td>
+                        <td>{validCommand(myRole(props.user_id, props.users), u[1]) ? <p className="btn btn-primary m-0">+</p> : ""}</td>
+                        <td>{validCommand(myRole(props.user_id, props.users), u[1])  ? <p className="btn btn-primary m-0">-</p> : ""}</td>
+                        <td>{true ? <p onClick={removeUser} className="btn btn-primary m-0">X</p> : ""}</td>
                     </tr>
                 )
             })}            

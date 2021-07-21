@@ -20,7 +20,7 @@ export default function Table(props) {
                     <tr key={`tr_${idx+1}`}>
                         {row.map((e, idy)=>{
 
-                            if(idy+1 == row.length){
+                            if(idy+1 === row.length){
                                 return <td key={`te_${idx}_${idy}`}><Link className="btn w-100 btn-primary" to={e}>View</Link></td>
                             }
 

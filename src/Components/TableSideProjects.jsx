@@ -11,7 +11,6 @@ export default function TableSideProjects() {
     // Important information for making API request.
     let {prefix, user} = useContext(UserContext);
     const [projects, setProjects] = useState([[]]);
-    const [redirectPath, setRedirectPath] = useState("");
     const history = useHistory();
 
     // Map projects to array format.
@@ -23,17 +22,18 @@ export default function TableSideProjects() {
 
     // On page load, load in projects, save mapped to state.
     useEffect(()=>{
-        axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-        .then(res => res.data)
-        .then(body => {
-            setProjects([["Projects", "Link"], ...mapProjects(body)])
-            }
-        )
-        .catch(err => {
-            console.log(err);
-            setRedirectPath("/")
-        })
-    }, [])
+        if(user.jwt){
+            axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.data)
+            .then(body => {
+                setProjects([["Projects", "Link"], ...mapProjects(body)])
+                }
+            )
+            .catch(err => {
+                console.log(err);
+            })
+        }
+    }, [prefix, user.jwt])
 
     // Handle table links
     function handleLink(e){
@@ -44,7 +44,7 @@ export default function TableSideProjects() {
         <table className="table">
             <thead>
                 <tr key="tr_0">
-                    <th class="text-center" scope="col" key={`te_0_0`}>{projects[0][0]}</th>
+                    <th className="text-center" scope="col" key={`te_0_0`}>{projects[0][0]}</th>
                 </tr>
             </thead>
             <tbody>

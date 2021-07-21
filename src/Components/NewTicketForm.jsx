@@ -21,6 +21,11 @@ export default function NewTicketForm(){
       })
   }
 
+  // Close the Modal
+  function closeModal(){
+    document.querySelector("div.fade.modal.show").click();
+  }
+
   function createTicket(e){
     e.preventDefault();
 
@@ -33,25 +38,28 @@ export default function NewTicketForm(){
       body: form.body
     }
 
-    axios.post(`${prefix}projects/${id}/tickets`, {ticket} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
-    .then(res => {
-      console.log("Ticket was successfully created!");
-
-      // Create the first entry on the ticket!. (Must be done here, else ticket is empty)
-      axios.post(`${prefix}projects/${id}/tickets/${res.data.id}/entries`, {entry} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+    if(user.jwt){
+      axios.post(`${prefix}projects/${id}/tickets`, {ticket} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
       .then(res => {
-        console.log("First entry was added.");
-      })
-      .catch(err => {
-        console.log("Entry didn't get entered!")
-      })
+        console.log("Ticket was successfully created!");
 
-    })
-    .then(res => history.push(`/ticket/${res.data.id}`))
-    .catch(err => {
-      console.log("Ticket or entry were NOT successfully created!")
-      setForm({"subject":"", "body":""});
-    })
+        // Create the first entry on the ticket!. (Must be done here, else ticket is empty)
+        axios.post(`${prefix}projects/${id}/tickets/${res.data.id}/entries`, {entry} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+        .then(res => {
+          console.log("First entry was added.");
+          closeModal();
+        })
+        .catch(err => {
+          console.log("Entry didn't get entered!")
+        })
+
+      })
+      .then(res => history.push(`/ticket/${res.data.id}`))
+      .catch(err => {
+        console.log("Ticket or entry were NOT successfully created!")
+        setForm({"subject":"", "body":""});
+      })
+    }
   }
 
   return (

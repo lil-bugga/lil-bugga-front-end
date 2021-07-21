@@ -1,11 +1,34 @@
 import Modal from 'react-bootstrap/Modal'
+import { useContext } from 'react'
+import {UserContext} from "./UserProvider"
 import { Link } from 'react-router-dom'
 import Admin from "./../assets/admin.svg"
 import Developer from "./../assets/developer.svg"
 import Client from "./../assets/pleb.svg"
 import Owner from "./../assets/owner.svg"
+import axios from 'axios'
 
 export default function SampleUserModal(props) {
+
+  const { userLogin,  prefix } = useContext(UserContext)
+
+  //Handle sign in.
+  function logInSample(e){
+    e.preventDefault();
+
+    let user = {
+      email: "sample@sample.com",
+      password: "password"
+    }
+
+    axios.post(`${prefix}users/signin`, { user })
+    .then(res => {
+      userLogin(res.data.username, res.data.email, res.data.jwt);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
 
   return (
     <Modal
@@ -19,21 +42,21 @@ export default function SampleUserModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div class="user">
-          <img src={Client}/> 
-          <Link className="btn btn-primary w-75" onClick={props.handleLogin} to="/dashboard">Log in Client</Link>
+        <div className="user">
+          <img src={Client} alt="Client User"/> 
+          <Link className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Client</Link>
         </div>
-        <div class="user">
-          <img src={Developer}/>
-          <Link className="btn btn-primary w-75" onClick={props.handleLogin} to="/dashboard">Log in Developer</Link>
+        <div className="user">
+          <img src={Developer} alt="Client User"/>
+          <Link className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Developer</Link>
         </div>
-        <div class="user">
-          <img src={Admin}/>
-          <Link className="btn btn-primary w-75" onClick={props.handleLogin} to="/dashboard">Log in Admin</Link>
+        <div className="user">
+          <img src={Admin} alt="Client User"/>
+          <Link className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Admin</Link>
         </div>
-        <div class="user">
-          <img src={Owner}/>
-          <Link className="btn btn-primary w-75" onClick={props.handleLogin} to="/dashboard">Log in Owner</Link>
+        <div className="user">
+          <img src={Owner} alt="Client User"/>
+          <Link className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Owner</Link>
         </div>
       </Modal.Body>
     </Modal>

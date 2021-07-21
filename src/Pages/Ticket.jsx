@@ -1,10 +1,9 @@
 import Table from "../Components/Table"
-import TableWithLink from "../Components/TableWithLink"
 import TableSideProjects from "../Components/TableSideProjects"
 import {useState, useEffect, useContext} from 'react'
 import CreateEntryModal from "./../Components/CreateEntryModal"
 import Button from "react-bootstrap/Button"
-import { useParams, useHistory, useLocation } from "react-router-dom"
+import { useParams, useLocation } from "react-router-dom"
 import axios from 'axios'
 import { UserContext } from "../Components/UserProvider"
 
@@ -23,24 +22,24 @@ export default function ProjectTickets() {
     const [ticketData, setTicketData] = useState({});
     const [refresh, setRefresh] = useState(false);
     const {id, tid} = useParams();
-    let history = useHistory();
     let location = useLocation();
 
     // On page load, try to load entires else redirect.
     useEffect(()=>{
-        axios.get(`${prefix}projects/${id}/tickets/${tid}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-        .then(res => {
-            setTicketData(res.data)
-            return res.data.entries
-        })
-        .then(body => {
-            let pid = id;
-            setEntries([["Id", "Subject", "Body", "Created At", "User Id"], ...mapTickets(body)])
-        })
-        .catch(err => {
-            console.log("Project wasn't found!");
-        })
-    }, [location.pathname, refresh])
+        if(user.jwt){
+            axios.get(`${prefix}projects/${id}/tickets/${tid}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => {
+                setTicketData(res.data)
+                return res.data.entries
+            })
+            .then(body => {
+                setEntries([["Id", "Subject", "Body", "Created At", "User Id"], ...mapTickets(body)])
+            })
+            .catch(err => {
+                console.log("Project wasn't found!");
+            })
+        }
+    }, [location.pathname, refresh, id, tid, prefix, user])
 
     // Method to reload the entries on upload.
     function handleEntry(){
@@ -59,9 +58,9 @@ export default function ProjectTickets() {
             {/* Page adjacent to Side Bar */}
             <div className="container-fluid d-flex page m-0 p-2 align-items-center">
                 <div className="whole_chunk">
-                    <h1 class="text-center">Ticket: {ticketData.id}</h1>
-                    <h4 class="text-center">Info on the first entry</h4>
-                    <Button class="btn btn-primary" variant="primary" onClick={() => setCreateEntryModalShow(true)}>
+                    <h1 className="text-center">Ticket: {ticketData.id}</h1>
+                    <h4 className="text-center">Info on the first entry</h4>
+                    <Button className="btn btn-primary" variant="primary" onClick={() => setCreateEntryModalShow(true)}>
                         Create Entry
                     </Button>
                     <CreateEntryModal
@@ -70,7 +69,6 @@ export default function ProjectTickets() {
                             handleEntry();
                             setCreateEntryModalShow(false)
                         }}
-                        handleEntry={handleEntry}
                     />
                     {entries.length > 1 && <Table content={entries}/>}
                 </div>

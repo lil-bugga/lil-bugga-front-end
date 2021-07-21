@@ -21,6 +21,11 @@ export default function EditProjectForm(props){
       })
   }
 
+  // Close the Modal
+  function closeModal(){
+    document.querySelector("div.fade.modal.show").click();
+  }
+
   // Edit projects
   function editProject(e){
     e.preventDefault();
@@ -34,23 +39,31 @@ export default function EditProjectForm(props){
       }
     }
 
-    axios.patch(`${prefix}projects/${id}`, {project} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
-    .then(res => {
-      console.log("Project was successfully edited!");
-      // Redirect to the project\
-      history.push(`/project/${res.data.id}`)
-    })
-    .catch(err => {
-      console.log("Project was NOT successfully edited!")
-      setForm({"name":"", "description":""});
-    })
+    if(user.jwt){
+      axios.patch(`${prefix}projects/${id}`, {project} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+      .then(res => {
+        console.log("Project was successfully edited!");
+        // Redirect to the project\
+        history.push(`/project/${res.data.id}`)
+        closeModal();
+      })
+      .catch(err => {
+        console.log("Project was NOT successfully edited!")
+        setForm({"name":"", "description":""});
+      })
+    }
   }
 
   // Delete project
   function deleteProject(e){
     e.preventDefault();
 
-    axios.delete(`${prefix}projects/${id}` ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+    if(user.jwt){
+      axios.delete(`${prefix}projects/${id}` ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
+      .then(res => {
+        closeModal();
+      })
+    }
 
   }
 
