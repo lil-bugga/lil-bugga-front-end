@@ -7,7 +7,17 @@ import Nav from "react-bootstrap/Nav"
 
 export default function NavBar(props) {
 
-  const {userSignOut } = useContext(UserContext)
+  const { userSignOut } = useContext(UserContext)
+
+  // Click the toggle to close
+  function clickToggle(){
+    document.querySelector("button.navbar-toggler").click();
+  }
+
+  function handleSignOut(e){
+    userSignOut(e);
+    clickToggle();
+  }
 
   return (
     <Navbar collapseOnSelect expand="lg" id="NavBar">
@@ -16,9 +26,9 @@ export default function NavBar(props) {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" className="ms-auto"/>
         <Navbar.Collapse id="responsive-navbar-nav w-100">
           <Nav className="ms-auto">
-            <Link className="nav-link py-0" to="/dashboard">Dashboard</Link>
-            <Link className="nav-link py-0" to="/projects">Projects</Link>
-            <a href="/" className="nav-link py-0" onClick={userSignOut}>Sign Out</a>
+            <Link className="nav-link py-0" onClick={clickToggle} to="/dashboard">Dashboard</Link>
+            <Link className="nav-link py-0" onClick={clickToggle} to="/projects">Projects</Link>
+            <a href="/" className="nav-link py-0" onClick={handleSignOut}>Sign Out</a>
           </Nav>
         </Navbar.Collapse>
       </Container>

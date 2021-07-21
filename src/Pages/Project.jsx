@@ -127,7 +127,7 @@ export default function Project(props) {
             {/* Page adjacent to Side Bar */}
             <div className="d-flex page m-0 p-0 w-100">
                 
-                <div className="container-fluid quart_chunk">
+                <div className="quart_chunk">
                     {/* Allows resilience to non-instant loads */}
                     {project.project_detail ? 
                         <>

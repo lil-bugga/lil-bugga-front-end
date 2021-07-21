@@ -51,12 +51,12 @@ export default function ProjectTickets() {
         <div className="page d-flex with_side_panel p-0 m-0 outer" id="">
 
             {/* Side Bar */}
-            <div className="container-fluid side_panel m-0 p-1">
+            <div className="side_panel m-0 p-1">
                 <TableSideProjects/>
             </div>
 
             {/* Page adjacent to Side Bar */}
-            <div className="container-fluid d-flex page m-0 p-2 align-items-center">
+            <div className="d-flex page m-0 p-2 align-items-center">
                 <div className="whole_chunk">
                     <h1 className="text-center">Ticket: {ticketData.id}</h1>
                     <h4 className="text-center">Info on the first entry</h4>
