@@ -81,7 +81,7 @@ div.whole_chunk {
     margin: 0;
     border: var(--container-borders);
     background-color: var(--light-2);
-    border-radius: 3px;
+    border-radius: var(--container-radius);
     min-width: 280px;
 }
 
@@ -91,7 +91,7 @@ div.center_chunk {
     justify-self: center;
     border: var(--container-borders);
     background-color: var(--light-2);
-    border-radius: 5px;
+    border-radius: var(--container-radius);
 }
 
 /* Styling for pages with a sidebar and quarter containers in the center */
@@ -100,11 +100,6 @@ div.page.with_side_panel {
     flex-wrap: wrap;
 }
 
-div.side_panel {
-    height: auto;
-    width: 100%;
-    background-color: var(--theme-2);
-}
 
 div.page.with_side_panel div.page {
     flex-direction: column;
@@ -121,28 +116,68 @@ table {
 
 /* Scrollbar styling */
 *::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
     height: 5px;
 }
-    
+
 *::-webkit-scrollbar-track {
-background: var(--theme-2); 
+    background: var(--theme-2); 
 }
 
 *::-webkit-scrollbar-thumb {
-background-color: var(--theme-1); 
-border-radius: 20px; 
-border: 0px solid var(--active-1); 
+    background-color: var(--active-1); 
+    border-radius: 20px; 
+    border: 1px solid var(--theme-2); 
 }
 
 div.page, div.outer {
     background-color: var(--light-2);
 }
 
+/* Side Panel Stuff */
+div#EntireSidePanel {
+    z-index: 50000;
+    background-color: var(--theme-2);
+    width: 100%;
+    height: 30%;
+    overflow-y: hidden;
+    margin-bottom: 1%;
+}
+
+div.side_panel {
+    height: 100%;
+    width: 100%;
+}
+
+button#SideOpen {
+    display: none;
+}
+
+.scrollable-wrapper {
+    max-height: 92%;
+    overflow: auto;
+    background-color: var(--theme-2);
+    border-radius: 0 0 var(--container-radius) var(--container-radius);
+}
+
+.scrollable-wrapper-sidebar {
+    max-height: 34vh;
+    overflow: auto;
+}
+
+.scrollable-wrapper-sidebar::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.scrollable-wrapper table thead th {
+    position: relative;
+    top: 0;
+}
 
 /* Tablet Design */
 @media only screen and (min-width: 800px){
-
+    
     div.page {
         justify-content: space-around;
     }
@@ -172,6 +207,38 @@ div.page, div.outer {
 
 /* Desktop Design */
 @media only screen and (min-width: 1200px){
+
+    /* Side Panel Stuff */
+    div#EntireSidePanel {
+        height: 100%;
+        width: 15%;
+        margin-bottom: 0%;
+    }
+
+    div.side_panel {
+        height: 100%;
+        width: 100%;
+        overflow: hide;
+    }
+
+    button#SideCollapse {
+        display: none;
+    }
+
+    button#SideOpen {
+        display: none;
+    }
+
+    div.side_panel {
+        height: 100%;
+        width: 100%;
+        padding-bottom: 2%;
+    }
+
+    .scrollable-wrapper-sidebar {
+        max-height: 100%;
+    }
+    /* -------------------- */
 
     div.page, div.outer {
         background-color: transparent;
@@ -208,14 +275,6 @@ div.page, div.outer {
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: start;
-    }
-    
-    div.side_panel {
-        height: 100%;
-        width: 10%;
-        min-width: 15%;
-        max-height: 100%;
-        overflow: hide;
     }
 
     div.page.with_side_panel div.page {

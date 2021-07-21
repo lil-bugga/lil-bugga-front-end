@@ -5,7 +5,9 @@ export const UserContext = createContext();
 
 export default function UserProvider({children}){
     const [user, setUser] = useState({});
+    // Development  
     // const prefix = "http://localhost:3000/api/v1/";
+    // Production
     const prefix = "https://lil-bugga.herokuapp.com/api/v1/";
 
     // On render, if user exists, extract it and set it to state.

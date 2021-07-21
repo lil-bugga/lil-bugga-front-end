@@ -56,9 +56,7 @@ export default function ProjectTickets() {
         <div className="page d-flex with_side_panel p-0 m-0 outer" id="">
 
             {/* Side Bar */}
-            <div className="side_panel m-0 p-1">
-                <TableSideProjects/>
-            </div>
+            <TableSideProjects/>
 
             {/* Page adjacent to Side Bar */}
             <div className="d-flex page m-0 p-2 align-items-center">

@@ -26,7 +26,7 @@ export default function TableSideProjects() {
             axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
             .then(res => res.data)
             .then(body => {
-                setProjects([["Projects", "Link"], ...mapProjects(body)])
+                setProjects([["Projects", "Link"], ...mapProjects(body)]);
                 }
             )
             .catch(err => {
@@ -36,30 +36,59 @@ export default function TableSideProjects() {
     }, [prefix, user.jwt])
 
     // Handle table links
-    function handleLink(e){
-        history.push(`/${e.target.getAttribute("name")}`);       
+    function handleLink(e){   
+        history.push(`/${e.target.getAttribute("name")}`);
+    }
+
+    // Minimize Side Bar 
+    function handleCollapse(e){
+        e.preventDefault();
+        document.querySelector("div#EntireSidePanel").style.height = "50px";
+        document.querySelector("div#SideBar").style.display = "none";
+        document.querySelector("h4#SideTitle").style.display = "none";
+        document.querySelector("button#SideCollapse").style.display = "none";
+        document.querySelector("button#SideOpen").style.display = "block";
+        document.querySelector("div.side_panel").style.height = "0vh";
+    }
+
+    // Minimize Side Bar 
+    function handleExpand(e){
+        e.preventDefault();
+        document.querySelector("div#EntireSidePanel").style.height = "fit-content";
+        document.querySelector("div#SideBar").style.display = "block";
+        document.querySelector("h4#SideTitle").style.display = "block";
+        document.querySelector("button#SideCollapse").style.display = "block";
+        document.querySelector("button#SideOpen").style.display = "none";
+        document.querySelector("div.side_panel").style.height = "40vh";
+        
     }
 
     return (
-        <div className="scrollable-wrapper-sidebar">
-            <table className="table">
-                <thead>
-                    <tr key="tr_0">
-                        <th className="text-center" scope="col" key={`te_0_0`}>{projects[0][0]}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {projects.slice(1).map((row, idx) => {
-                        return (
-                            <tr key={`tr_${idx+1}`}>
-                                <td onClick={handleLink} className="btn btn-primary w-100 mt-1" key={`te_${idx}_0`}  name={row[1]}>
-                                    {row[0]}
-                                </td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+        <div id="EntireSidePanel">
+            <button id="SideOpen" onClick={handleExpand} className="btn btn-primary rounded-0">
+                <p className="text-white">Open</p>
+            </button>
+            <button id="SideCollapse"  onClick={handleCollapse} className="btn btn-primary rounded-0">
+                <p className="text-white">Collapse</p>
+            </button>
+            <div className="side_panel m-0">
+                <h4 id="SideTitle" className="text-center text-white p-1">Projects</h4>
+                <div id="SideBar" className="scrollable-wrapper-sidebar">
+                    <table className="table">
+                        <tbody>
+                            {projects.slice(1).map((row, idx) => {
+                                return (
+                                    <tr key={`tr_${idx+1}`}>
+                                        <td onClick={handleLink} className="btn btn-primary w-100 mt-1" key={`te_${idx}_0`}  name={row[1]}>
+                                            {row[0]}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     )
 }
