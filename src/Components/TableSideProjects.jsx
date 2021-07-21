@@ -36,8 +36,7 @@ export default function TableSideProjects() {
     }, [prefix, user.jwt])
 
     // Handle table links
-    function handleLink(e){
-        handleCollapse(e)       
+    function handleLink(e){   
         history.push(`/${e.target.getAttribute("name")}`);
     }
 
