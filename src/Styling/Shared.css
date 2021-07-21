@@ -81,7 +81,7 @@ div.whole_chunk {
     margin: 0;
     border: var(--container-borders);
     background-color: var(--light-2);
-    border-radius: 3px;
+    border-radius: var(--container-radius);
     min-width: 280px;
 }
 
@@ -91,7 +91,7 @@ div.center_chunk {
     justify-self: center;
     border: var(--container-borders);
     background-color: var(--light-2);
-    border-radius: 5px;
+    border-radius: var(--container-radius);
 }
 
 /* Styling for pages with a sidebar and quarter containers in the center */
@@ -121,7 +121,7 @@ table {
 
 /* Scrollbar styling */
 *::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
     height: 5px;
 }
     
@@ -130,9 +130,9 @@ background: var(--theme-2);
 }
 
 *::-webkit-scrollbar-thumb {
-background-color: var(--theme-1); 
+background-color: var(--active-1); 
 border-radius: 20px; 
-border: 0px solid var(--active-1); 
+border: 1px solid var(--theme-2); 
 }
 
 div.page, div.outer {
