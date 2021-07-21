@@ -10,7 +10,12 @@ import { UserContext } from "../Components/UserProvider"
 // Map projects to array format.
 function mapTickets(tickets){
     return tickets.reduce((out, row) => {
-        return out.concat([[row.id, row.subject, row.body, row.created_at, row.user_id]])
+        return out.concat([[
+            row.subject, 
+            row.body, 
+            new Date(row.created_at).toString('YYYY-MM-dd').split(" ").slice(0,4).join(" "), 
+            row.user_id
+        ]])
     }, [])
 }
 
@@ -33,7 +38,7 @@ export default function ProjectTickets() {
                 return res.data.entries
             })
             .then(body => {
-                setEntries([["Id", "Subject", "Body", "Created At", "User Id"], ...mapTickets(body)])
+                setEntries([["Subject", "Body", "Created At", "User Id"], ...mapTickets(body)])
             })
             .catch(err => {
                 console.log("Project wasn't found!");

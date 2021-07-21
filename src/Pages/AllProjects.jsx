@@ -17,7 +17,9 @@ export default function AllProjects(props) {
     // Map projects to array format.
     function mapProjects(projects){
         return projects.reduce((out, row) => {
-            return out.concat([[row.project_detail.project_name, row.project_detail.description, row.status, row.project_detail.created_at, `project/${row.project_detail.id}`]])
+            return out.concat([[row.project_detail.project_name, 
+                new Date(row.project_detail.created_at).toString('YYYY-MM-dd').split(" ").slice(0,4).join(" "),
+                `project/${row.project_detail.id}`]])
         }, [])
     }
 
@@ -27,7 +29,7 @@ export default function AllProjects(props) {
             axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
             .then(res => res.data)
             .then(body => {
-                setProjects([["Project Name", "Project Description", "Status", "Created At", "Link"], ...mapProjects(body)])
+                setProjects([["Project Name", "Created At", "Link"], ...mapProjects(body)])
                 }
             )
             .catch(err => {
