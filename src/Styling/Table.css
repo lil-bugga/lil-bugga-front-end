@@ -29,7 +29,7 @@ div.side_panel td {
 }
 
 .scrollable-wrapper-sidebar {
-    max-height: 45%;
+    max-height: 34vh;
     overflow: auto;
 }
 
@@ -39,12 +39,12 @@ div.side_panel td {
 }
 
 .scrollable-wrapper table thead th {
-    position: sticky;
+    position: relative;
     top: 0;
 }
 
 div.side_panel {
-    height: 57%;
+    height: 40vh;
 }
 
 button#SideOpen {

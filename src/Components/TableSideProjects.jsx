@@ -37,7 +37,8 @@ export default function TableSideProjects() {
 
     // Handle table links
     function handleLink(e){
-        history.push(`/${e.target.getAttribute("name")}`);       
+        handleCollapse(e)       
+        history.push(`/${e.target.getAttribute("name")}`);
     }
 
     // Minimize Side Bar 
@@ -47,7 +48,7 @@ export default function TableSideProjects() {
         document.querySelector("h4#SideTitle").style.display = "none";
         document.querySelector("button#SideCollapse").style.display = "none";
         document.querySelector("button#SideOpen").style.display = "block";
-        document.querySelector("div.side_panel").style.height = "25%";
+        document.querySelector("div.side_panel").style.height = "0vh";
     }
 
     // Minimize Side Bar 
@@ -57,7 +58,7 @@ export default function TableSideProjects() {
         document.querySelector("h4#SideTitle").style.display = "block";
         document.querySelector("button#SideCollapse").style.display = "block";
         document.querySelector("button#SideOpen").style.display = "none";
-        document.querySelector("div.side_panel").style.height = "57%";
+        document.querySelector("div.side_panel").style.height = "40vh";
     }
 
     return (
