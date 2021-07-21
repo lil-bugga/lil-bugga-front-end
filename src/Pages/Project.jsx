@@ -136,7 +136,7 @@ export default function Project(props) {
                         <>
                         <h2>Project: {project.project_detail.project_name}</h2> 
                         <p className="text-center">{project.project_detail.description}</p>
-                        <p className="text-center">({myRole(userID, users)})</p>
+                        <p className="text-center"><b>({myRole(userID, users)})</b></p>
                         <Button variant="primary rounded-0" onClick={() => setTheCrewModal(true)}>
                             The Crew
                         </Button>

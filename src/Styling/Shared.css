@@ -130,9 +130,13 @@ background: var(--theme-2);
 }
 
 *::-webkit-scrollbar-thumb {
-background-color: var(--active-1); 
+background-color: var(--theme-1); 
 border-radius: 20px; 
-border: 0px solid orange; 
+border: 0px solid var(--active-1); 
+}
+
+div.page, div.outer {
+    background-color: var(--light-2);
 }
 
 
@@ -169,6 +173,10 @@ border: 0px solid orange;
 /* Desktop Design */
 @media only screen and (min-width: 1200px){
 
+    div.page, div.outer {
+        background-color: transparent;
+    }
+
     /* To hide scrollbars */
     body {
         overflow-y: hidden;
@@ -182,6 +190,7 @@ border: 0px solid orange;
     div.outer {
         height: 94vh;
         width: 100vw;
+        background-color: transparent;
     }
 
     div.center_chunk {

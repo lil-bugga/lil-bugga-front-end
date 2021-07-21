@@ -52,7 +52,7 @@ export default function TableSideProjects() {
                     {projects.slice(1).map((row, idx) => {
                         return (
                             <tr key={`tr_${idx+1}`}>
-                                <td onClick={handleLink} className="btn btn-primary w-100 mt-1 rounded-0" key={`te_${idx}_0`}  name={row[1]}>
+                                <td onClick={handleLink} className="btn btn-primary w-100 mt-1" key={`te_${idx}_0`}  name={row[1]}>
                                     {row[0]}
                                 </td>
                             </tr>
