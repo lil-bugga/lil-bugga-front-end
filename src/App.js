@@ -19,7 +19,7 @@ export default function App() {
       <UserProvider>
         <Router>
           <Switch>
-
+            
             {/* Landing Page - no navigation bar */}
             <Route exact path="/">
               <UserRedirect/>

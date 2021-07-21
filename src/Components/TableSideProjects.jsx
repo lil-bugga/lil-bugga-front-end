@@ -44,6 +44,7 @@ export default function TableSideProjects() {
     // Minimize Side Bar 
     function handleCollapse(e){
         e.preventDefault();
+        document.querySelector("div#EntireSidePanel").style.height = "50px";
         document.querySelector("div#SideBar").style.display = "none";
         document.querySelector("h4#SideTitle").style.display = "none";
         document.querySelector("button#SideCollapse").style.display = "none";
@@ -54,20 +55,22 @@ export default function TableSideProjects() {
     // Minimize Side Bar 
     function handleExpand(e){
         e.preventDefault();
+        document.querySelector("div#EntireSidePanel").style.height = "fit-content";
         document.querySelector("div#SideBar").style.display = "block";
         document.querySelector("h4#SideTitle").style.display = "block";
         document.querySelector("button#SideCollapse").style.display = "block";
         document.querySelector("button#SideOpen").style.display = "none";
         document.querySelector("div.side_panel").style.height = "40vh";
+        
     }
 
     return (
-        <>
+        <div id="EntireSidePanel">
             <button id="SideOpen" onClick={handleExpand} className="btn btn-primary rounded-0">
                 <p className="text-white">Open</p>
             </button>
-            <button id="SideCollapse" className="btn btn-primary rounded-0">
-                <p className="text-white" onClick={handleCollapse}>Collapse</p>
+            <button id="SideCollapse"  onClick={handleCollapse} className="btn btn-primary rounded-0">
+                <p className="text-white">Collapse</p>
             </button>
             <div className="side_panel m-0">
                 <h4 id="SideTitle" className="text-center text-white p-1">Projects</h4>
@@ -87,6 +90,6 @@ export default function TableSideProjects() {
                     </table>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
