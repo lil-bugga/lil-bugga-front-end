@@ -9,7 +9,6 @@ function myRole(id, usersArray){
 
 // Get an array of users ids and the roles
 function mapUsers(usersArray){
-    console.log(usersArray);
     return usersArray.reduce((out, user) => {
         return out.concat([[user.user_id, user.role]])
     }, [])
@@ -18,7 +17,7 @@ function mapUsers(usersArray){
 // Can person a promote b.
 function validCommand(roleA, roleB){
     // User must be at least admin to change others roles.
-    if(roleA !== "owner" || roleA !== "admin"){
+    if(roleA !== "owner" && roleA !== "admin"){
         return false;
     }
 
@@ -122,14 +121,40 @@ export default function ProjectUsersTable(props){
     }
 
     // Handle Adding User
+    function addUser(e){
+        e.preventDefault();
 
-    // Handle Removing User from Project
-    function removeUser(e){
         const project = {
             "project_users_attributes": [
                 {
-                    "user_id": e.target.parentElement.parentElement.getAttribute("name"),
-                    "role": e.target.parentElement.parentElement.querySelectorAll("td")[1].textContent
+                    "email": form.email,
+                    "role": "client"
+                }
+            ]
+        }
+
+        if(user.jwt){
+            axios.post(`${prefix}projects/${id}/users`, { project }, { headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.body)
+            .then(body => {
+                console.log("User added!")
+                setRefresh(!refresh);
+            })
+            .catch(err => console.log(err))
+        }
+    }
+
+    // Handle Removing User from Project
+    function removeUser(e){
+
+        const subject_id = e.target.parentElement.parentElement.getAttribute("name");
+        const subject_role = e.target.parentElement.parentElement.querySelectorAll("td")[1].textContent;
+
+        const project = {
+            "project_users_attributes": [
+                {
+                    "user_id": subject_id,
+                    "role": subject_role
                 }
             ]
         }
@@ -138,7 +163,9 @@ export default function ProjectUsersTable(props){
             axios.delete(`${prefix}projects/${id}/users`,{data: {project}, headers: {"Authorization": `Bearer ${user.jwt}`}})
             .then(res => res.body)
             .then(body => {
-                history.push("/dashboard")
+                console.log("User removed!")
+                id === subject_id && history.push("/dashboard");
+                setRefresh(!refresh);
             })
             .catch(err => console.log(err))
         }
@@ -158,16 +185,33 @@ export default function ProjectUsersTable(props){
                 history.push(`/projects`);
             })
         }
-    }, [id, prefix, user, history])
+    }, [id, prefix, user, history, refresh])
 
     // When users change, find and set my role.
     useEffect(() => {
         setMyProjectRole(myRole(userID, users))
     }, [users, userID, refresh])
 
+    // Holds the state of the form to make it controlled.
+    let [form, setForm] = useState({"email":""});
+
+    // Handle the changing of any part of the form.
+    function handleInput(e){
+        setForm({     
+            ...form,       
+            [e.target.name]: e.target.value
+        })
+    }
+
     return (
         <div className="w-100">
-            <p className="text-center">Add member</p>
+            <form className="p-0">
+                <div className="form-group mb-2">
+                    <input type="email" name="email" value={form.email} onChange={handleInput} className="form-control" id="exampleInputEmail1" placeholder="Email"/>
+                </div>
+
+                <button type="submit" onClick={addUser} className="btn btn-primary w-100 mb-4">Add User</button>
+            </form>
             <div className="scrollable-wrapper-sidebar">
                 <table className="table">
                     <thead>
@@ -180,7 +224,7 @@ export default function ProjectUsersTable(props){
                         </tr>
                     </thead>
                     <tbody>
-                        {props.users.map((u, idx) => {
+                        {users.map((u, idx) => {
                             return (
                                 // Users id is put in name for handle functions.
                                 <tr name={u[0]} key={`proj_${idx + 1}`}> 
