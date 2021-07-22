@@ -38,6 +38,7 @@ function Landing() {
       userLogin(res.data.username, res.data.email, res.data.jwt);
     })
     .catch(err => {
+      console.log(err);
       setForm({"email":"", "password":""});
     })
   }

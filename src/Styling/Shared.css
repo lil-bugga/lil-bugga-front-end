@@ -103,7 +103,6 @@ div.page.with_side_panel {
 
 div.page.with_side_panel div.page {
     flex-direction: column;
-    height: 95%;
 }
 
 div.page.with_side_panel div.page div.quart_chunk {
@@ -180,10 +179,6 @@ button#SideOpen {
     
     div.page {
         justify-content: space-around;
-    }
-    
-    div.outer {
-        height: 93vh;
     }
 
     div.quart_chunk {

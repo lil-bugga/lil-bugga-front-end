@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { UserContext } from './UserProvider';
 
 function myRole(id, usersArray){
@@ -28,6 +28,7 @@ export default function ProjectUsersTable(props){
   // Vital Information
   const {prefix, user} = useContext(UserContext)
   const {id} = useParams();
+  const history = useHistory();
   
   // Handle Role Edit
 
@@ -46,9 +47,11 @@ export default function ProjectUsersTable(props){
     }
 
     if(user.jwt){
-        axios.delete(`${prefix}projects/${id}/users`, {project}, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+        axios.delete(`${prefix}projects/${id}/users`,{data: {project}, headers: {"Authorization": `Bearer ${user.jwt}`}})
         .then(res => res.body)
-        .then(body => console.log(body))
+        .then(body => {
+            history.push("/dashboard")
+        })
         .catch(err => console.log(err))
     }
   }

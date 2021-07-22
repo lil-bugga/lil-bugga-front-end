@@ -29,6 +29,7 @@ export default function ProjectTickets() {
     const [createEntryModalShow, setCreateEntryModalShow] = useState(false);
     const [entries, setEntries] = useState([]);
     const [ticketData, setTicketData] = useState({});
+    const [status, setStatus] = useState("");
     const [refresh, setRefresh] = useState(false);
     const {id, tid} = useParams();
     let location = useLocation();
@@ -39,14 +40,16 @@ export default function ProjectTickets() {
         if(user.jwt){
             axios.get(`${prefix}projects/${id}/tickets/${tid}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
             .then(res => {
+                console.log(res.data)
                 setTicketData(res.data)
+                setStatus(res.data.status)
                 return res.data.entries
             })
             .then(body => {
                 setEntries([["Subject", "Body", "Created At", "User Id"], ...mapTickets(body)])
             })
             .catch(err => {
-                console.log("Project wasn't found!");
+                console.log("Ticket wasn't found!");
             })
         }
     }, [location.pathname, refresh, id, tid, prefix, user])
@@ -69,6 +72,19 @@ export default function ProjectTickets() {
         })
     }
     
+    function handleStatusChange(e){
+        e.preventDefault();
+        setStatus(e.target.value);
+
+        axios.patch(`${prefix}projects/${id}/tickets/${tid}`, {"ticket": {"status": e.target.value}}, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+        .then(res => {
+            console.log("Ticket Status: Changed!")
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
     return (
         // Page with Side Bar
         <div className="page d-flex with_side_panel p-0 m-0 outer" id="">
@@ -79,11 +95,20 @@ export default function ProjectTickets() {
             {/* Page adjacent to Side Bar */}
             <div className="d-flex page m-0 p-2 align-items-center">
                 <div className="whole_chunk">
-                    <h1 className="text-center">Ticket: {ticketData.id}</h1>
+                    <h1 className="text-center">Ticket: {ticketData.id} {ticketData.status}</h1>
                     <h4 className="text-center">Info on the first entry</h4>
                     <Button className="btn btn-primary rounded-0" variant="primary" onClick={() => setCreateEntryModalShow(true)}>
                         Create Entry
                     </Button>
+                    <form className="text-center py-1">
+                        <label>
+                            Change Ticket Status:
+                            <select value={status} onChange={handleStatusChange}>
+                                <option value="open">Open</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                        </label>
+                    </form>
                     <CreateEntryModal
                         show={createEntryModalShow}
                         onHide={() => {
