@@ -140,8 +140,6 @@ export default function Project(props) {
                             The Crew
                         </Button>
                         <ProjectUsersModal
-                            user_id={userID}
-                            users={users}
                             show={theCrewModal}
                             onHide={() => setTheCrewModal(false)}
                         />
@@ -166,7 +164,7 @@ export default function Project(props) {
                         </>
                     : <></>}
                 </div>
-                <div className="quart_chunk p-1">
+                <div className="quart_chunk">
                     <h2>Ticket History</h2>
                     <Link className="btn btn-primary rounded-0" to={`/project/tickets/${id}`}>View all Tickets</Link>
                     { tickets.length > 0 ? 
