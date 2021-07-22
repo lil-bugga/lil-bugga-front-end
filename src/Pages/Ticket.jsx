@@ -3,9 +3,13 @@ import TableSideProjects from "../Components/TableSideProjects"
 import {useState, useEffect, useContext} from 'react'
 import CreateEntryModal from "./../Components/CreateEntryModal"
 import Button from "react-bootstrap/Button"
-import { useParams, useLocation } from "react-router-dom"
+import { useParams, useLocation, useHistory } from "react-router-dom"
 import axios from 'axios'
 import { UserContext } from "../Components/UserProvider"
+
+function myRole(id, usersArray){
+    return usersArray.reduce((a,i) => i[0] === id ? i[1] : a, -1)
+}
 
 // Map projects to array format.
 function mapTickets(tickets){
@@ -28,6 +32,7 @@ export default function ProjectTickets() {
     const [refresh, setRefresh] = useState(false);
     const {id, tid} = useParams();
     let location = useLocation();
+    const history = useHistory();
 
     // On page load, try to load entires else redirect.
     useEffect(()=>{
@@ -49,6 +54,19 @@ export default function ProjectTickets() {
     // Method to reload the entries on upload.
     function handleEntry(){
         setRefresh(!refresh)
+    }
+
+    // Method to delete a ticket, but only if admin.
+    function handleDelete(e){
+        e.preventDefault();
+        axios.delete(`${prefix}projects/${id}/tickets/${tid}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+        .then(res => {
+            console.log("Ticket Deleted!")
+            history.push(`/project/${id}`)
+        })
+        .catch(err => {
+            console.log("Project wasn't found!");
+        })
     }
     
     return (
@@ -73,9 +91,12 @@ export default function ProjectTickets() {
                             setCreateEntryModalShow(false)
                         }}
                     />
-                    <div className="scrollable-wrapper">
+                    <div className="scrollable-wrapper rounded-0">
                         {entries.length > 1 && <Table content={entries}/>}
                     </div>
+                    <button className="btn btn-danger w-100 rounded-0" variant="primary" onClick={handleDelete}>
+                        Delete Ticket
+                    </button>
                 </div>
             </div>
         </div>

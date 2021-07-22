@@ -10,7 +10,10 @@ import { UserContext } from "../Components/UserProvider"
 // Map projects to array format.
 function mapTickets(tickets, pid){
     return tickets.reduce((out, row) => {
-        return out.concat([[row.id, row.status, row.created_at, `/project/ticket/${pid}/${row.id}`]])
+        return out.concat([[row.id, 
+            row.status, 
+            new Date(row.created_at).toString('YYYY-MM-dd').split(" ").slice(0,4).join(" "), 
+            `/project/ticket/${pid}/${row.id}`]])
     }, [])
 }
 
