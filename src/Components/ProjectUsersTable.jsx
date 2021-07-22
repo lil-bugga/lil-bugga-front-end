@@ -1,10 +1,18 @@
 import axios from 'axios'
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { UserContext } from './UserProvider';
 
 function myRole(id, usersArray){
     return usersArray.reduce((a,i) => i[0] === id ? i[1] : a, -1)
+}
+
+// Get an array of users ids and the roles
+function mapUsers(usersArray){
+    console.log(usersArray);
+    return usersArray.reduce((out, user) => {
+        return out.concat([[user.user_id, user.role]])
+    }, [])
 }
 
 // Can person a promote b.
@@ -25,62 +33,168 @@ function validCommand(roleA, roleB){
 
 export default function ProjectUsersTable(props){
 
-  // Vital Information
-  const {prefix, user} = useContext(UserContext)
-  const {id} = useParams();
-  const history = useHistory();
-  
-  // Handle Role Edit
+    // Vital Information
+    const {prefix, user} = useContext(UserContext)
+    const {id} = useParams();
+    const history = useHistory();
+    const [userID, setUserID] = useState(-1);
+    const [users, setUsers] = useState([]);
+    const [refresh, setRefresh] = useState(false)
+    const [myProjectRole, setMyProjectRole] = useState("");
 
-  // Handle Adding User
+    // Handle Promote
+    function promoteUser(e){
 
-  // Handle Removing User from Project
-  function removeUser(e){
+        let new_role = "";
+        switch(e.target.parentElement.parentElement.querySelectorAll("td")[1].textContent){
+            case "client":
+                new_role = "developer"
+                break;
+            case "developer":
+                new_role = "admin"
+                break;
+            case "admin":
+                new_role = "owner"
+                break;
+            default:
+                new_role = "owner"
+                break;
+        }
 
-    const project = {
-        "project_users_attributes": [
-            {
-                "user_id": e.target.parentElement.parentElement.getAttribute("name"),
-                "role": e.target.parentElement.parentElement.querySelectorAll("td")[1].textContent
-            }
-        ]
+        const project = {
+            "project_users_attributes": [
+                {
+                    "user_id": e.target.parentElement.parentElement.getAttribute("name"),
+                    "role": new_role
+                }
+            ]
+        }
+
+        if(user.jwt){
+            axios.patch(`${prefix}projects/${id}/users`, {project}, { headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.body)
+            .then(body => {
+                console.log("User Promoted!")
+                setRefresh(!refresh)
+            })
+            .catch(err => console.log(err))
+        }
     }
 
-    if(user.jwt){
-        axios.delete(`${prefix}projects/${id}/users`,{data: {project}, headers: {"Authorization": `Bearer ${user.jwt}`}})
-        .then(res => res.body)
-        .then(body => {
-            history.push("/dashboard")
-        })
-        .catch(err => console.log(err))
-    }
-  }
 
-  return (
-    <table className="table">
-        <thead>
-            <tr key={"proj_0"}>
-                <th>User ID</th>
-                <th>Role</th>
-                <th>Promote</th>
-                <th>Demote</th>
-                <th>Remove</th>
-            </tr>
-        </thead>
-        <tbody>
-            {props.users.map((u, idx) => {
-                return (
-                    // Users id is put in name for handle functions.
-                    <tr name={u[0]} key={`proj_${idx + 1}`}> 
-                        <td>{u[0]}</td>
-                        <td>{u[1]}</td>
-                        <td>{validCommand(myRole(props.user_id, props.users), u[1]) ? <p className="btn btn-primary m-0">+</p> : ""}</td>
-                        <td>{validCommand(myRole(props.user_id, props.users), u[1])  ? <p className="btn btn-primary m-0">-</p> : ""}</td>
-                        <td>{true ? <p onClick={removeUser} className="btn btn-primary m-0">X</p> : ""}</td>
-                    </tr>
-                )
-            })}            
-        </tbody>
-    </table>
-  )
+    // Handle Demote
+    function demoteUser(e){
+
+        let new_role = "";
+        switch(e.target.parentElement.parentElement.querySelectorAll("td")[1].textContent){
+            case "owner":
+                new_role = "admin"
+                break;
+            case "admin":
+                new_role = "developer"
+                break;
+            case "developer":
+                new_role = "client"
+                break;
+            default:
+                new_role = "client"
+                break;
+        }
+
+        const project = {
+            "project_users_attributes": [
+                {
+                    "user_id": e.target.parentElement.parentElement.getAttribute("name"),
+                    "role": new_role
+                }
+            ]
+        }
+
+        if(user.jwt){
+            axios.patch(`${prefix}projects/${id}/users`, {project}, { headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.body)
+            .then(body => {
+                console.log("User Demoted!")
+                setRefresh(!refresh)
+            })
+            .catch(err => console.log(err))
+        }
+    }
+
+    // Handle Adding User
+
+    // Handle Removing User from Project
+    function removeUser(e){
+        const project = {
+            "project_users_attributes": [
+                {
+                    "user_id": e.target.parentElement.parentElement.getAttribute("name"),
+                    "role": e.target.parentElement.parentElement.querySelectorAll("td")[1].textContent
+                }
+            ]
+        }
+
+        if(user.jwt){
+            axios.delete(`${prefix}projects/${id}/users`,{data: {project}, headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.body)
+            .then(body => {
+                history.push("/dashboard")
+            })
+            .catch(err => console.log(err))
+        }
+    }
+
+    // On page load, try to load project else redirect.
+    useEffect(()=>{
+        if(user.jwt){
+            axios.get(`${prefix}projects/${id}`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
+            .then(res => res.data)
+            .then(body => {
+                setUserID(body.user_id)
+                setUsers(mapUsers(body.project_users));
+            })
+            .catch(err => {
+                console.log("Project wasn't found!");
+                history.push(`/projects`);
+            })
+        }
+    }, [id, prefix, user, history])
+
+    // When users change, find and set my role.
+    useEffect(() => {
+        setMyProjectRole(myRole(userID, users))
+    }, [users, userID, refresh])
+
+    return (
+        <div className="w-100">
+            <p className="text-center">Add member</p>
+            <div className="scrollable-wrapper-sidebar">
+                <table className="table">
+                    <thead>
+                        <tr key={"proj_0"}>
+                            <th>User ID</th>
+                            <th>Role</th>
+                            <th>Promote</th>
+                            <th>Demote</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {props.users.map((u, idx) => {
+                            return (
+                                // Users id is put in name for handle functions.
+                                <tr name={u[0]} key={`proj_${idx + 1}`}> 
+                                    <td>{u[0]}</td>
+                                    <td>{u[1]}</td>
+                                    <td>{validCommand(myProjectRole, u[1]) ? <p onClick={promoteUser} className="btn btn-primary m-0">+</p> : ""}</td>
+                                    <td>{validCommand(myProjectRole, u[1]) ? <p onClick={demoteUser} className="btn btn-primary m-0">-</p> : ""}</td>
+                                    <td>{validCommand(myProjectRole, u[1]) ? <p onClick={removeUser} className="btn btn-primary m-0">X</p> : ""}</td>
+                                </tr>
+                            )
+                        })}            
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    )
 }

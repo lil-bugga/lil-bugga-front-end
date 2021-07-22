@@ -1,5 +1,9 @@
 /* Mobile Design */
 
+div.App {
+    background-color: var(--theme-0);
+}
+
 *{
     color: var(--dark-text);
     font-family: 'Courier Prime', monospace;
@@ -53,7 +57,7 @@ div.page{
 div.outer{
     margin: 0 !important;
     padding: 0 !important;
-    background-color: var(--light-1);
+    background-color: var(--theme-0);
 }
 
 canvas {
@@ -70,6 +74,7 @@ div.quart_chunk {
     background-color: var(--light-2);
     border: var(--container-borders) !important;
     border-radius: var(--container-radius);
+    background-color: var(--light-2);
     min-width: 280px;
     padding-top: 1%;
     padding-bottom: 1%;
