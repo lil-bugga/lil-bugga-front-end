@@ -140,8 +140,6 @@ export default function Project(props) {
                             The Crew
                         </Button>
                         <ProjectUsersModal
-                            user_id={userID}
-                            users={users}
                             show={theCrewModal}
                             onHide={() => setTheCrewModal(false)}
                         />
