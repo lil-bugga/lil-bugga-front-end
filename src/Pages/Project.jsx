@@ -97,7 +97,7 @@ export default function Project(props) {
                 let pid = body.id;
 
                 // Get the user_id and user roles if any projects exist.
-                setUserID(body.user_id)
+                setUserID(body.current_role[0].user_id);
                 setUsers(mapUsers(body.project_users));
 
                 // If project loads, then load in the tickets.
