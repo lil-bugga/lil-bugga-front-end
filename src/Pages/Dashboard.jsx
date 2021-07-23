@@ -77,7 +77,6 @@ export default function Dashboard(props){
       axios.get(`${prefix}/tickets/user`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
       .then(res => res.data)
       .then(body => {
-        console.log(body)
           setTickets(body.map(t => [t.project_detail.project_name, t.id ]))
           }
       )

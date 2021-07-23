@@ -140,7 +140,6 @@ div.page, div.outer {
 
 /* Side Panel Stuff */
 div#EntireSidePanel {
-    z-index: 50000;
     background-color: var(--theme-2);
     width: 100%;
     height: 30%;
