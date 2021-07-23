@@ -179,6 +179,10 @@ button#SideOpen {
     top: 0;
 }
 
+div.modal-content {
+    border-radius: var(--container-radius) !important;
+}
+
 /* Tablet Design */
 @media only screen and (min-width: 800px){
     
