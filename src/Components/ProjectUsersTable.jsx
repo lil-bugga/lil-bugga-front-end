@@ -52,11 +52,8 @@ export default function ProjectUsersTable(props){
             case "developer":
                 new_role = "admin"
                 break;
-            case "admin":
-                new_role = "owner"
-                break;
             default:
-                new_role = "owner"
+                new_role = "admin"
                 break;
         }
 
@@ -231,7 +228,7 @@ export default function ProjectUsersTable(props){
                                     <td>{u[0]}</td>
                                     <td>{u[1]}</td>
                                     <td>{validCommand(myProjectRole, u[1]) ? <p onClick={promoteUser} className="btn btn-primary m-0">+</p> : ""}</td>
-                                    <td>{true ? <p onClick={demoteUser} className="btn btn-primary m-0">-</p> : ""}</td>
+                                    <td>{validCommand(myProjectRole, u[1]) ? <p onClick={demoteUser} className="btn btn-primary m-0">-</p> : ""}</td>
                                     <td>{validCommand(myProjectRole, u[1]) ? <p onClick={removeUser} className="btn btn-primary m-0">X</p> : ""}</td>
                                 </tr>
                             )

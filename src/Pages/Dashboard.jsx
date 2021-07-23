@@ -46,7 +46,7 @@ function ticketHistogram(data){
 // Map projects to array format.
 function mapProjects(projects){
   return projects.reduce((out, row) => {
-      return out.concat([[row.project_detail.project_name, `project/${row.project_detail.id}`]])
+    return out.concat([[row.project_detail.project_name, `project/${row.project_detail.id}`]])
   }, [])
 }
 
@@ -77,7 +77,8 @@ export default function Dashboard(props){
       axios.get(`${prefix}/tickets/user`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
       .then(res => res.data)
       .then(body => {
-          setTickets(body.map(t => [t.project_id, t.id ]))
+        console.log(body)
+          setTickets(body.map(t => [t.project_detail.project_name, t.id ]))
           }
       )
       .catch(err => {
@@ -100,6 +101,7 @@ export default function Dashboard(props){
           show={editAccountModalShow}
           onHide={() => setEditAccountModalShow(false)}
         />
+        
         <div className="d-flex flex-column w-100">
           <h2>{user.username}</h2>
           <h3 className="text-center">{user.email}</h3>
@@ -114,7 +116,6 @@ export default function Dashboard(props){
           options={{
             title:{
               display:true,
-              text:'Average Rainfall per month',
               fontSize:20
             },
             legend:{

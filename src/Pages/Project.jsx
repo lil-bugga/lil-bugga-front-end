@@ -57,7 +57,8 @@ function myRole(id, usersArray){
 // Map projects to array format.
 function mapTickets(tickets, pid){
     return tickets.reduce((out, row) => {
-        return out.concat([[row.id, 
+        return out.concat([[
+            `${row.first_entry.subject.split(" ").splice(0,2).join(" ")}...`, 
             row.status, 
             new Date(row.created_at).toString('YYYY-MM-dd').split(" ").slice(0,4).join(" "), 
             `/project/ticket/${pid}/${row.id}`]])
@@ -105,7 +106,7 @@ export default function Project(props) {
                 .then(res => res.data)
                 .then(body => {
                     console.log(`Tickets: Loaded`);
-                    setTickets([["Ticket Id", "Status", "Created At", "View"], ...mapTickets(body, pid)])
+                    setTickets([["Ticket Name", "Status", "Created At", "View"], ...mapTickets(body, pid)])
                 })
                 .catch(err => {
                     console.log("No Tickets were found!");

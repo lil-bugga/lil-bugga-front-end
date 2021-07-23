@@ -17,6 +17,7 @@ export default function AllProjects(props) {
     // Map projects to array format.
     function mapProjects(projects){
         return projects.reduce((out, row) => {
+            console.log(row)
             return out.concat([[row.project_detail.project_name, 
                 new Date(row.project_detail.created_at).toString('YYYY-MM-dd').split(" ").slice(0,4).join(" "),
                 `project/${row.project_detail.id}`]])
