@@ -30,7 +30,7 @@ export default function NewTicketForm(){
     e.preventDefault();
 
     const ticket = {
-      status: 1
+      status: "open"
     }
 
     const entry = {

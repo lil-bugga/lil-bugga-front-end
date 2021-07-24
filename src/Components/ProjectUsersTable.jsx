@@ -10,7 +10,7 @@ function myRole(id, usersArray){
 // Get an array of users ids and the roles
 function mapUsers(usersArray){
     return usersArray.reduce((out, user) => {
-        return out.concat([[user.user_id, user.role]])
+        return out.concat([[user.username, user.role]])
     }, [])
 }
 
@@ -52,11 +52,8 @@ export default function ProjectUsersTable(props){
             case "developer":
                 new_role = "admin"
                 break;
-            case "admin":
-                new_role = "owner"
-                break;
             default:
-                new_role = "owner"
+                new_role = "admin"
                 break;
         }
 
@@ -216,7 +213,7 @@ export default function ProjectUsersTable(props){
                 <table className="table">
                     <thead>
                         <tr key={"proj_0"}>
-                            <th>User ID</th>
+                            <th>User</th>
                             <th>Role</th>
                             <th>Promote</th>
                             <th>Demote</th>
