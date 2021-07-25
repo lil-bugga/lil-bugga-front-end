@@ -17,7 +17,7 @@ export default function SampleUserModal(props) {
     e.preventDefault();
 
     let user = {
-      email: "sample@sample.com",
+      email: `${e.target.getAttribute('name')}@sample.com`,
       password: "password"
     }
 
@@ -38,26 +38,26 @@ export default function SampleUserModal(props) {
       centered
     >
       <Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="contained-modal-title-center">
           Select Sample User
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="user">
           <img src={Client} alt="Client User"/> 
-          <Link className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Client</Link>
+          <Link name="sample" className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Client</Link>
         </div>
         <div className="user">
           <img src={Developer} alt="Client User"/>
-          <Link className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Developer</Link>
+          <Link name="developer" className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Developer</Link>
         </div>
         <div className="user">
           <img src={Admin} alt="Client User"/>
-          <Link className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Admin</Link>
+          <Link name="admin" className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Admin</Link>
         </div>
         <div className="user">
           <img src={Owner} alt="Client User"/>
-          <Link className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Owner</Link>
+          <Link name="owner" className="btn btn-primary w-75" onClick={logInSample} to="/dashboard">Log in Owner</Link>
         </div>
       </Modal.Body>
     </Modal>
