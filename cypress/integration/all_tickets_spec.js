@@ -1,1 +1,0 @@
-// Ensure the ticket create works.
