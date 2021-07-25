@@ -4,7 +4,8 @@
     div#EntryTable tr {
         display: flex;
         flex-direction: column;
-        border: 1px solid var(--active-1)
+        border: 1px solid var(--active-1);
+        min-width: 95vw;
     }
 
     div#EntryTable tr td:first-child {

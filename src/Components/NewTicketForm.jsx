@@ -21,11 +21,6 @@ export default function NewTicketForm(){
       })
   }
 
-  // Close the Modal
-  function closeModal(){
-    document.querySelector("div.fade.modal.show").click();
-  }
-
   function createTicket(e){
     e.preventDefault();
 
@@ -47,21 +42,23 @@ export default function NewTicketForm(){
         axios.post(`${prefix}projects/${id}/tickets/${res.data.id}/entries`, {entry} ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
         .then(res => {
           console.log("First entry was added.");
-          closeModal();
         })
         .catch(err => {
-          console.log("Ticket was not added!")
+          console.log("Entry was not added!")
           if(form.subject.length < 1 || form.body.length < 1){
             alert(`${err.message}\nOne or more field is empty!`);
           } else {
             alert(`${err.message}`);
           }
         })
-
+        return res
       })
-      .then(res => history.push(`/ticket/${res.data.id}`))
+      .then(res => {
+        history.push(`/project/ticket/${id}/${res.data.id}`)
+        return null;
+      })
       .catch(err => {
-        console.log("Entry was not added!")
+        console.log("Ticket was not added!")
         if(form.subject.length < 1 || form.body.length < 1){
           alert(`${err.message}\nOne or more field is empty!`);
         } else {
@@ -73,7 +70,7 @@ export default function NewTicketForm(){
   }
 
   return (
-      <div className="d-flex flex-column align-items-center justify-content-center w-100" id="FeatureColumn">
+    <div className="d-flex flex-column align-items-center justify-content-center w-100" id="FeatureColumn">
 
       <form className="p-2">
 
