@@ -38,7 +38,11 @@ function Landing() {
       userLogin(res.data.username, res.data.email, res.data.jwt);
     })
     .catch(err => {
-      console.log(err);
+      if(form.email.length < 1 || form.password.length < 1){
+        alert(`${err.message}\nOne or more login field is empty!`);
+      } else {
+        alert(`${err.message}\nEmail or Password is invalid!`);
+      }
       setForm({"email":"", "password":""});
     })
   }

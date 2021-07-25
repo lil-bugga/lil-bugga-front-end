@@ -33,7 +33,7 @@ export default function AllProjects(props) {
                 }
             )
             .catch(err => {
-                console.log(err);
+                alert(`${err.message}\nProject didn't load.`);
                 history.push("/");
             })
         }

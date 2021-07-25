@@ -31,7 +31,7 @@ export default function TableSideProjects() {
                 }
             )
             .catch(err => {
-                console.log(err);
+                alert(`${err.message}\nProject didn't load.`);
             })
         }
     }, [prefix, user.jwt, mounted])

@@ -41,6 +41,11 @@ export default function NewEntryForm(){
       })
       .catch(err => {
         console.log("Entry was not added!")
+        if(form.subject.length < 1 || form.body.length < 1){
+          alert(`${err.message}\nOne or more field is empty!`);
+        } else {
+          alert(`${err.message}`);
+        }
         setForm({"subject":"", "body":""});
       })
     }
@@ -52,11 +57,11 @@ export default function NewEntryForm(){
       <form className="p-2">
 
         <div className="form-group mb-2">
-          <input type="text" name="subject" value={form.subject} onChange={handleInput} className="form-control" placeholder="Ticket Subject"/>
+          <input type="text" name="subject" value={form.subject} onChange={handleInput} className="form-control" placeholder="Entry Subject"/>
         </div>
 
         <div className="form-group mb-2">
-          <textarea type="text" name="body" value={form.body} onChange={handleInput} className="form-control" placeholder="Ticket Description"/>
+          <textarea type="text" name="body" value={form.body} onChange={handleInput} className="form-control" placeholder="Entry Description"/>
         </div>
 
         <button type="submit" onClick={createEntry} className="btn btn-primary w-100">Create</button>

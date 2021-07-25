@@ -73,7 +73,10 @@ export default function ProjectUsersTable(props){
                 console.log("User Promoted!")
                 setRefresh(!refresh)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log("No change was made!")
+                alert(`${err.message}\nUser couldn't be promoted!`);
+            })
         }
     }
 
@@ -113,7 +116,10 @@ export default function ProjectUsersTable(props){
                 console.log("User Demoted!")
                 setRefresh(!refresh)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log("No change was made!")
+                alert(`${err.message}\nUser couldn't be demoted!`);
+            })
         }
     }
 
@@ -137,7 +143,10 @@ export default function ProjectUsersTable(props){
                 console.log("User added!")
                 setRefresh(!refresh);
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log("No change was made!")
+                alert(`${err.message}\nUser couldn't be added!`);
+            })
         }
     }
 
@@ -164,7 +173,10 @@ export default function ProjectUsersTable(props){
                 id === subject_id && history.push("/dashboard");
                 setRefresh(!refresh);
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log("No change was made!")
+                alert(`${err.message}\nUser couldn't be removed!`);
+            })
         }
     }
 
@@ -179,6 +191,7 @@ export default function ProjectUsersTable(props){
             })
             .catch(err => {
                 console.log("Project wasn't found!");
+                alert(`${err.message}\nProject couldn't be found!`);
                 history.push(`/projects`);
             })
         }

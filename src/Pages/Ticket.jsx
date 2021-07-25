@@ -68,7 +68,7 @@ export default function ProjectTickets() {
             history.push(`/project/${id}`)
         })
         .catch(err => {
-            console.log("Project wasn't found!");
+            alert(`${err.message}`);
         })
     }
     
@@ -81,7 +81,7 @@ export default function ProjectTickets() {
             console.log("Ticket Status: Changed!")
         })
         .catch(err => {
-            console.log(err)
+            alert(`${err.message}`);
         })
     }
 

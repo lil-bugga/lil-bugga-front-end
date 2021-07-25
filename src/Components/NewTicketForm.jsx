@@ -50,13 +50,23 @@ export default function NewTicketForm(){
           closeModal();
         })
         .catch(err => {
-          console.log("Entry didn't get entered!")
+          console.log("Ticket was not added!")
+          if(form.subject.length < 1 || form.body.length < 1){
+            alert(`${err.message}\nOne or more field is empty!`);
+          } else {
+            alert(`${err.message}`);
+          }
         })
 
       })
       .then(res => history.push(`/ticket/${res.data.id}`))
       .catch(err => {
-        console.log("Ticket or entry were NOT successfully created!")
+        console.log("Entry was not added!")
+        if(form.subject.length < 1 || form.body.length < 1){
+          alert(`${err.message}\nOne or more field is empty!`);
+        } else {
+          alert(`${err.message}`);
+        }
         setForm({"subject":"", "body":""});
       })
     }

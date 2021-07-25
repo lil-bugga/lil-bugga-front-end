@@ -1,8 +1,10 @@
-# lil bugga back-end
+# lil bugga front-end
 
 ## Links
 Hosted: https://lil-bugga.netlify.app/dashboard
+
 Front-End Trello: https://trello.com/b/XMPa9Hot/lil-bugga-front-end
+
 Project: https://github.com/lil-bugga/project-documentation 
 
 ## Description

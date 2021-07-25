@@ -40,6 +40,11 @@ export default function NewProjectForm(props){
       })
       .catch(err => {
         console.log("Project was NOT successfully created!")
+        if(form.name.length < 1 || form.description.length < 1){
+          alert(`${err.message}\nOne or more field is empty!`);
+        } else {
+          alert(`${err.message}`);
+        }
         setForm({"name":"", "description":""});
       })
     }
