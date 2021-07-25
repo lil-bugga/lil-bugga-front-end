@@ -7,10 +7,6 @@ import { useParams, useLocation, useHistory } from "react-router-dom"
 import axios from 'axios'
 import { UserContext } from "../Components/UserProvider"
 
-// function myRole(id, usersArray){
-//     return usersArray.reduce((a,i) => i[0] === id ? i[1] : a, -1)
-// }
-
 // Map projects to array format.
 function mapTickets(tickets){
     return tickets.reduce((out, row) => {
@@ -116,7 +112,7 @@ export default function ProjectTickets() {
                             setCreateEntryModalShow(false)
                         }}
                     />
-                    <div className="scrollable-wrapper rounded-0">
+                    <div id="EntryTable" className="scrollable-wrapper rounded-0">
                         {entries.length > 1 && <Table content={entries}/>}
                     </div>
                     <button className="btn btn-danger w-100 rounded-0" variant="primary" onClick={handleDelete}>

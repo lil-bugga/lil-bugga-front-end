@@ -1,0 +1,23 @@
+/* Desktop Design */
+@media only screen and (max-width: 1200px){
+
+    div#EntryTable tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--active-1)
+    }
+
+    div#EntryTable tr td:first-child {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    
+    div#EntryTable th {
+        display: none;
+    }
+    
+    div#EntryTable td {
+        border: 0;
+    }
+
+}
