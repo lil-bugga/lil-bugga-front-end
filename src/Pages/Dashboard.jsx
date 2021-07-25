@@ -2,7 +2,6 @@ import React from 'react'
 import TableWithLink from "./../Components/TableWithLink"
 import {Bar} from "react-chartjs-2"
 import {useState, useContext, useEffect} from 'react'
-import { useHistory} from 'react-router-dom'
 import CreateProjectModal from "./../Components/CreateProjectModal"
 import Button from "react-bootstrap/Button"
 import EditAccountModal from '../Components/EditAccountModal'
@@ -58,20 +57,22 @@ export default function Dashboard(props){
   const [editAccountModalShow, setEditAccountModalShow] = useState(false);
   const [projects, setProjects] = useState({});
   const [tickets, setTickets] = useState({});
-  let history = useHistory();
 
   // On page load, load in projects and tickets. (If User jwt exists.)
   useEffect(()=>{
     if(user.jwt){
       axios.get(`${prefix}/projects`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
-      .then(res => res.data)
+      .then(res => {
+        return res.data
+      })
       .then(body => {
-          setProjects([["Project Name", "Link"], ...mapProjects(body)])
+          console.log(body)
+          body && setProjects([["Project Name", "Link"], ...mapProjects(body)])
           }
       )
       .catch(err => {
-          console.log(err);
-          history.push("/");
+        console.log("No data was found!")
+        console.log(err);
       })
 
       axios.get(`${prefix}/tickets/user`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
@@ -81,11 +82,11 @@ export default function Dashboard(props){
           }
       )
       .catch(err => {
+        console.log("No data was found!")
           console.log(err);
-          history.push("/");
       })
     };
-  }, [history, prefix, user])
+  }, [prefix, user])
 
   return(
     <div className="d-flex flex-wrap outer" id="Dashboard">
