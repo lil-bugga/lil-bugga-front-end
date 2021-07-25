@@ -91,7 +91,6 @@ export default function ProjectTickets() {
             <div className="d-flex page m-0 p-2 align-items-center">
                 <div className="whole_chunk">
                     <h1 className="text-center">Ticket: #{ticketData.id} {ticketData.status}</h1>
-                    <h4 className="text-center">{ticketData.entries[0].subject}</h4>
                     <Button className="btn btn-primary rounded-0" variant="primary" onClick={() => setCreateEntryModalShow(true)}>
                         Create Entry
                     </Button>
