@@ -26,7 +26,8 @@ export default function SampleUserModal(props) {
       userLogin(res.data.username, res.data.email, res.data.jwt);
     })
     .catch(err => {
-      console.log(err);
+      alert(`${err.message}No server response!`)
+      
     })
   }
 

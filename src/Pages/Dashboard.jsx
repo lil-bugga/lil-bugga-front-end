@@ -66,13 +66,11 @@ export default function Dashboard(props){
         return res.data
       })
       .then(body => {
-          console.log(body)
           body && setProjects([["Project Name", "Link"], ...mapProjects(body)])
           }
       )
       .catch(err => {
-        console.log("No data was found!")
-        console.log(err);
+        alert(`${err.message}\nProjects didn't load.`);
       })
 
       axios.get(`${prefix}/tickets/user`, {headers: {"Authorization": `Bearer ${user.jwt}`}})
@@ -82,8 +80,7 @@ export default function Dashboard(props){
           }
       )
       .catch(err => {
-        console.log("No data was found!")
-          console.log(err);
+        alert(`${err.message}\nTickets didn't load.`);
       })
     };
   }, [prefix, user])

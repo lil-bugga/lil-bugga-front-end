@@ -33,7 +33,11 @@ export default function EditAccountForm(props){
       userLogin(res.data.username, res.data.email, res.data.jwt);
     })
     .catch(err => {
-      console.log(err);
+      if(form.email.length < 1 || form.password.length < 1 ){
+        alert(`${err.message}\nOne or more login field is empty!`);
+      } else {
+        alert(`${err.message}`);
+      }
       setForm({"email":"", "password":""});
 
     })
@@ -64,7 +68,11 @@ export default function EditAccountForm(props){
         closeModal();
       })
       .catch(err => {
-        console.log(err);
+        if(form.email.length < 1 || form.password.length < 1 || form.username.length < 1 || form.password_confirmation.length < 1){
+          alert(`${err.message}\nOne or more login field is empty!`);
+        } else {
+          alert(`${err.message}`);
+        }
         setForm({"username":"", "email":"", "password":"", "password_confirmation": ""});
       })
     }

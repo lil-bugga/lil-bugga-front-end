@@ -26,8 +26,13 @@ export default function NewAccountForm(props){
       userLogin(res.data.username, res.data.email, res.data.jwt);
     })
     .catch(err => {
-      console.log(err);
-      setForm({"email":"", "password":"", "password_confirmation": ""});
+      console.log(err.message)
+      if(form.email.length < 1 || form.password.length < 1 || form.username.length < 1 || form.password_confirmation.length < 1){
+        alert(`${err.message}\nOne or more login field is empty!`);
+      } else {
+        alert(`${err.message}`);
+      }
+      setForm({"username":"", "email":"", "password":"", "password_confirmation": ""});
     })
   }
 
@@ -44,7 +49,7 @@ export default function NewAccountForm(props){
 
       <form className="p-2">
         <div className="form-group mb-2">
-          <input type="text" name="username" value={form.username} onChange={handleInput} className="form-control"placeholder="Name"/>
+          <input type="string" name="username" value={form.username} onChange={handleInput} className="form-control"placeholder="Name"/>
         </div>
 
         <div className="form-group mb-2">

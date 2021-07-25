@@ -1,14 +1,12 @@
 import { useState, useContext } from "react";
 import axios from 'axios'
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { UserContext } from "./UserProvider";
 
 export default function EditProjectForm(props){
 
   const {prefix, user} = useContext(UserContext)
   const {id} = useParams();
-
-  let history = useHistory();
 
   // Holds the state of the form to make it controlled.
   let [form, setForm] = useState({"name":"", "description":""});
@@ -44,12 +42,16 @@ export default function EditProjectForm(props){
       .then(res => {
         console.log("Project was successfully edited!");
         // Redirect to the project\
-        history.push(`/project/${res.data.id}`)
         closeModal();
       })
       .catch(err => {
         console.log("Project was NOT successfully edited!")
         setForm({"name":"", "description":""});
+        if(form.name.length < 1 || form.description.length < 1){
+          alert(`${err.message}\nOne or more login field is empty!`);
+        } else {
+          alert(`${err.message}`);
+        }
       })
     }
   }
@@ -62,6 +64,9 @@ export default function EditProjectForm(props){
       axios.delete(`${prefix}projects/${id}` ,{headers: {"Authorization": `Bearer ${user.jwt}`}})
       .then(res => {
         closeModal();
+      })
+      .catch(err => {
+        alert(err.message)
       })
     }
 
