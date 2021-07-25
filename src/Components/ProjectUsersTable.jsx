@@ -10,7 +10,7 @@ function myRole(id, usersArray){
 // Get an array of users ids and the roles
 function mapUsers(usersArray){
     return usersArray.reduce((out, user) => {
-        return out.concat([[user.username, user.role]])
+        return out.concat([[user.user_id, user.role, user.username]])
     }, [])
 }
 
@@ -52,8 +52,11 @@ export default function ProjectUsersTable(props){
             case "developer":
                 new_role = "admin"
                 break;
-            default:
+            case "admin":
                 new_role = "admin"
+                break;
+            default:
+                new_role = "owner"
                 break;
         }
 
@@ -73,10 +76,7 @@ export default function ProjectUsersTable(props){
                 console.log("User Promoted!")
                 setRefresh(!refresh)
             })
-            .catch(err => {
-                console.log("No change was made!")
-                alert(`${err.message}\nUser couldn't be promoted!`);
-            })
+            .catch(err => alert(`${err.message}`));
         }
     }
 
@@ -87,7 +87,7 @@ export default function ProjectUsersTable(props){
         let new_role = "";
         switch(e.target.parentElement.parentElement.querySelectorAll("td")[1].textContent){
             case "owner":
-                new_role = "admin"
+                new_role = "owner"
                 break;
             case "admin":
                 new_role = "developer"
@@ -116,10 +116,7 @@ export default function ProjectUsersTable(props){
                 console.log("User Demoted!")
                 setRefresh(!refresh)
             })
-            .catch(err => {
-                console.log("No change was made!")
-                alert(`${err.message}\nUser couldn't be demoted!`);
-            })
+            .catch(err => {alert(`${err.message}`)})
         }
     }
 
@@ -143,10 +140,7 @@ export default function ProjectUsersTable(props){
                 console.log("User added!")
                 setRefresh(!refresh);
             })
-            .catch(err => {
-                console.log("No change was made!")
-                alert(`${err.message}\nUser couldn't be added!`);
-            })
+            .catch(err => alert(`${err.message}`))
         }
     }
 
@@ -173,10 +167,7 @@ export default function ProjectUsersTable(props){
                 id === subject_id && history.push("/dashboard");
                 setRefresh(!refresh);
             })
-            .catch(err => {
-                console.log("No change was made!")
-                alert(`${err.message}\nUser couldn't be removed!`);
-            })
+            .catch(err => alert(`${err.message}`));
         }
     }
 
@@ -191,7 +182,6 @@ export default function ProjectUsersTable(props){
             })
             .catch(err => {
                 console.log("Project wasn't found!");
-                alert(`${err.message}\nProject couldn't be found!`);
                 history.push(`/projects`);
             })
         }
@@ -226,7 +216,7 @@ export default function ProjectUsersTable(props){
                 <table className="table">
                     <thead>
                         <tr key={"proj_0"}>
-                            <th>User</th>
+                            <th>User Name</th>
                             <th>Role</th>
                             <th>Promote</th>
                             <th>Demote</th>
@@ -238,7 +228,7 @@ export default function ProjectUsersTable(props){
                             return (
                                 // Users id is put in name for handle functions.
                                 <tr name={u[0]} key={`proj_${idx + 1}`}> 
-                                    <td>{u[0]}</td>
+                                    <td>{u[2]}</td>
                                     <td>{u[1]}</td>
                                     <td>{validCommand(myProjectRole, u[1]) ? <p onClick={promoteUser} className="btn btn-primary m-0">+</p> : ""}</td>
                                     <td>{validCommand(myProjectRole, u[1]) ? <p onClick={demoteUser} className="btn btn-primary m-0">-</p> : ""}</td>
