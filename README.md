@@ -1,26 +1,33 @@
-# lil bugga back-end
+# lil bugga front-end
 
 ## Links
-Hosted: https://lil-bugga.netlify.app/dashboard
-Front-End Trello: https://trello.com/b/XMPa9Hot/lil-bugga-front-end
-Project: https://github.com/lil-bugga/project-documentation 
+
+- Hosted: https://lil-bugga.netlify.app/dashboard
+- Front-End Trello: https://trello.com/b/XMPa9Hot/lil-bugga-front-end
+- Project: https://github.com/lil-bugga/project-documentation 
 
 ## Description
+
 *For project features, go to the project readme linked above.*
 
 This is the lil bugga front-end React application. It's the hosted user interface to the lil bugga application, and allows the user interact with the project back-end and realize all of it's useful features.
 
 ## Testing Command
+
 *How to run test suite.*
+
 ```shell
 yarn test 
 ```
+
 or
+
 ```shell
 npm run test
 ```
 
 ## Stack
+
 - React
 - JSX
 - Netlify
@@ -31,6 +38,7 @@ npm run test
 - CSS
 
 ## Libraries
+
 - Axios
   - It's a "Promise based HTTP client for the browser and node.js", which essentially allows you to make requests to external APIs easily, as an alternative to using the Javascript fetch method. Axios was used extensively through the front-end where requests to the back-end needed to be made, and it was an effective and clean way to make the responses.
 - React
