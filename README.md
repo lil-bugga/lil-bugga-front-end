@@ -12,8 +12,8 @@ Project: https://github.com/lil-bugga/project-documentation
 
 This is the lil bugga front-end React application. It's the hosted user interface to the lil bugga application, and allows the user interact with the project back-end and realize all of it's useful features.
 
-## Testing Command
-*How to run test suite.*
+## Testing 
+### To run the Jest test suite.
 ```shell
 yarn test 
 ```
@@ -21,6 +21,24 @@ or
 ```shell
 npm run test
 ```
+
+### To test with Cypress
+*Warning: Follow these steps exactly, otherwise you will encounter a NPM compatibility error.*
+1. Checkout into the "cypress" branch.
+```sh
+git checkout cypress
+```
+2. Install package dependencies.
+```sh
+yarn or npm install
+```
+3. Run Cypress.
+```sh
+./node_modules/.bin/cypress open
+```
+4. Click run to the full test suite within the Cypress UI.
+
+*Remember: When changing back to the main or publish branch, you must reinstall the package dependencies as they are different.*
 
 ## Stack
 - React

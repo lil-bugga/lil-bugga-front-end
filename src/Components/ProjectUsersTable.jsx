@@ -153,8 +153,8 @@ export default function ProjectUsersTable(props){
         const project = {
             "project_users_attributes": [
                 {
-                    "user_id": subject_id,
-                    "role": subject_role
+                    "user_id": target_id,
+                    "role": target_role
                 }
             ]
         }
@@ -164,10 +164,10 @@ export default function ProjectUsersTable(props){
             .then(res => res.body)
             .then(body => {
                 console.log("User removed!")
-                id === subject_id && history.push("/dashboard");
+                id === target_id && history.push("/dashboard");
                 setRefresh(!refresh);
             })
-            .catch(err => alert(`${err.message}`));
+            .catch(err => alert(`${err.message}\nChange not made!`));
         }
     }
 
